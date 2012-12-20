@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "listing delivery engine"
+mvn -Dmaven.tomcat.port=8182 tomcat:run-war
