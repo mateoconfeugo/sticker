@@ -1,5 +1,5 @@
-define(['jquery', 'backbone','delivery'], 
-       function($, Backbone, Delivery) {
+define(['jquery', 'backbone','view/listings'], 
+       function($, Backbone, Listings) {
 	   return Backbone.Router.extend({
                'initialize': function(config){
 		   self = this;
@@ -10,7 +10,7 @@ define(['jquery', 'backbone','delivery'],
 		   "delivery" : "get_listings",
                },
 	       "get_listings" : function() {
-		   Delivery({"query": "shoes" ,"token": 1212 );
+		   Listings({"query": "shoes" ,"token": 1212 );
 	       }
 	   });
        });
