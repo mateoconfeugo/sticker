@@ -1,0 +1,20 @@
+<listings>
+[%- FOREACH item IN listings -%]
+  [%- INCLUDE listingXML listing = item -%]
+[%- END %]
+</listings>
+
+[% BLOCK listingXML %]
+  <listing>
+    <url>[% listing.url %]</url>
+    <display_url>[% listing.display_url %]</display_url>
+    <description>[% listing.description %]</description>
+    <bid>[% listing.bid %]</bid>
+    <title>[% listing.title %]</title>
+  </listing>
+[%- END %]
+
+    
+
+
+

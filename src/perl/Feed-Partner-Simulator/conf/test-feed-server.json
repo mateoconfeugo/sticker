@@ -1,0 +1,27 @@
+{
+    "template_storage_dir" :         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/templates",
+   "Plugin::Static::Simple" : {
+      "include_path" : [
+         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/root/static",
+         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/root/static/images",
+         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/root/static/css",
+         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/root/static/js"
+      ]
+   },
+   "authentication" : {
+      "realms" : {
+         "test" : {
+            "store" : {
+               "file" : "htpasswd",
+               "class" : "Htpasswd"
+            },
+            "credential" : {
+               "password_type" : "self_check",
+               "password_field" : "password",
+               "class" : "Password"
+            }
+         }
+      },
+      "default_realm" : "test"
+   }
+}
