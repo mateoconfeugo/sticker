@@ -1,0 +1,6 @@
+<script>
+ $(function() {
+   var url = [% server.url %] + '/' + [% token %]  
+   $([% target_element %]).load(url);
+  });	      	      	      	
+</script>

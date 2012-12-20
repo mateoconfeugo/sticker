@@ -1,0 +1,5 @@
+<div style="border: 1px solid blue; margin: 4px; padding: 4px;">
+    <h2>[% title | html_entity %]</h2>
+    <a href="[% url %]" target="_blank">[% displayurl | html_entity %]</a>
+    <p>[% description | html_entity %]</p>
+</div>

@@ -1,0 +1,14 @@
+
+/*
+    {"title": "ad2", "display-url": "http://www.test2.com", "discription": "test 2", "bid": 0.20, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+    {"title": "ad3", "display-url": "http://www.test3.com", "discription": "test 3", "bid": 0.30, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+    {"title": "ad4", "display-url": "http://www.test4.com", "discription": "test 4", "bid": 0.40, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+    {"title": "ad5", "display-url": "http://www.test5.com", "discription": "test 5", "bid": 0.50, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+    {"title": "ad6", "display-url": "http://www.test6.com", "discription": "test 6", "bid": 0.60, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+    {"title": "ad7", "display-url": "http://www.test7.com", "discription": "test 7" , "bid": 0.70, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+    {"title": "ad8", "display-url": "http://www.test8.com", "discription": "test 8", "bid": 0.80, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+    {"title": "ad9", "display-url": "http://www.test9.com", "discription": "test 9", "bid": 0.90, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+    {"title": "ad10", "display-url": "http://www.test10.com", "discription": "test 10", "bid": 1.0, "url": "http://sample.feed.partner.one.com?subid=1&listingid=10&target=www.drudgereport.com"},
+]}
+*/		    
+
