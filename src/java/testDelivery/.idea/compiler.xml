@@ -29,9 +29,6 @@
         <module name="testDelivery" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="testDelivery" target="1.6" />
-    </bytecodeTargetLevel>
   </component>
 </project>
 
