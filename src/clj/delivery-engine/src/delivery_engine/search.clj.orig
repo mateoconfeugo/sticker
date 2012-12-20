@@ -1,0 +1,68 @@
+(ns delivery-engine.search
+  (:use [delivery-engine.core])
+  (:use delivery-engine.partner-listings-transform))
+
+;;  (:gen-class
+;;   :methods [#^{:static true} [start [] delivery-engine.search.DeliveryEngine]]))
+
+(defprotocol DeliveryEngine
+  "Object used to create listings for users to click on and get redirected to advertiser page"
+  (listings [this keyword token]
+    "Concurrently download the listing responses from feed partner and query database for local ads returning unique listings that have sufficient bid for the keyword")
+  (search [this request]
+    "query the system for listing with the request")
+  (show-settings [this]
+    "show the settings")
+  )
+
+(defn new-delivery-engine 
+  [{:keys[ db-host db-port db-name db-user db-password
+          cache-host timer-cb clock-period delay 
+          cache-port cache-db-index
+          format network bid-algorithm] :as settings}]
+
+  (let [ads-db {:classname "com.mysql.jdbc.Driver" :subprotocol "mysql"
+                :subname (str "//" db-host ":" db-port "/advertiser" )
+                :user db-user :password db-password}
+        partner-db {:classname "com.mysql.jdbc.Driver" :subprotocol "mysql"
+                    :subname (str "//" db-host ":" db-port "/feed_partner")
+                    :user db-user :password db-password}
+        publish-db {:classname "com.mysql.jdbc.Driver" :subprotocol "mysql"
+                    :subname (str "//" db-host ":" db-port "/publisher")
+                    :user db-user :password db-password}
+        redis-server-spec {:host cache-host :db 10 :port cache-port}
+        translator (new-listing-translator redis-server-spec)]
+
+    (reify DeliveryEngine
+      ;;-------------------------------------------------------------------------
+      (show-settings [this]
+        (println settings))
+      
+      (listings [this keyword token]
+        (let [partner-uris     (partner-feed-uri-list )
+;;              minimum-bid     0.2
+              partner-xml      (request-listings partner-uris)
+              partner-listings (transform-partner-listings partner-xml {})]              
+              ;;partner-uris     (future (partner-feed-uri-list partner-db token keyword))
+              ;;              minimum-bid      (future (get-keyword-bid ads-db keyword))
+              ;;              local-listings   (future (gather-database-listings ads-db keyword))
+              ;;              translation-map  (future (select-translation-map translator token))
+              ;;              partner-xml      (future (request-listings @partner-uris))              
+              ;;              partner-listings (future (transform-partner-listings @partner-xml @translation-map))]
+          ;;          (dosync (sort-by :bid (remove-below @minimum-bid (distinct (merge @partner-listings @local-listings)))))
+          (sort-by :bid (remove-below 0.2 (distinct partner-listings )))))
+          
+
+      ;;-------------------------------------------------------------------------
+      (search [this request]
+        (let [request (apply-request-filters request)
+              query (extract-query request)
+              keyword (get-keyword query)              
+              token (query :token)
+              actor (biz-actor token)
+              role (biz-role token)]
+              ;;              policy (get-filter-policy request token actor role)
+              ;;              listings (policy (gather-listings this keyword token))
+          (render (listings this keyword token) (select-format token)))))))
+
+
