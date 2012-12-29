@@ -8,9 +8,8 @@ define(['backbone'], function(Backbone) {
 	        // type: iab
 	        // title
 		defaults: {
-			created: 'today'
+		    created: 'today'
 		},
-
 	})
 });
 

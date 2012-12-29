@@ -1,7 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 'models/listings','views/listing', 'models/config'],
        function($, _, Backbone, Listings, ListingView, Config) {
 	   return Backbone.View.extend({
-	       tabName: '#listingContainer'
+	       tabName: '#listingContainer',
 	       events: {
 		   "click a": "clicked"
 	       },

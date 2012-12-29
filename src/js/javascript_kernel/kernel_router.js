@@ -7,10 +7,10 @@ define(['jquery', 'backbone','view/listings'],
 		   _.bindAll(this);
                },
                'routes': {
-		   "delivery" : "get_listings",
+		   "delivery" : "get_listings"
                },
 	       "get_listings" : function() {
-		   Listings({"query": "shoes" ,"token": 1212 );
-	       }
-	   });
-       });
+		   Listings({"query": "shoes" ,"token": 1212 });
+	       }})});
+	       
+

@@ -5,11 +5,12 @@ use Plack::Response;
 use Plack::Request;
 use File::Spec::Functions;
 use Feed::Partner::Simulator;
+use LWP::Simple;
 use XML::Simple;
 
 # Environment Setup
 my $base_dir = $ENV{TEST_FEED_ROOT_DIR};
-my $test_base_dir = catdir($base_dir, 'src', 'delivery-engine', 't');
+my $test_base_dir = catdir($base_dir, 't');
 warn "$test_base_dir\n";
 exit unless $test_base_dir;
 
@@ -38,6 +39,18 @@ my $handler = sub {
     return $res->finalize();
 };
 
+my $test_delivery_handler = sub {
+    my $env = shift;
+    my $req = Plack::Request->new($env);
+    my $res = $req->new_response();
+    $res->body($server->delivery_engine_proxy({request=>$req}));
+    $res->headers([ 'Content-Type' => 'application/json' ]);
+    $res->status(200);
+    return $res->finalize();
+};
+
+
+
 # http app server configuration
 my $root = catfile($test_base_dir, 'tools');
 my $tt_path = catfile($test_base_dir, 'tools', 'template');
@@ -50,5 +63,6 @@ builder {
       mount "/js" => Plack::App::File->new(root=>$js_path);
       mount "/css" => Plack::App::File->new(root=>$css_path);
       mount "/delivery" => $handler;
+      mount "/testDelivery/delivery" => $test_delivery_handler;
     };
 

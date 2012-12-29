@@ -7,6 +7,7 @@ use Moose::Util qw( apply_all_roles );
 use Plack::Request;
 use JSON::XS;
 use File::Slurp qw(read_file);
+use LWP::Simple ;
 use lib qw(/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/lib);
 
 has config => (is=>'rw', isa=>'HashRef', lazy_build=>1);
@@ -17,6 +18,14 @@ sub BUILD {
   apply_all_roles($self, @roles);
   return $self;
 }
+
+sub delivery_engine_proxy {
+    my ($self, $args) = @_;
+#    my $req = $args->{request};
+#    my $res = $req->new_response();
+    my $json = get("http://localhost:8182/testDelivery/delivery");
+    return $json;
+};
 
 sub handle_request {
   my ($self, $args) = @_;
@@ -47,6 +56,7 @@ sub _build_config {
 
 sub run {
   my $obj = __PACKAGE__->new();
+  my $json = $obj->delivery_engine_proxy();
   my $test_token = 1212;
   my $output = $obj->render({token=>$test_token});
   warn "$output\n";
