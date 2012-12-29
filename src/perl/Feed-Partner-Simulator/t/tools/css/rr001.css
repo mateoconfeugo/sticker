@@ -1,0 +1,140 @@
+body {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	background:#FFF;
+	margin: 0; 
+	padding: 0;
+	text-align: center; 
+	color: #000000;
+}
+.oneColElsCtr #container {
+	width: 700px;
+	background: #FFFFFF;
+	margin: 0 auto; 
+	text-align: left; 
+}
+.oneColElsCtr #mainContent {
+	padding: 10px 20px 0 20px; 
+	background:#FFF;
+	height:auto;
+	width:600px;
+	overflow:hidden;
+	margin: 0 auto;
+	text-align: left;
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.oneColElsCtr #mainContentResults {
+	padding: 0 20px; 
+	background:#FFF;
+	height:auto;
+	width:600px;
+	overflow:hidden;
+	margin: 0 auto;
+	text-align: left;
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.cap {
+	margin: 0 auto;
+	width: 700px;
+	display:inline-block;
+}
+.cap #header {
+	text-align:right;
+	width: 500px;
+	float:left;
+	margin-top:5px;
+	margin-bottom:-4px;
+	line-height:26px;
+}
+.cap #search {
+	text-align:right;
+	width: 200px;
+	float:left;
+}
+#keywords {
+padding-bottom:0px;
+padding-left:15px;
+padding-right:15px;
+padding-top:30px;
+}
+#main {
+clear:both;
+margin:0;
+padding:0;
+padding-bottom:0px;
+padding-left:5px;
+padding-right:13px;
+padding-top:0px;
+position:relative;
+text-align:left;
+width:470px;
+}
+.adBlock {
+  font-size: 12px;
+  font-weight: normal;
+  color: #009900;
+  text-decoration:none;
+  margin:10px 0 15px 35px;
+  background:url(http://67.201.36.19/img/star.png) no-repeat;
+  background-position: -1px -2px;
+  padding-left:45px;
+  height:36px;
+}
+.adBlockArrow {
+  font-size: 12px;
+  font-weight: normal;
+  color: #009900;
+  text-decoration:none;
+  margin:10px 0 15px 35px;
+  background:url(http://67.201.36.19/img/arrow.png) no-repeat;
+  background-position: -1px -2px;
+  padding-left:45px;
+  height:36px;
+}
+.adBlockResult {
+  font-size: 12px;
+  font-weight: normal;
+  color: #009900;
+  text-decoration:none;
+  margin:10px 0 15px 0;
+  background-position: -1px -2px;
+  padding-left:10px;
+  height:90px;
+  overflow:hidden;
+}
+.overD {
+  background:none;
+}
+.overU {
+  background-color:#E6FFE6;
+}
+.keywordSearch {
+  font-size: 20px;
+  font-weight: normal;
+  color:#0000FF;
+  text-decoration:none;
+  text-transform:capitalize;
+  font-weight:bold;
+}
+.title {
+  font-size: 16px;
+  font-weight: normal;
+  color:#0000FF;
+  text-decoration:underline;
+  font-weight:bold;
+}
+.desc {
+  font-size: 14px;
+  font-weight: normal;
+  color:#666666;
+  text-decoration:none;
+}
+.site {
+  font-size: 12px;
+  font-weight: normal;
+  color: #009900;
+  text-decoration:none;
+}
