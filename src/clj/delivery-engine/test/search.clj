@@ -9,9 +9,9 @@
   ;;  (:import [delivery-engine.data-api Request Response Listing Budget-Item Usage-Summary Node-Usage-Summary Cluster-Usage-Summary]))
   )
 
-(def cfg  (-> (config) :delivery-engine))
-(def test-settings (assoc cfg :clock-period 100 :delay 1000
-                          :cache-host "10.0.147.102" :cache-db-index (:cache-db-index cfg) :cache-port 6379))
+(def test-cfg  (-> (config) :delivery-engine))
+(def test-settings (assoc test-cfg :clock-period 100 :delay 1000
+                          :cache-host "10.0.147.102" :cache-db-index (:cache-db-index test-cfg) :cache-port 6379))
 
 (def publisher-request-url {:scheme :http
                             :uri "/delivery/feed"
@@ -41,8 +41,8 @@
         token (:token query)
         actor (biz-actor token)
         role (biz-role token)        
-        engine (new-delivery-engine test-settings)                
-        listings (search engine http-request)]
+        engine (-createEngine)                
+        listings (-search engine http-request)]
     (record-impressions listings query token actor role)))
 
 ;; Top level component acceptance test

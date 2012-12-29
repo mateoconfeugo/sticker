@@ -22,34 +22,23 @@
 (defn -showSettings [this]
   (println cfg))
 
-(defn -listings [this keyword token]
-  (let [partner-uris     (partner-feed-uri-list )
-        partner-xml      (request-listings partner-uris)
-        partner-listings (transform-partner-listings partner-xml {})]
-    (sort-by :bid (remove-below 0.2 (distinct partner-listings )))))
-
-(comment
-  ;;              minimum-bid     0.2    
-  ;;partner-uris     (future (partner-feed-uri-list partner-db token keyword))
-  ;;              minimum-bid      (future (get-keyword-bid ads-db keyword))
-  ;;              local-listings   (future (gather-database-listings ads-db keyword))
-  ;;              translation-map  (future (select-translation-map translator token))
-  ;;              partner-xml      (future (request-listings @partner-uris))              
-  ;;              partner-listings (future (transform-partner-listings @partner-xml @translation-map))]
-  ;;          (dosync (sort-by :bid (remove-below @minimum-bid (distinct (merge @partner-listings @local-listings)))))
-  )
-
+(defn -listings [this keyword token request]
+  (let [uris (partner-feed-uri-list request token)
+        minimum-bid (get-keyword-bid keyword)
+        listings (parse-listings (request-listings uris))]
+    (auction listings minimum-bid)))
 
 (defn -search [this request]
-  (let [request (apply-request-filters request)
-              query (extract-query request)
-              keyword (get-keyword query)              
-              token 1212
-              actor (biz-actor token)
-              role (biz-role token)]
-              ;;              policy (get-filter-policy request token actor role)
-              ;;              listings (policy (gather-listings this keyword token))
-    (render (-listings this keyword token) (select-format token))))
+  (let [request (build-request request)
+        ;;        request (apply-request-filters request)
+        query (extract-query request)
+        keyword (get-keyword query)              
+        token (extract-token query)
+        actor (biz-actor token)
+        role (biz-role token)]
+    ;;              policy (get-filter-policy request token actor role)
+    ;;              listings (policy (gather-listings this keyword token))
+    (render (-listings this keyword token request) (select-format token))))
 
 (gen-class
  :name delivery.search.EngineFactory
@@ -57,3 +46,4 @@
  
 (defn -createEngine []
   (delivery.impl.EngineImpl. ))
+

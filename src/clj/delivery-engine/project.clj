@@ -3,7 +3,7 @@
   :aot :all
   :main delivery-engine.search
   :dependencies [[org.clojure/clojure "1.3.0"]
-                 [org.clojure/java.jdbc "0.1.1"]
+                 [org.clojure/java.jdbc "0.2.3"]
                  [com.sleepycat/je "4.0.92"]
                  [mysql/mysql-connector-java "5.1.6"]
                  [cheshire "5.0.1"]
@@ -12,7 +12,7 @@
                  [http.async.client "0.5.0"]                 
                  [clj-record "1.1.1"]
                  [enlive "1.0.1"]
-                 [ring/ring-core "1.1.6"]
+                 [ring "1.1.6"]
                  [org.clojars.tavisrudd/redis-clojure "1.3.1"]
                  [log4j "1.2.15" :exclusions [javax.mail/mail
                                               javax.jms/jms

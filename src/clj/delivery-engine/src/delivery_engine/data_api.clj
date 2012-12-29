@@ -1,6 +1,15 @@
-(ns delivery-engine.data-api)
+(ns delivery-engine.data-api
+  (:use [ring.util.servlet])
+  (:import (javax.servlet.http  HttpServletRequest HttpServletResponse)))
 
-(defrecord Request [client-ip date method uri http-code number-bytes referer agent]);
+(defrecord Request [server-port server-name remote-addr uri query-string scheme request-method
+                    headers content-type content-length character-encoding ssl-client-cert body])
+
+(defn build-request  [^HttpServletRequest request]
+  (map->Request  build-request-map request))
+
+
+(defrecord Response [header code body])
 (defrecord Account []);
 (defrecord Contact []);
 (defrecord BusinessActor []);
@@ -9,10 +18,9 @@
 (defrecord Group [client-ip date method uri http-code number-bytes referer agent]);
 (defrecord Set [client-ip date method uri http-code number-bytes referer agent]);
 (defrecord Population [client-ip date method uri http-code number-bytes referer agent]);
-(defrecord Response [header code body])
 (defrecord Listing [uri])
-(defrecord Feed-Partner [id name status])
-(defrecord Feed [id])
+(defrecord Partner [id name status ])
+(defrecord Feed [id partner-id tag-name uri])
 (defrecord Feed-Config [total budgeted blackout])
 (defrecord Blackout-Schedule[schedule])
 (defrecord Query-Delivery-Node [hostname ip status])
