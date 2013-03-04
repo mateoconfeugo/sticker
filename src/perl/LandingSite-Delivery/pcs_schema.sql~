@@ -1,0 +1,375 @@
+DROP DATABASE bailout;
+CREATE DATABASE bailout;
+USE bailout;
+
+DROP TABLE IF EXISTS note;
+CREATE TABLE note (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+contents TEXT
+);
+
+DROP TABLE IF EXISTS actuator;
+CREATE TABLE actuator (
+id          INT AUTO_INCREMENT PRIMARY KEY,
+title       VARCHAR(25),
+description TEXT,
+plugin      INT,
+status      VARCHAR(25),
+active_since DATETIME
+);
+
+DROP TABLE IF EXISTS task_type;
+CREATE TABLE task_type (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+token VARCHAR(255) NOT NULL,
+module VARCHAR(255) NOT NULL
+);
+
+DROP TABLE IF EXISTS task;
+CREATE TABLE task (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+station VARCHAR(255) NOT NULL,
+style ENUM('scheduled', 'threshold', 'manual') NOT NULL,
+task_type VARCHAR(255) NOT NULL,
+created  DATETIME, 
+last_ran  DATETIME, 
+start_date  DATETIME, 
+end_date  DATETIME, 
+crontab  TEXT,
+`text` TEXT,
+status ENUM('active', 'inactive', 'scheduled'),
+skipNext BIT NULL,
+skipTimes INT NULL,
+rec_type VARCHAR(255),
+event_length INT,
+event_pid INT
+);
+
+DROP TABLE IF EXISTS scheduled_task;
+CREATE TABLE scheduled_task (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+task INT,
+start_date  DATETIME, 
+end_date  DATETIME, 
+crontab  TEXT,
+`text` TEXT,
+status ENUM ('running', 'enqueued', 'paused', 'not_running')       
+);
+
+DROP TABLE IF EXISTS task_actuator;
+CREATE TABLE task_actuator (
+task      INT NOT NULL,
+actuator  INT NOT NULL
+);
+
+DROP TABLE IF EXISTS threshold_type;
+CREATE TABLE threshold_type (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+table_name VARCHAR(255) NOT NULL,
+note INT
+);
+
+DROP TABLE IF EXISTS sensor_threshold;
+CREATE TABLE sensor_threshold (
+sensor INT NOT NULL,
+threshold_set INT NOT NULL  
+);
+
+DROP TABLE IF EXISTS threshold_set;
+CREATE TABLE threshold_set (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+task_module VARCHAR(255) NOT NULL,
+status ENUM('active', 'inactive')
+);
+
+DROP TABLE IF EXISTS threshold_grouping;
+CREATE TABLE threshold_grouping (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+threshold_set INT NOT NULL,
+op_order INT NOT NULL,
+logic_operation VARCHAR(10)
+);
+
+DROP TABLE IF EXISTS threshold_element;
+CREATE TABLE threshold_element (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+threshold_set INT NOT NULL,
+threshold_grouping INT NOT NULL,
+sensor INT NOT NULL,
+threshold_value INT NOT NULL,
+operator VARCHAR(5)
+);
+
+DROP TABLE IF EXISTS default_threshold;
+CREATE TABLE default_threshold (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+task_type INT,
+threshold_value VARCHAR(255) NOT NULL,
+expression VARCHAR(5),
+note INT
+);
+
+DROP TABLE IF EXISTS plant_type;
+CREATE TABLE plant_type (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+common_name VARCHAR(255) NOT NULL,
+scientific_name VARCHAR(255),
+strain_id INT,
+note INT
+);
+
+DROP TABLE IF EXISTS plant;
+CREATE TABLE plant (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+plant_type INT NOT NULL,
+station  INT NOT NULL,
+note INT
+);
+
+DROP TABLE IF EXISTS ingredient;
+CREATE TABLE ingredient (
+id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY, 
+common_name   VARCHAR(255) NOT NULL
+);
+
+DROP TABLE IF EXISTS recipe;
+CREATE TABLE recipe (
+id INT AUTO_INCREMENT PRIMARY KEY,
+description  TEXT NULL
+);
+
+DROP TABLE IF EXISTS recipe_ingredient_amount;
+CREATE TABLE recipe_ingredient_amount (
+ingredient_id int(10)  NOT NULL default '0',
+recipe_id int(10)  NOT NULL default '0',
+amount int(10)  NOT NULL default '0',
+units varchar(255) NULL,
+PRIMARY KEY (ingredient_id, recipe_id)
+);
+
+DROP TABLE IF EXISTS ingredients;
+CREATE TABLE ingredients (
+ingredient_id int(10)  NOT NULL default '0',
+recipe_id int(10)  NOT NULL default '0'
+);
+
+DROP TABLE IF EXISTS station;
+CREATE TABLE station (
+id INT AUTO_INCREMENT PRIMARY KEY,
+grow_id int(10)  NOT NULL,
+title VARCHAR(255) NOT NULL
+);	    
+
+DROP TABLE IF EXISTS garden;
+CREATE TABLE garden (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+title  VARCHAR(50) NOT NULL
+);
+
+DROP TABLE IF EXISTS feed_program;
+CREATE TABLE feed_program (
+id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+title       TEXT,
+schedule_id INT NULL,
+station_id INT NULL,
+recipe_id INT NULL
+);
+
+DROP TABLE IF EXISTS grow;
+CREATE TABLE grow (
+id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+title       VARCHAR(255),
+active      TINYINT,
+description TEXT,
+schedule_id INT 
+);
+
+DROP TABLE IF EXISTS grow_program;
+CREATE TABLE grow_program (
+grow_id          INT NOT NULL,
+feed_program_id  INT NOT NULL
+);
+
+DROP TABLE IF EXISTS feeding_schedule;
+CREATE TABLE feeding_schedule (
+id          INTEGER PRIMARY KEY,
+cron_file   TEXT
+);
+
+DROP TABLE IF EXISTS event_log;
+CREATE TABLE event_log (
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+event_time  DATETIME, 
+message	    TEXT
+);
+
+DROP TABLE IF EXISTS sensor_log;
+CREATE TABLE sensor_log (
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+sensor_id   INT NOT NULL,
+measurement FLOAT,
+measurement_time DATETIME 
+);
+
+DROP TABLE IF EXISTS sensor_type;
+CREATE TABLE sensor_type (
+id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+description TEXT,
+measurement_units VARCHAR(10)
+);
+
+
+DROP TABLE IF EXISTS sensor;
+CREATE TABLE sensor (
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+title 	    VARCHAR(25),
+sensor_type INT NOT NULL,
+description TEXT,
+last_reading_at DATETIME, 
+active      TINYINT
+);
+
+DROP TABLE IF EXISTS dispenser;
+CREATE TABLE dispenser (
+id        INT AUTO_INCREMENT PRIMARY KEY,
+reservoir INT
+);
+
+DROP TABLE IF EXISTS dispenser_port;
+CREATE TABLE dispenser_port (
+id      INT AUTO_INCREMENT PRIMARY KEY,
+port_number INT,
+dispenser INT,
+status	  VARCHAR(25),
+station   INT
+);
+
+DROP TABLE IF EXISTS nutrient_batch;
+CREATE TABLE nutrient_batch (
+id        INT AUTO_INCREMENT PRIMARY KEY,
+recipe      INT,
+status	  VARCHAR(25),
+station   INT,
+created  DATETIME,
+irrigated  DATETIME
+);
+
+DROP TABLE IF EXISTS nutrient_container;
+CREATE TABLE nutrient_container (
+id        INT AUTO_INCREMENT PRIMARY KEY,
+ingredient INT,
+status	  VARCHAR(25),
+capacity  INT,
+current_level INT,
+refilled  DATETIME,
+last_used  DATETIME
+);
+
+DROP TABLE IF EXISTS reservoir;
+CREATE TABLE reservoir (
+id        INT AUTO_INCREMENT PRIMARY KEY,
+capacity  INT,
+status	  VARCHAR(25),
+current_level INT
+);
+
+
+DROP TABLE IF EXISTS auth_policy;
+CREATE TABLE auth_policy (
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+title       TEXT ,
+rating      INTEGER
+);
+
+DROP TABLE IF EXISTS auth_zones;
+CREATE TABLE auth_zones (
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+title       TEXT ,
+rating      INTEGER
+);
+
+DROP TABLE IF EXISTS auth_roles;
+CREATE TABLE auth_roles (
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+title       TEXT,
+rating      INTEGER
+);
+
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+id            INTEGER PRIMARY KEY,
+username      TEXT,
+password      TEXT,
+email_address TEXT,
+first_name    TEXT,
+last_name     TEXT,
+active        INTEGER
+);
+
+DROP TABLE IF EXISTS role;
+CREATE TABLE role (
+id   INTEGER PRIMARY KEY,
+role TEXT
+);
+
+DROP TABLE IF EXISTS user_role;
+CREATE TABLE user_role (
+user_id INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+role_id INTEGER REFERENCES role(id) ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (user_id, role_id)
+);
+ 
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log` (
+  `log_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `log_source` VARCHAR(100) NOT NULL DEFAULT '',
+  `log_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `log_level` VARCHAR(10) NOT NULL DEFAULT '',
+  `log_mesg` VARCHAR(200) NOT NULL DEFAULT '',
+  PRIMARY KEY  (`log_id`),
+  KEY `log_date_idx` (`log_date`),
+  KEY `log_source_idx` (`log_source`),
+  KEY `log_mesg_idx` (`log_mesg`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+ALTER TABLE note AUTO_INCREMENT = 1;
+ALTER TABLE actuator AUTO_INCREMENT = 1;
+ALTER TABLE task_type AUTO_INCREMENT = 1;
+ALTER TABLE task AUTO_INCREMENT = 1;
+ALTER TABLE scheduled_task AUTO_INCREMENT = 1;
+ALTER TABLE task_actuator AUTO_INCREMENT = 1;
+ALTER TABLE threshold_type AUTO_INCREMENT = 1;
+ALTER TABLE sensor_threshold AUTO_INCREMENT = 1;
+ALTER TABLE threshold_set AUTO_INCREMENT = 1;
+ALTER TABLE threshold_grouping AUTO_INCREMENT = 1;
+ALTER TABLE threshold_element AUTO_INCREMENT = 1;
+ALTER TABLE default_threshold AUTO_INCREMENT = 1;
+ALTER TABLE plant_type AUTO_INCREMENT = 1;
+ALTER TABLE plant AUTO_INCREMENT = 1;
+ALTER TABLE ingredient AUTO_INCREMENT = 1;
+ALTER TABLE recipe AUTO_INCREMENT = 1;
+ALTER TABLE recipe_ingredient_amount AUTO_INCREMENT = 1;
+ALTER TABLE ingredients AUTO_INCREMENT = 1;
+ALTER TABLE station AUTO_INCREMENT = 1;
+ALTER TABLE garden AUTO_INCREMENT = 1;
+ALTER TABLE feed_program AUTO_INCREMENT = 1;
+ALTER TABLE grow AUTO_INCREMENT = 1;
+ALTER TABLE grow_program AUTO_INCREMENT = 1;
+ALTER TABLE feeding_schedule AUTO_INCREMENT = 1;
+ALTER TABLE event_log AUTO_INCREMENT = 1;
+ALTER TABLE sensor_log AUTO_INCREMENT = 1;
+ALTER TABLE sensor_type AUTO_INCREMENT = 1;
+ALTER TABLE sensor AUTO_INCREMENT = 1;
+ALTER TABLE dispenser AUTO_INCREMENT = 1;
+ALTER TABLE dispenser_port AUTO_INCREMENT = 1;
+ALTER TABLE nutrient_batch AUTO_INCREMENT = 1;
+ALTER TABLE nutrient_container AUTO_INCREMENT = 1;
+ALTER TABLE reservoir AUTO_INCREMENT = 1;
+ALTER TABLE auth_policy AUTO_INCREMENT = 1;
+ALTER TABLE auth_zones AUTO_INCREMENT = 1;
+ALTER TABLE users AUTO_INCREMENT = 1;
+ALTER TABLE role AUTO_INCREMENT = 1;
+ALTER TABLE user_role AUTO_INCREMENT = 1;
+ALTER TABLE log AUTO_INCREMENT = 1;        
+

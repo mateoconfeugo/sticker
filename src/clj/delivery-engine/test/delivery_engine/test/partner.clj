@@ -67,7 +67,7 @@
       (let [r (sql/insert-rows
                "feed_partner"
                [1 "genie_knows" ]
-               [2 "google" ]
+               [2 "google" ])
         (is (= '(1 1) r)))
       (catch Exception _))
     (is (= 2 (sql/with-query-results res ["SELECT * FROM feed_partner"] (count res))))
