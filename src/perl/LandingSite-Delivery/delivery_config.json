@@ -9,8 +9,6 @@
          "root/static/js"
       ]
    },
-   "disable_component_resolution_regex_fallback" : 1,
-   "namespace" : "",
     "clientConfig" : {
       "models" : {
          "dispenser" : {
@@ -26,9 +24,12 @@
       },
       "host_element" : "stage"
    },
-   "enable_catalyst_header" : 1,
    "View::Jemplate" : {
        "jemplate_dir" : "root/jemplate",
        "jemplate_ext" : "tt"
-   }
+   },
+    "namespace": "",
+    "disable_component_resolution_regex_fallback": 1,
+    "enable_catalyst_header":  1 
+
 }

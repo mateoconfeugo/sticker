@@ -1,43 +1,41 @@
 package LandingSite::Delivery::Controller::Root;
 use Moose;
+use Try::Tiny;
+use File::Spec::Functions qw(catfile);
 use namespace::autoclean;
-
+use JSON::XS;
 BEGIN { extends 'Catalyst::Controller' }
 
-#
-# Sets the actions in this controller to be registered with no prefix
-# so they function identically to actions created in MyApp.pm
-#
-__PACKAGE__->config(namespace => '');
-
-=head1 NAME
-
-LandingSite::Delivery::Controller::Root - Root Controller for LandingSite::Delivery
-
-=head1 DESCRIPTION
-
-[enter your description here]
-
-=head1 METHODS
-
-=head2 index
-
-The root page (/)
-
-=cut
-
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-
-    # Hello World
-    $c->response->body( $c->welcome_message );
+sub  pages : Regex('^(\d*)_(.*)\.html$')  {
+    my ($self, $c) = @_;
+    $DB::single=1;
+    my $landing_site_id = $c->req->captures->[0];
+    my $number = $c->req->captures->[1];
+    my $token = $c->session->{token};
+    if($token) {     # Inter-Site?
+	my $mrkt_id =  $c->session->{market_vector_id};
+	my $adgroup_id = $c->session->{adgroup_id} || 'default';
+	my $path = catfile("landing_site", "$landing_site_id_$number.html");
+	    $c->{stash}->{template} = $c->uri_for($path);
+    } else {   # Organic
+	$c->{stash}->{template} = "sample_page.tt";
+    }
+    $c->forward('View::HTML');
 }
 
-=head2 default
+sub jemplate : Path('/js/jemplate') {
+    my($self, $c) = @_;
+    $c->forward('View::Jemplate');
+}
 
-Standard 404 error page
-
-=cut
+sub runtime : Path('/js/Jemplate.js') {
+    my ( $self, $c ) = @_;
+    $c->stash->{jemplate} = {
+        runtime => 1,
+        files   => [],
+    };
+    $c->forward('View::Jemplate');
+}
 
 sub default :Path {
     my ( $self, $c ) = @_;
@@ -45,25 +43,14 @@ sub default :Path {
     $c->response->status(404);
 }
 
-=head2 end
+#sub end : ActionClass('RenderView') {}
 
-Attempt to render a view, if needed.
-
-=cut
-
-sub end : ActionClass('RenderView') {}
-
-=head1 AUTHOR
-
-matthew burns
-
-=head1 LICENSE
-
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
+sub finalize_error {
+    my $c = shift;
+    $c->res->header('X-Error' => $c->error->[0]);
+    $c->NEXT::finalize_error;
+}
 
 __PACKAGE__->meta->make_immutable;
-
+no Moose;
 1;

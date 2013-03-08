@@ -1,6 +1,0 @@
-[%
-  site =  {
-      title => 'Bailout Master Control Panel',
-      copyright => '2012 Matt Burns',
-  }
-%]
