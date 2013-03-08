@@ -1,0 +1,3 @@
+[% META title = 'Landing Site Home Page' %]
+<p>Empower System</p>
+[%# content %]

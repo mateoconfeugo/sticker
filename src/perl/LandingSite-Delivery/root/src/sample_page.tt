@@ -1,0 +1,3 @@
+[% META title = 'Landing Site Sample Page' %]
+<p>Empower System Detox</p>
+[%# content %]

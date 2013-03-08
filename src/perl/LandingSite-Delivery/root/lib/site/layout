@@ -1,0 +1,23 @@
+<body>
+[% INCLUDE body %]
+</body>
+[% INCLUDE site/javascript %]
+
+[% BLOCK body %]
+<div class="container-fluid">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+         [% INCLUDE site/top_menu.tt %]
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    [% content %]
+    [% INCLUDE site/stage %]
+  </div>
+  <div id="server_message_channel"></div>  
+</div>
+[% END %]
+
+

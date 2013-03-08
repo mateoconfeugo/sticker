@@ -1,0 +1,55 @@
+<div class="row-fluid">&nbsp</div>
+<div class="row-fluid">&nbsp</div>
+<div class="row-fluid">&nbsp</div>
+<div class="tabbable tabs-right container-fluid">
+<div class="row-fluid">&nbsp</div>
+<div class="row-fluid">&nbsp</div>
+<div class="row-fluid">&nbsp</div>
+
+  <div class="row-fluid span12" >
+     <div id="stage" class="span10">
+       [%# INCLUDE component_stages %]
+     </div>	      
+    <div class="span2">
+       [%# INCLUDE component_nav_buttons %]
+    </div>
+ </div>
+
+[% BLOCK component_stages %]
+<div id="garden_stage" class="tab-pane ">[% INCLUDE live_garden.tt %]</div>
+<div id="reporting_stage" class="tab-pane ">[% INCLUDE reporting.tt %]</div>
+<div id="default_stage" class="tab-pane "></div>	      
+[% END %]
+
+[% BLOCK component_nav_buttons %]
+<ul class="nav nav-tabs">
+<li>
+  <a href="#garden"><i class="icon-camera-retro icon-large"></i>&nbsp; View Garden &raquo;</a>
+</li>
+<li>
+  <a href="/#control"><i class="icon-dashboard icon-large"></i>&nbsp; Control Panel &raquo;</a>
+</li>
+<li>
+  <a href="#grow"><i class="icon-table icon-large"></i>&nbsp; Grows &raquo;</a>
+</li>
+<li>
+  <a href="#report"><i class="icon-table icon-large"></i>&nbsp; Reports &raquo;</a>
+</li>
+<li>
+  <a  href="#plant"><i class="icon-leaf icon-large"></i>&nbsp; Plants &raquo;</a>
+</li>
+<li>
+  <a href="#feed"><i class="icon-calendar icon-large"></i>&nbsp; Feed Plans &raquo;</a>
+</li>
+<li>
+  <a href="#dispenser"><i class="icon-calendar icon-large"></i>&nbsp; Dispenser &raquo;</a>
+</li>
+<li>
+  <a href="#power"><i class="icon-road icon-large"></i>&nbsp; Power Strip &raquo;</a>
+</li>
+<li>
+  <a  href="#recipe"><i class="icon-road icon-large"></i>&nbsp;Recipe Builder&raquo;</a></p>
+</li>
+</ul>
+[% END %]
+

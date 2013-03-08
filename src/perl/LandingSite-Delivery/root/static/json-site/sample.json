@@ -1,0 +1,333 @@
+{
+   "deck" : "",
+   "vertical_site" : [
+      {},
+      {},
+      {},
+      {}
+   ],
+   "landing_site" : [
+      {
+         "profile" : [
+            {
+               "keyword_list_link" : [
+                  {}
+               ],
+               "page" : [
+                  {},
+                  {}
+               ],
+               "profile_link" : [
+                  {}
+               ],
+               "offer_link" : [
+                  {}
+               ]
+            }
+         ],
+         "ad_network_campaign" : "[ad-network id]/[account id]/[campaign id]/",
+         "landing_site_name" : "PCS emPower System detox cleanse emphasis",
+         "single_page_webapp" : [
+            {}
+         ]
+      },
+      {
+         "ad_network_campaign" : "[ad-network id]/[account id]/[campaign id]/",
+         "landing_site_name" : "PCS emPower System nutrient emphasis",
+         "single_page_webapp" : [
+            {}
+         ]
+      },
+      {
+         "ad_network_campaign" : "[ad-network id]/[account id]/[campaign id]/",
+         "landing_site_name" : "PCS emPower System water emphasis",
+         "single_page_webapp" : [
+            {}
+         ]
+      },
+      {
+         "ad_network_campaign" : "[ad-network id]/[account id]/[campaign id]/",
+         "landing_site_name" : "PCS emPower System  food emphasis",
+         "single_page_webapp" : [
+            {}
+         ]
+      },
+      {
+         "ad_network_campaign" : "[ad-network id]/[account id]/[campaign id]/",
+         "landing_site_name" : "PCS emPower System sleep regime and pain management",
+         "single_page_webapp" : [
+            {}
+         ]
+      }
+   ],
+   "market_vector" : [
+      {
+         "ad_campaign" : [
+            {
+               "ad_campaign_adgroup" : [
+                  {
+                     "ab_grouping" : [
+                        {
+                           "online_ad" : [
+                              {
+                                 "ad_tag" : "A"
+                              },
+                              {
+                                 "online_ad_uint_display" : [
+                                    {}
+                                 ],
+                                 "ad_tag" : "B"
+                              }
+                           ]
+                        }
+                     ],
+                     "ad_group_description" : ""
+                  }
+               ],
+               "keyword_list_link" : [
+                  {
+                     "keyword_list_name" : "sleep problems"
+                  }
+               ],
+               "ad_network" : "flourish__OPT__google__OPT__bing__OPT__reach__OPT__gorilla",
+               "profile_link" : [
+                  {
+                     "profile_name" : "in pain problems sleeping looking for healthy natural solution"
+                  }
+               ],
+               "offer_link" : [
+                  {
+                     "offer_name" : "free self hypnosis downloads"
+                  }
+               ]
+            }
+         ],
+         "landing_site" : [
+            {
+               "page" : [
+                  {
+                     "previous" : "",
+                     "next" : "cleanse",
+                     "pull_quote" : [
+                        {
+                           "quote" : ""
+                        }
+                     ],
+                     "inset" : [
+                        {
+                           "copy" : ""
+                        }
+                     ],
+                     "paragraph" : ""
+                  },
+                  {
+                     "paragraph" : "Detox Page\r\n"
+                  },
+                  {
+                     "paragraph" : "Water akaline water"
+                  },
+                  {
+                     "paragraph" : "Food"
+                  },
+                  {
+                     "paragraph" : "Sleep Regime and Pain Management"
+                  },
+                  {
+                     "paragraph" : "Nutrients"
+                  }
+               ],
+               "ad_network_campaign" : "Google Adwords default",
+               "landing_site_name" : "PCS emPower System default",
+               "single_page_webapp" : [
+                  {
+                     "spw_body" : [
+                        {
+                           "swp_stage" : [
+                              {}
+                           ],
+                           "spw_top_menu" : [
+                              {
+                                 "spw_edit_menu" : [
+                                    {
+                                       "spw_edit_menu_item" : [
+                                          {
+                                             "spw_edit_item_label" : ""
+                                          }
+                                       ]
+                                    }
+                                 ],
+                                 "spw_new_menu" : [
+                                    {
+                                       "spw_new_menu_item" : [
+                                          {
+                                             "spw_new_item_label" : ""
+                                          }
+                                       ]
+                                    }
+                                 ]
+                              }
+                           ]
+                        }
+                     ],
+                     "inline_css_style" : [
+                        {},
+                        {}
+                     ],
+                     "swp_javascript_libraries" : [
+                        {
+                           "javascript_library" : "/js/lib/require.js",
+                           "require_entry_point" : ""
+                        }
+                     ]
+                  }
+               ]
+            }
+         ],
+         "profile_vector" : [
+            {
+               "age_dimension" : [
+                  {}
+               ],
+               "gender_dimension" : [
+                  {}
+               ]
+            }
+         ]
+      },
+      {
+         "ad_campaign" : [
+            {
+               "ad_campaign_adgroup" : [
+                  {
+                     "ab_grouping" : [
+                        {
+                           "online_ad" : [
+                              {
+                                 "ad_tag" : "A"
+                              },
+                              {
+                                 "online_ad_uint_display" : [
+                                    {}
+                                 ],
+                                 "ad_tag" : "B"
+                              }
+                           ]
+                        }
+                     ],
+                     "ad_group_description" : ""
+                  }
+               ],
+               "keyword_list_link" : [
+                  {
+                     "keyword_list_name" : "sleep problems"
+                  }
+               ],
+               "ad_network" : "flourish__OPT__google__OPT__bing__OPT__reach__OPT__gorilla",
+               "profile_link" : [
+                  {
+                     "profile_name" : "in pain problems sleeping looking for healthy natural solution"
+                  }
+               ],
+               "offer_link" : [
+                  {
+                     "offer_name" : "free self hypnosis downloads"
+                  }
+               ]
+            }
+         ],
+         "landing_site" : [
+            {
+               "page" : [
+                  {
+                     "previous" : "",
+                     "next" : "",
+                     "pull_quote" : [
+                        {
+                           "quote" : ""
+                        }
+                     ],
+                     "inset" : [
+                        {
+                           "copy" : ""
+                        }
+                     ],
+                     "paragraph" : "Overall System. Page"
+                  },
+                  {
+                     "paragraph" : "Detox Page\r\n"
+                  },
+                  {
+                     "paragraph" : "Water akaline water"
+                  },
+                  {
+                     "paragraph" : "Food"
+                  },
+                  {
+                     "paragraph" : "Sleep Regime and Pain Management"
+                  },
+                  {
+                     "paragraph" : "Nutrients"
+                  }
+               ],
+               "ad_network_campaign" : "Google Adwords default",
+               "landing_site_name" : "PCS emPower System default",
+               "single_page_webapp" : [
+                  {
+                     "spw_body" : [
+                        {
+                           "swp_stage" : [
+                              {}
+                           ],
+                           "spw_top_menu" : [
+                              {
+                                 "spw_edit_menu" : [
+                                    {
+                                       "spw_edit_menu_item" : [
+                                          {
+                                             "spw_edit_item_label" : ""
+                                          }
+                                       ]
+                                    }
+                                 ],
+                                 "spw_new_menu" : [
+                                    {
+                                       "spw_new_menu_item" : [
+                                          {
+                                             "spw_new_item_label" : ""
+                                          }
+                                       ]
+                                    }
+                                 ]
+                              }
+                           ]
+                        }
+                     ],
+                     "inline_css_style" : [
+                        {},
+                        {}
+                     ],
+                     "swp_javascript_libraries" : [
+                        {
+                           "javascript_library" : "/js/lib/dhtmlxscheduler_minical.js",
+                           "require_entry_point" : ""
+                        }
+                     ]
+                  }
+               ]
+            }
+         ],
+         "profile_vector" : [
+            {
+               "age_dimension" : [
+                  {}
+               ],
+               "gender_dimension" : [
+                  {}
+               ]
+            }
+         ]
+      }
+   ]
+}
+
+
