@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="container-fluid">
-    [% content %]
     [% INCLUDE site/stage %]
+    [% content %]
   </div>
   <div id="server_message_channel"></div>  
 </div>

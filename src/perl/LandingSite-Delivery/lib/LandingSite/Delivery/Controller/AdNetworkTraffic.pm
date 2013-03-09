@@ -2,6 +2,9 @@ package LandingSite::Delivery::Controller::AdNetworkTraffic;
 use Moose;
 use File::Spec::Functions qw(catfile);
 use JSON::XS;
+use Data::Dumper;
+use File::Slurp;
+
 use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller'; }
@@ -35,32 +38,17 @@ sub view : Chained('market_vector') PathPart('view') Args(0) {
     my ($self, $c) = @_;
     $DB::single=1;
     my $item = $c->stash->{item};
-    use Data::Dumper;
-    my $result = { listing_id => $c->session->{listing_id},
-		   adnetwork_id => $c->session->{adnetwork_id},
-		   campaign_id => $c->session->{campaign_id},
-		   adgroup_id => $c->session->{adgroup_id}
-    };
-    $c->log->debug(Dumper($result));
-    $c->session->{token} = $c->session->{market_vector_id};
-#    $c->session->{token} = join '', ($c->session->{adnetwork_id},$c->session->{campaign_id},
-#				     $c->session->{adgroup_id}) 
-
-#	unless $c->session->{token};
-    my $token = $c->session->{token};
-
-    $c->session->{$token}->{market_vector_id} =  $c->model('Redis')->redis->get($token) 
-	unless $c->session->{$token}->{market_vector};
-    my $mrkt_vec = decode_json($c->model('Redis')->redis->get($token)) if $token;
+    $c->log->debug(Dumper($c->session));
+#    my $mrkt_vec_id = 1;
     my $mrkt_vec_id = $c->session->{market_vector_id};
-    $c->{stash}->{market_vector_id} = $mrkt_vec_id;
-#    my $mrkt_id = $mrkt_vec->{id};
-#    my $mrkt_id = 1;
-    my $adgroup_id = $mrkt_vec->{ad_campaign}->{ad_campaign_adgroup}->[0]->{ad_grouping_id} 
-    || $c->session->{adgroup_id} 
-    || 'default';
-    my $path = catfile("market_vector_$mrkt_vec_id", "adgroup_$adgroup_id", "index.html");
-    $c->{stash}->{template} = $path || 'landing_page.tt';
+    my $path = $c->path_to('root', 'src', 'site', 'market_vector', $mrkt_vec_id, "$mrkt_vec_id.json");
+    my $contents = File::Slurp::read_file($path->stringify);
+    my $data = decode_json $contents;
+    my $landing_site_id = $data->{landing_site_id};
+    my $page_name = "$landing_site_id" . $c->session->{adgroup_id} . ".html";
+#    my $landing_path = $c->path_to('root', 'src', 'site', 'landing_site', $landing_site_id,  $page_name);
+    my $landing_path = catfile('site', 'landing_site', $landing_site_id,  $page_name);
+    $c->{stash}->{template} = $landing_path || 'landing_page.tt';
     $c->forward('View::HTML');
 }
 

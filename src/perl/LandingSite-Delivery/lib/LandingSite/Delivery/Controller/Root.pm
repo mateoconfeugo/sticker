@@ -6,20 +6,21 @@ use namespace::autoclean;
 use JSON::XS;
 BEGIN { extends 'Catalyst::Controller' }
 
-sub  pages : Regex('^(\d*)_(.*)\.html$')  {
+sub  pages : Regex('(\d)(\d)?\.html$')  {
     my ($self, $c) = @_;
     $DB::single=1;
     my $landing_site_id = $c->req->captures->[0];
     my $number = $c->req->captures->[1];
     my $token = $c->session->{token};
-    if($token) {     # Inter-Site?
-	my $mrkt_id =  $c->session->{market_vector_id};
-	my $adgroup_id = $c->session->{adgroup_id} || 'default';
-	my $path = catfile("landing_site", "$landing_site_id" . '_' .  "$number.html");
-	    $c->{stash}->{template} = $c->uri_for($path);
-    } else {   # Organic
-	$c->{stash}->{template} = "sample_page.tt";
+    my $mrkt_id =  $c->session->{market_vector_id};
+    my $adgroup_id = $c->session->{adgroup_id} || 'default';
+    my $path;
+    if( $number && $landing_site_id ) {
+	$path = catfile('site', "landing_site", "$landing_site_id",  "$landing_site_id". "$number.html") ;
+    } else {
+	$path = catfile('site', "landing_site", "$landing_site_id",   "$landing_site_id.html");
     }
+    $c->{stash}->{template} = $path;
     $c->forward('View::HTML');
 }
 

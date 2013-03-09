@@ -27,6 +27,7 @@ __PACKAGE__->config('View::Jemplate' => {
 __PACKAGE__->config("Plugin::Static::Simple" => {
     "include_path" => [
 	"root/static",
+	"root/src",
 	"root/static/img",
 	"root/static/images",
 	"root/static/css",
