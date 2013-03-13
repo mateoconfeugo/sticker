@@ -9,6 +9,12 @@ use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
+sub redirect_to_action {
+    my ($c, $controller, $action, @params) =@_;
+
+    $c->detach;
+}
+
 sub base : Chained('/') PathPart('adnetwork') CaptureArgs(1) {
     my ($self, $c, $adnetwork_id) = @_;
     $c->session->{adnetwork_id} = $adnetwork_id;
@@ -44,12 +50,10 @@ sub view : Chained('market_vector') PathPart('view') Args(0) {
     my $path = $c->path_to('root', 'src', 'site', 'market_vector', $mrkt_vec_id, "$mrkt_vec_id.json");
     my $contents = File::Slurp::read_file($path->stringify);
     my $data = decode_json $contents;
-    my $landing_site_id = $data->{landing_site_id};
+    my $landing_site_id = shift [keys %{$data->{landing_site}}];
     my $page_name = "$landing_site_id" . $c->session->{adgroup_id} . ".html";
-#    my $landing_path = $c->path_to('root', 'src', 'site', 'landing_site', $landing_site_id,  $page_name);
     my $landing_path = catfile('site', 'landing_site', $landing_site_id,  $page_name);
-    $c->{stash}->{template} = $landing_path || 'landing_page.tt';
-    $c->forward('View::HTML');
+    $c->response->redirect($c->uri_for('1.html'));
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -57,25 +61,3 @@ no Moose;
 1;
 
 __END__
-
- site
-    ├── landing_site
-    │   ├── 1
-    │   │   ├── 1_one.html
-    │   │   └── 1_two.html
-    │   └── 2
-    │       ├── 2_one.html
-    │       ├── 2_three.html
-    │       └── 2_two.html
-    ├── market_matrix
-    │   └── 1
-    │       └── 1.html
-    └── market_vector
-        ├── 1
-        │   └── 1.html
-        ├── 2
-        │   ├── 2.html
-        │   └── 2.json
-        └── 4
-            ├── 4.html
-            └── 4.json

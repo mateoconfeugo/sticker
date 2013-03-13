@@ -1,3 +1,29 @@
 [% META title = 'Landing Site Home Page' %]
-<p>Empower System</p>
-[%# content %]
+<div id="rootwizard" class="tabbable tabs-right">
+     <div id="nav-controls-destination"></div>
+  <ul class="nav nav-tabs">
+    <li><a href='#tab10' data-toggle="tab" >index</a></li>
+    [% FOREACH p IN pages %]
+    <li><a href="#tab[% p.order %]" data-toggle="tab" class="btn btn-success" >[% p.header %]</a></li>
+    [% END %]
+  </ul>
+
+  <div class="tab-content">
+    [% FOREACH p IN pages %]
+    <div class="tab-pane" id="tab[% p.order %]">[% p.content_data %]</div>
+    [% END %]
+    <div class="tab-pane" id="tab10">[% selected_page %]</div>
+   [% INCLUDE nav_controls %]
+  </div>
+</div>
+
+[% BLOCK nav_controls %]
+  <div id="nav-controls">
+    <ul class="pager wizard">
+      <li class="previous first" style="display:none;"><a href="#">First</a></li>
+      <li class="previous"><a href="#">Previous</a></li>
+      <li class="next last" style="display:none;"><a href="#">Last</a></li>
+      <li class="next"><a href="#">Next</a></li>
+    </ul>
+  </div>
+[% END %]

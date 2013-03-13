@@ -7,15 +7,16 @@
 <div class="container-fluid">
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-      <div class="container-fluid">
+      <div class="container-fluid top">
          [% INCLUDE site/top_menu.tt %]
       </div>
+      <div class="span2 "><img src="/img/PCSlogo.png" class="img-rounded logo"></div>
     </div>
   </div>
   <div class="container-fluid">
     [% INCLUDE site/stage %]
-    [% content %]
-  </div>
+    <div class="span6 offset2">[% content %]</div>
+  </div>.
   <div id="server_message_channel"></div>  
 </div>
 [% END %]

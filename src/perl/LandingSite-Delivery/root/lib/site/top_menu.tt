@@ -5,7 +5,8 @@
 </a>
 
 
-<a class="brand" href="#">Empower a fresh new you!</a>
+<a class="brand" href="#lead_form">Introducing the Patient Comfort Way!</a>
+<div class="span3 "><a  id="lead_form_link" href="#myModal" role="button" class="btn btn-warning" data-toggle="modal">Learn More</a></div>
 
 [% BLOCK new_menu_item %]	      
 <a href="#new" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">New &nbsp; <i class="icon-plus icon-large"></i></a>

@@ -46,4 +46,26 @@ h1.title {
 	height: 10px; 
 }
 
+.top {
+  background-color: #00b10e;
+}
 
+.hero-background {}
+
+.hero-unit {}
+
+img {
+    opacity: 0.2;
+}
+
+.logo {
+    opacity: 1;
+}
+
+
+.hero-unit p {
+  font-size: 100%;
+  font-weight: bold;
+  text-rendering: optimizelegibility;
+  color: #424849;
+}
