@@ -4,7 +4,7 @@
 */
 
 define(
-    ["jquery", "underscore", "backbone", "models/lead", "backboneValidation", "validate"],
+    ["jquery", "underscore", "backbone", "models/lead", "validate"],
     function($, _, Backbone, Lead) {
 	var lead_editor =  Backbone.View.extend({
 	    events: {
@@ -12,9 +12,9 @@ define(
 	    },
 	    initialize: function(options) {
 		_.bindAll(this, "render", "updateModel", "submit");
+		this.router = options.router;
 		this.model = new Lead();
 		this.model.on("sync", this.render);
-		Backbone.Validation.bind(this);
 		this.render();
 		return this;
 	    },
@@ -44,6 +44,7 @@ define(
 		this.model.set('zip', zip);
 		this.model.save();
 		$('.modal-backdrop').remove();
+		this.router.navigate('/thankyou', {trigger: true});
 		return this;
 	    },
 	    close: function(){

@@ -50,7 +50,9 @@ sub view : Chained('market_vector') PathPart('view') Args(0) {
     my $path = $c->path_to('root', 'src', 'site', 'market_vector', $mrkt_vec_id, "$mrkt_vec_id.json");
     my $contents = File::Slurp::read_file($path->stringify);
     my $data = decode_json $contents;
-    my $landing_site_id = shift [keys %{$data->{landing_site}}];
+#    my $landing_site_id = shift [keys %{$data->{landing_site}}];
+    my @tmp = keys %{$data->{landing_site}};
+    my $landing_site_id = shift @tmp;
     my $page_name = "$landing_site_id" . $c->session->{adgroup_id} . ".html";
     my $landing_path = catfile('site', 'landing_site', $landing_site_id,  $page_name);
     $c->response->redirect($c->uri_for('1.html'));

@@ -19,10 +19,6 @@ require.config({
 	    deps: ["jquery", "bootstrap"],
 	    exports: "jQuery.bootstrapWizard"
 	},
-	"backboneValidation": {
-	    deps: ["jquery", "backbone"],
-	    exports: "backboneValidation"
-	},
 	"validate": {
 	    deps: ["jquery"],
 	    exports: "jQuery.fn.validate"
@@ -42,7 +38,6 @@ require.config({
 	underscore: '/js/lib/underscore-min',
 	backbone: '/js/lib/backbone-min',
 	bootstrapWizard: '/js/lib/jquery.bootstrap.wizard.min',
-	backboneValidation: '/js/lib/backbone-validation-min',
 	socketio: '/js/lib/socket.io',
 	bootstrap: '/js/lib/bootstrap',
 	log4javascript:'/js/lib/log4javascript',
@@ -59,7 +54,7 @@ require.config({
 });
 
 
-require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstrapWizard', 'backboneValidation'], 
+require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstrapWizard'], 
 	function($, _, Backbone, Desktop) {
 
 	    $.fn.serializeObject = function()
@@ -84,8 +79,6 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstra
 		var router = new Desktop({config: cfg});
 		cfg.router = router;
 		Backbone.history.start();
-//		this.$('#nav-controls-destination').html(this.$('#nav-controls').html());
-
 		$('#rootwizard').bootstrapWizard({
 		    'class': 'nav nav-tabs',
 		    onNext: function(event) { 
