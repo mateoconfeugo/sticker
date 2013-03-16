@@ -15,14 +15,10 @@ DROP TABLE IF EXISTS lead_log;
 CREATE TABLE lead_log (
 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 event_time  DATETIME, 
-comments    TEXT,
-email_address TEXT,
+email TEXT,
 first_name    TEXT,
 last_name     TEXT,
 postal_code   INT(20),
-lead_source VARCHAR(100),
-lead_date datetime,
-lead_level VARCHAR(10), 
 offer  INT(15),
 phone INT(20),
 adnetwork INT(11),
@@ -32,7 +28,6 @@ profile INT(10),
 campaign INT(11),
 market_vector INT(11),
 landing_site INT(15),
-referring_url TEXT,
 user_agent TEXT
 );
 

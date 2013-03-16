@@ -44,19 +44,23 @@ sub view : Chained('market_vector') PathPart('view') Args(0) {
     my ($self, $c) = @_;
     $DB::single=1;
     my $item = $c->stash->{item};
-    $c->log->debug(Dumper($c->session));
-#    my $mrkt_vec_id = 1;
+    my $landing_site_id= $self->get_landing_site_id($c);
+    $c->{session}->{landing_site_id} = $landing_site_id;
+    my $page_name = "$landing_site_id" . $c->session->{adgroup_id} . ".html";
+    my $landing_path = catfile('site', 'landing_site', $landing_site_id,  $page_name);
+    $c->response->redirect($c->uri_for('/', '1.html'));
+}
+
+sub get_landing_site_id {
+    my ($self, $c) = @_;
     my $mrkt_vec_id = $c->session->{market_vector_id};
     my $path = $c->path_to('root', 'src', 'site', 'market_vector', $mrkt_vec_id, "$mrkt_vec_id.json");
     my $contents = File::Slurp::read_file($path->stringify);
     my $data = decode_json $contents;
-#    my $landing_site_id = shift [keys %{$data->{landing_site}}];
     my @tmp = keys %{$data->{landing_site}};
     my $landing_site_id = shift @tmp;
-    my $page_name = "$landing_site_id" . $c->session->{adgroup_id} . ".html";
-    my $landing_path = catfile('site', 'landing_site', $landing_site_id,  $page_name);
-    $c->response->redirect($c->uri_for('1.html'));
 }
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

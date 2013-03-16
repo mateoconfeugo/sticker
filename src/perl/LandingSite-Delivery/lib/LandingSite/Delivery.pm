@@ -20,10 +20,13 @@ my $path = catfile($base_dir, 'github', 'florish-online', 'src', 'perl', 'Landin
 
 __PACKAGE__->config('Plugin::ConfigLoader' => {file => $path});
 __PACKAGE__->log(Log::Log4perl::Catalyst->new());
+
+__PACKAGE__->config("enable_catalyst_header" => 1);
 __PACKAGE__->config('View::Jemplate' => {
     jemplate_dir => __PACKAGE__->path_to('root', 'jemplate'),
     jemplate_ext =>  "tt"
 		    });
+__PACKAGE__->config('Model::MarketVector' => { args => {root_dir => __PACKAGE__->path_to('root', 'src', 'site')}});
 __PACKAGE__->config("Plugin::Static::Simple" => {
     "include_path" => [
 	"root/static",

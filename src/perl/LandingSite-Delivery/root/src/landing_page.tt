@@ -2,7 +2,6 @@
 <div id="rootwizard" class="tabbable tabs-right">
      <div id="nav-controls-destination"></div>
   <ul class="nav nav-tabs">
-    <li><a href='#tab10' data-toggle="tab" >index</a></li>
     [% FOREACH p IN pages %]
     <li><a href="#tab[% p.order %]" data-toggle="tab" class="btn btn-success" >[% p.header %]</a></li>
     [% END %]
@@ -12,7 +11,6 @@
     [% FOREACH p IN pages %]
     <div class="tab-pane" id="tab[% p.order %]">[% p.content_data %]</div>
     [% END %]
-    <div class="tab-pane" id="tab10">[% selected_page %]</div>
    [% INCLUDE nav_controls %]
   </div>
 </div>

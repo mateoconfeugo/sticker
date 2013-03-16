@@ -1,0 +1,7 @@
+#!/bin/sh
+echo "landing site delivery engine"
+export PERL5LIB=/home/pcs/florish-online/src/perl/LandingSite-Delivery/lib:$PERL5LIB
+cd /home/pcs/florish-online/src/perl/LandingSite-Delivery
+source /home/pcs/perl5/perlbrew/etc/bashrc
+/home/pcs/perl5/perlbrew/bin/perlbrew use perl-5.16.2
+/home/pcs/perl5/perlbrew/perls/perl-5.16.2/bin/plackup --port 3000 --host 127.0.0.1 -I/home/pcs/florish-online/src/perl/LandingSite-Delivery/lib -a /home/pcs/florish-online/src/perl/LandingSite-Delivery/landingsite_delivery.psgi 

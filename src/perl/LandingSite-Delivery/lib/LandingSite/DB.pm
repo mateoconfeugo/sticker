@@ -12,7 +12,7 @@ has password => (is=>'rw', isa=>'Str', default=>'sa');
 sub _build_dbh {
     my $self = shift;
 #    my $conn = DBIx::Connector->new($self->dsn, $self->username, $self->password, { RaiseError => 1,   AutoCommit => 1,});
-    my $dbh = DBI->connect($self->dsn, 'root', 'sa', {
+    my $dbh = DBI->connect($self->dsn, 'root', '', {
 	AutoCommit => 1,
 	RaiseError => 1,
 	PrintError => 1 });

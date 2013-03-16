@@ -1,19 +1,33 @@
 package LandingSite::Lead;
 use Moose;
+use FormValidator::Simple;
 our $VERSION = '0.01';
 
 with 'LandingSite::DB';
 
-my @fields = (qw|event_time comments email_address first_name last_name postal_code lead_source lead_date lead_level offer phone adnetwork adgroup listing profile campaign market_vector landing_site referring_url user_agent|);
+my @fields = (qw|event_time  email first_name last_name postal_code  offer phone adnetwork adgroup listing profile campaign market_vector landing_site user_agent|);
 
 sub create {
   my ($self, $args) = @_;
   my $lead = $args->{lead};
-  my $sql = q|INSERT INTO lead_log (event_time,comments,email_address,first_name,last_name,postal_code,lead_source,lead_date,lead_level,offer,phone,adnetwork,adgroup,listing,profile,campaign,market_vector,landing_site,referring_url,user_agent) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)|;
+  my $sql = q|INSERT INTO lead_log (event_time, email, first_name, last_name, postal_code, offer, phone, adnetwork, adgroup, listing, profile, campaign, market_vector, landing_site, user_agent) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)|;
   my @vals = map { $lead->{$_} } @fields;
   my $sth = $self->dbh->prepare($sql);   
   $sth->execute(@vals);
   return $self;
+}
+
+sub validate {
+    my ($self, $args) = @_;
+    my $query = $args->{query};
+    my $result = FormValidator::Simple->check($query => [
+						   first_name => ['NOT_BLANK', 'ASCII', ['LENGTH', 2, 15]],
+						   last_name  => ['NOT_BLANK', 'ASCII', ['LENGTH', 2, 30]  ],
+						   email  => ['NOT_BLANK', 'EMAIL_LOOSE'],
+						   phone  => ['NOT_BLANK', 'INT'],
+						   postal_code  => ['NOT_BLANK', 'INT'],
+					       ]);
+    return $result;
 }
 
 =pod

@@ -28,6 +28,7 @@ define(
 
 	    },
 	    updateModel: function(e) {
+		e.preventDefault();
 		$("#lead_form").validate();
 		if(!$("#lead_form").valid()){
 		    return this;
@@ -41,10 +42,20 @@ define(
 		var phone = this.$('#lead_phone').val();
 		this.model.set('phone', phone);
 		var zip = this.$('#lead_zip').val();
-		this.model.set('zip', zip);
-		this.model.save();
-		$('.modal-backdrop').remove();
-		this.router.navigate('/thankyou', {trigger: true});
+		this.model.set('postal_code', zip);
+		this.model.save({}, {
+		    success: function(model, response, options) {
+			$('.modal-backdrop').remove();
+			$('#lead_form_link').remove();
+			$('#rootwizard').html(Jemplate.process("thank_you.tt"));			
+		    },
+		    error: function(e, response) {
+			var json = JSON.parse(response.responseText);
+			var html = Jemplate.process("server_validation_message.tt", {errors: JSON.parse(json.error)});
+			this.$('.alert-error').show();
+			this.$('.alert-error').append(html);
+		    }
+		});
 		return this;
 	    },
 	    close: function(){
