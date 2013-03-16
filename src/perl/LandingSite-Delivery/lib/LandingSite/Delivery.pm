@@ -10,6 +10,7 @@ use Catalyst qw/-Debug
 		Session
 		Session::Store::FastMmap 
 		Session::State::Cookie 
+                Compress::Gzip
 	       /;
 
 extends 'Catalyst';

@@ -107,8 +107,7 @@ sub runtime : Path('/js/Jemplate.js') {
 
 sub index :Path('/') :Args(0) {
     my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
-    $c->response->status(404);
+    $c->response->redirect($c->uri_for('/', '1.html'));
 }
 
 #sub end : ActionClass('RenderView') {}
