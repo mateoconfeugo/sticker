@@ -1,0 +1,46 @@
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+</a>
+
+
+<a class="brand" href="#">Causal Marketing</a>
+<div class="nav-collapse collapse">
+  <p class="navbar-text pull-right">&nbsp<a href="#" class="navbar-link">[% c.user.id %]</a></p>
+[% IF c.user_exists %]
+ <p class="navbar-text pull-right"><a href="[% c.uri_for('/logout') %]">logout&nbsp&nbsp</a></p>
+[% END %]
+<ul class="nav" role="navigation">
+  <li>[% INCLUDE tool_menu_item %]</li>
+  <li class="active dropdown">[% INCLUDE reports_menu_item %]</li>
+  <li><a href="#new">Alerts &nbsp;<i class="icon-bell icon-large"></i></a></li>
+  <li><a href="#warnings">Warnings &nbsp;<i class="icon-warning-sign icon-large"></i></a></li>
+  <li><a href="#help">Help&nbsp;<i class="icon-info-sign icon-large"></i></a></li>
+</ul>
+</div><!--/.nav-collapse -->
+
+[% BLOCK tool_menu_item %]	      
+<a href="#new" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">Tools &nbsp; <i class="icon-plus icon-large"></i></a>
+<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="#">Tools</a>
+    <ul class="dropdown-menu">
+      <li><a tabindex="-1" href="#">Landing Site</a></li>
+      <li><a tabindex="-1" href="#">Marketing Vector</a></li>
+      <li><a tabindex="-1" href="#">Vertical Site</a></li>
+    </ul>
+  </li>		
+  <li><a tabindex="-1" href="#">Campaigns</a></li>
+  <li><a tabindex="-1" href="#">Preferences</a></li>
+</ul>
+[% END %]
+
+[% BLOCK reports_menu_item %]
+<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">Reports &nbsp; <i class="icon-leaf"></i></a>
+<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+  <li><a tabindex="-1" href="#Publisher">Publisher<i class="icon-leaf icon-large"></i></a></li>
+  <li><a tabindex="-1" href="#mixer">Advertiser</a></li>
+  <li><a tabindex="-1" href="#recipe">Ad Networks</a></li>
+</ul>
+[% END %]
