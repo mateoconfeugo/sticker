@@ -27,7 +27,8 @@
   </div>
   <form class="cmxform" id="lead_form">
     <fieldset>
-      <legend>For information on how to get help or help a loved one<br/>
+      <legend>Get help or help a loved one now<br/>
+              Call (310) 883-3714
       </legend>
       <label>First Name</label><input id="lead_first_name" type="text"  class="required"/>
 	  <label>Last Name</label><input id="lead_last_name" type="text"  class="required"/>
