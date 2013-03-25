@@ -6,11 +6,8 @@
 <div class="row-fluid">&nbsp</div>
 <div class="row-fluid">&nbsp</div>
 
-  <div class="row-fluid span12" >
-     <div id="stage" class="span10">
-     </div>	      
-    <div class="span2">
-    </div>
- </div>
+<div class="row-fluid span12" >
+  <div id="stage" class="span12"> <iframe class="span12" src="http://166.78.153.58:8080"></iframe> </div>	      
+</div>
 
 

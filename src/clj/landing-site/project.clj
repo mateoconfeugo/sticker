@@ -10,7 +10,6 @@
                  [me.raynes/fs "1.4.0"]
                  [flourish-common "0.1.0-SNAPSHOT"]
                  [com.cemerick/friend "0.1.4"]
-                 [watchtower "0.1.1"]
                  ]
   :plugins [[lein-ring "0.8.2"]]
   :ring {:handler management.handler/app}
