@@ -6,7 +6,8 @@ use JSON::XS;
 use MooseX::Types::Path::Class;
 our $VERSION = '0.01';
 
-has root_dir => (is=>'rw', isa=>'Path::Class::Dir', required=>1, coerce=>1);
+#has root_dir => (is=>'rw', isa=>'Path::Class::Dir', required=>1, coerce=>1);
+has root_dir => (is=>'rw',  required=>1);
 
 sub get {
   my ($self, $market_id) = @_;
