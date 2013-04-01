@@ -1,0 +1,94 @@
+<& /utils/site/top.mc,
+        site_name => 'dev_search123',
+        title => 'Welcome to Search123 Website - Search123 - A ValueClick Company',
+        stylesheets => $stylesheets,
+        js_libs => $libraries
+&>
+
+
+<%attr>
+# js_lib => sub { return $js_lib; }
+</%attr>
+
+<% # Component initialization %>
+
+<%init>
+  my $stylesheets = ['main.css'];
+  my $libraries = ['jquery.js', 's123.js', 'processing.js'];
+</%init>
+
+<%shared>
+  my $site_name = 'dev_search123';
+  my $site = Bric::Biz::Site->lookup({name=>$site_name});
+  my $self = $m->request_comp;
+  my $js_lib;
+  my ($asset) = Bric::Biz::Asset::Business::Story->list({title=>'dev_search123'});
+  my $category_uri = '/js/';
+  my $user_id = 0;
+  my $key_name = 'javascript_library';
+  my $object_type = 'story';
+  if( $asset ) {
+  #    my @elems = map { $_->get_id() } $asset->get_elements();
+    my @elems = $asset->get_elements();
+  #    $_->do_delete for @elems;
+    $js_lib = $asset;
+  }
+else {
+    my $source_id = $story->get_source__id();
+    my $element_type = Bric::Biz::ElementType->lookup({key_name=> $key_name});
+    my $site_id = $site->get_id();
+    my $init = { title=>$site_name, user_id=>$user_id, element_type=>$element_type,
+                 site_id=>$site_id, source__id=>$source_id };
+    $js_lib  =  Bric::Biz::Asset::Business::Story->new($init);
+
+    my ($wf) = Bric::Biz::Workflow->list({site_id => $site->get_id, type => Bric::Biz::Workflow::STORY_WORKFLOW});
+    $js_lib->{workflow_id} = $wf->get_id();
+    my $desk = $wf->get_start_desk();
+    $js_lib->{desk_id} = $desk->get_id();
+    my ($category) = Bric::Biz::Category->list({uri => $category_uri});
+    $js_lib->add_categories([$category]);
+    $js_lib->set_primary_category($category);
+    $js_lib->set_cover_date($story->get_cover_date("%Y-%m-%d 00:00:00"));
+    $js_lib->set_slug($site_name);
+  }
+</%shared>
+
+<% # Component methods and sub routines %>
+<%method add_js>
+  <%args>
+    $code => undef
+  </%args>
+  <%init>
+  my $self = $m->request_comp;
+  my $lib = $js_lib;
+  my $key_name = 'javascript_snippet';
+  my $js_elem = Bric::Biz::ElementType->lookup({key_name=> $key_name});
+  my $snippet = $lib->add_container($js_elem);
+  my($code_field) = $snippet->get_possible_field_types() if $snippet;
+  if($code_field && $code) {
+    $snippet->add_field($code_field, $code);
+    $snippet->save();
+    $lib->save();
+  }
+  return $snippet;
+  </%init>
+</%method>
+
+<% # Stuff to do when the component is done with is work, in this case publish the dynamic site javascript library story %>
+
+<%cleanup>
+    $js_lib->save();
+    $js_lib->checkin if $js_lib->get_checked_out;
+    $js_lib->save();
+    $js_lib->checkin if $js_lib->get_checked_out;
+    $burner->blaze_another($js_lib);
+</%cleanup>
+
+<% # Change stuff to the output before you output it. %>
+<%filter>
+</%filter>
+
+
+
+
+

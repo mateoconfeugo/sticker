@@ -1,0 +1,11 @@
+<?xml version ="1.0"?> 
+<channel>
+  <name>create advertiser</name>
+  <description>Creates a new advertiser provided the required parameters</description>
+  <uri>/rest/user/advertiser</uri>
+  <type>POST</type>
+  <data>json</data>
+  <parameters>
+   <parameter name="city", required="1", type="string"/>
+  </parameters>
+</channel>

@@ -1,0 +1,17 @@
+[% INCLUDE body %]
+[% BLOCK body %]
+<div class="container-fluid">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+         [% INCLUDE top_menu.tt %]
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    [% INCLUDE stage.tt %]
+  </div>
+</div>
+[% END %]
+
+

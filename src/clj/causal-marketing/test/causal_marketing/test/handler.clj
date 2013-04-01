@@ -3,6 +3,9 @@
         ring.mock.request  
         causal-marketing.handler))
 
+(defn bingo [one]
+  "blah" (println "bingo was his nameo"))
+
 (deftest test-app
   (testing "main route"
     (let [response (app (request :get "/"))]
@@ -12,3 +15,9 @@
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]
       (is (= (:status response) 404)))))
+
+(bingo 1)
+
+
+
+

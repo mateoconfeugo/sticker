@@ -1,0 +1,1 @@
+<input type="reset" name="<% $element->get_value('name') %>" />

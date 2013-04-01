@@ -8,6 +8,7 @@
                  [compojure "1.1.5"]
                  [ring/ring-jetty-adapter "1.1.6"]                 
                  [enlive "1.1.1"]]
+  :dev-dependencies [[ring-serve "0.1.2"]]
   :plugins [[lein-ring "0.8.2"]]
   :ring {:handler causal-marketing.handler/app}
   :profiles

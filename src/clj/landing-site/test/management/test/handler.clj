@@ -1,7 +1,27 @@
 (ns management.test.handler
-  (:use clojure.test
-        ring.mock.request  
-        management.handler))
+  (:use [clojure.test :only (is testing deftest)]
+        [ring.mock.request]  
+        [management.handler :only(app)]
+        [landing-site.controllers.ad-network-traffic]        
+        ))
+
+(def test-request {:request-method :get
+                   :uri "/adnetwork/1/campaign/1/adgroup/1/listing/A/market_vector/1/view"
+                   :headers {}
+                   :params {:adnetwork 1, :campaign 1, :adgroup 1, :listing "A" :market_vector 1}})
+
+(def test-response {:status 200
+                    :headers {"Content-Type" "text/html"}
+                    :body "<h1>Hello user 1</h1>"})
+
+test-request
+test-response
+
+(deftest test-adnetwork-traffic-view
+  (testing "extracting the data from the path"
+    (let [response (view request)]
+      (is (= (:status response 200))))))
+
 
 (deftest test-app
   (testing "main route"
@@ -12,3 +32,5 @@
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]
       (is (= (:status response) 404)))))
+
+(test-app)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<assets xmlns="http://bricolage.sourceforge.net/assets.xsd">
+ <element_type>
+  <key_name>political_subdivision_selector</key_name>
+  <name>political_subdivision_selector</name>
+  <description>selector that is populated by the political subdivision of a given nation</description>
+  <paginated>0</paginated>
+  <fixed_uri>0</fixed_uri>
+  <related_story>0</related_story>
+  <related_media>0</related_media>
+  <displayed>0</displayed>
+  <is_media>0</is_media>
+  <biz_class>Bric::Biz::Asset::Business::Story</biz_class>
+  <active>1</active>
+  <top_level>0</top_level>
+  <subelement_types></subelement_types>
+  <field_types></field_types>
+ </element_type>
+</assets>

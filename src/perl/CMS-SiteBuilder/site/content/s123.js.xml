@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<assets xmlns="http://bricolage.sourceforge.net/assets.xsd">
+ <story  element_type="javascript_library">
+  <site>dev_search123</site>
+  <name>s123</name>
+  <description></description>
+  <slug>s123</slug>
+  <primary_uri>/js/s123.js</primary_uri>
+  <priority>3</priority>
+  <publish_status>0</publish_status>
+  <active>1</active>
+  <source>Internal</source>
+  <categories>
+   <category primary="1">/js</category>
+  </categories>
+  <output_channels>
+   <output_channel primary="1">Javascript</output_channel>
+  </output_channels>
+  <keywords></keywords>
+  <contributors></contributors>
+  <elements>
+   <field type="code" order="0">/*********************************************************/
+//  Basic Extended Javascript Functionality
+//  This Library requires Jquery
+/*********************************************************/
+/*jslint white: true, browser: true, onevar: true, undef: true, nomen: true, eqeqeq: true, bitwise: true, regexp: true, newcap: true, immed: true,indent:2 */
+/*global $:true, S123:true,jQuery:true */
+
+Function.prototype.method = function (name, func) {
+  this.prototype[name] = func;
+  return this;
+};
+
+Object.spawn =  function (o, spec) {
+  var F = function () {}, that = {}, node = {};
+  F.prototype = o;
+  that = new F();
+  for (node in spec) {
+    that[node] = spec[node];
+  }
+  return that;
+};
+
+Object.size = function (obj) {
+  var size = 0, key;
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      size++;
+    }
+  }
+  return size;
+};
+
+Function.prototype.using = Function.call;
+
+
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function (from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from &lt; 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+/*and here's some examples of how it could be used:
+
+// Remove the second item from the array
+array.remove(1);
+// Remove the second-to-last item from the array
+array.remove(-2);
+// Remove the second and third items from the array
+array.remove(1,2);
+// Remove the last and second-to-last items from the array
+array.remove(-2,-1);
+*/
+
+/*********************************************************/
+//  Initial S123 Namespace
+//  This Library requires Jquery
+/*********************************************************/
+var s123 = {},
+S123 = {};
+
+s123 = S123 = {
+  'rgx': {
+    commaSplit: /(\d+)(\d{3})/i
+  },
+  'tpui': {},
+  'utils': {
+    'string': {
+      'addCommas': function (nStr, decimals) {
+        nStr = (nStr * 1).toFixed(2).toString();
+        var x = nStr.split('.'),
+        x2 = x.length &gt; 1 ? '.' + x[1] : '';
+        while (S123.rgx.commaSplit.test(x[0])) {
+          x[0] = x[0].replace(S123.rgx.commaSplit, '$1' + ',' + '$2');
+        }
+        if (decimals === 0) {
+          return x[0];
+        }
+        return x[0] + x2;
+      }
+    }
+  },
+  'ui': {
+    'create_widget': {
+      'error': function (args) {
+        /*Args
+           title: optional
+           msg: string or array : required
+           back_button: boolean adds a back_button
+        */  
+        var error_list = $('&lt;ul/&gt;'),
+        dom = $('&lt;div/&gt;', {
+          'title': args.title || 'Error',
+          'id': 's123_error'
+        })
+        
+        if ($.isArray(args.msg)) {
+          $.each(args.msg, function (index, value) {
+            error_list.append($('&lt;li/&gt;', {
+              html: value
+            }));
+          });
+          dom.append(error_list);
+        }
+        else {
+          dom.append(msg);
+        }
+        if (args.back_button) {
+          dom.append($('&lt;button/&gt;', {
+            name: 'goback',
+            text: 'Go Back',
+            click: function () {
+              history.go(-1);
+            }
+          }));
+        }
+        dom.dialog({
+          bgiframe: true,
+          modal: true
+        });
+        
+      },
+      'ajax_error': function () {
+      /* NORMALLY CALLED AS:
+        $.ajax({
+          ...
+          error: function(msg) {
+            s123.ui.create_widget.ajax_error.using(this); 
+          }
+          ...
+        }); */
+        //type must be either "post" or "get"
+        var title = 
+          this.type.toLowerCase() === 'post' ?
+          "Trouble Updating Data"       :
+          "Trouble Retrieving Data",
+        msg = 
+          this.type.toLowerCase() === 'post' ?
+          "Please try submitting again or refresh the page."       :
+          "Please reload the page.";
+
+        s123.ui.create_widget.error({
+          title: title,
+          msg: msg,
+          back_button: false
+        });
+      },
+      'info_div': function (msg, state) {
+        // state can be alert, info, loading.
+        var icon = (state === 'alert'   ? 'ui-icon-alert' : 'ui-icon-info'),
+        display_state = (state === 'alert' ? 'ui-state-error' : 'ui-state-highlight'),
+        dom;
+
+        dom = $('&lt;div/&gt;', {
+          'class': 'ui-widget',
+          'html': $('&lt;div/&gt;', {
+            'class': display_state + ' ui-corner-all info-div',
+            'html' : $('&lt;div/&gt;', {
+               css: {
+                 float: 'left'
+               },
+               html: function () {
+                 if (state === 'loading') {
+                   return $('&lt;img/&gt;', {
+                      src: '/css/start/images/ui-anim_basic_16x16.gif',
+                      css: {
+                        marginRight: '1em'
+                      }
+                   });
+                 }
+                 return $('&lt;span/&gt;', {
+                 'class': 'icon-left ui-icon ' + icon,
+                 })
+               }
+            })
+          })
+          .append($('&lt;div/&gt;', {
+            css: {
+              float: 'left'
+            },
+            html: msg
+          }))
+          .append($('&lt;div/&gt;', {
+            css: {
+              clear: 'both'
+            }
+          }))
+        });
+        if (state === 'info') {
+         setTimeout("$('.info-div').fadeTo(1000,.01).slideUp(1000)", 5000);
+        }
+        return dom;
+      }
+    }
+  },
+  'ajax': {
+    'post': {
+      'url': '',
+      /*'data': {},
+        example:{
+            value: the actual value you are passing as an argument
+            nickname: The name of the field that will display in the message
+            type: functional list (e.g.:
+              required().minlength(6).maxlength(10).lettersOnly())
+            selector:  The jquery selector string of where to find the input
+            action: Notify or fail
+            when: blur, keyup, submit, none
+        }*/
+      'cache': false, 
+      'async': true,
+      'type': 'POST',
+      //tradtional preserves our old fashioned way of sending in multi values
+      'traditional': true,
+      'dataType': 'json',
+      //'success': gets built at run time - use callback
+      //'error':   gets built at run time - use callback
+      'getValues': function () {
+        var values_only = {};
+        $.each(this.data, function (key, href) {
+          values_only[key] = href.value;
+        });
+        return values_only;
+      },
+      'getValue': function (field) {
+        return this.data[field].value;
+      },
+      'setValues': function (data) {
+        var self = this;
+        if (! self.data) {
+          self.data = {};
+        }
+        $.each(data, function (key, value) {
+          if (! self.data[key]) {
+            self.data[key] = {};
+          }
+          self.data[key].value = value;
+        });
+      },
+      'serializeForm': function (selector) {
+        var self = this,
+        form_array = $(selector).serializeArray();
+        if (! self.data) {
+          self.data = {};
+        }
+        $.each(form_array, function (index, data) {
+          // If there isn't that node, create it to avoid errors
+          if (! self.data[data.name]) {
+            self.data[data.name] = {};
+            self.data[data.name].value = data.value;
+          }
+          // If the node value exists...
+          else {
+            //if its not an array, make it one
+            if (! $.isArray(self.data[data.name].value)) {
+              self.data[data.name].value = [self.data[data.name].value];
+            }
+            //now its an array, so add the value
+            self.data[data.name].value.push(data.value);
+          }
+        });
+      },
+      'success_callback': function () {
+        return null; 
+      },
+      'build_success_callback': function () {
+        var self = this;
+
+        this.success =  function (data) {  
+          if (data.result === 'FAILURE') {
+            this.error(data);
+          } 
+          else {
+            self.success_callback(data);
+          }
+        };
+      },
+      'error_callback': function () { 
+        return null;
+      },
+      'build_error_callback': function () {
+        var self = this;
+        this.error =  function (data) {  
+          if (data.error) {
+            $.each(data.error, function (index, value) {
+            //alert(value);
+            });
+          }
+          S123.ui.create_widget.ajax_error.using(this);
+          self.error_callback(data);
+        };
+      },
+      'complete_callback': function () {
+        return null;
+      },
+      'send': function () {
+        var self = this,
+        settings = {};
+        //eventually validate and then...
+        self.build_success_callback();
+        self.build_error_callback();
+        settings = {
+          'url': self.url,
+          'type': self.type,
+          'dataType': self.dataType,
+          'cache': self.cache,
+          'async': self.async,
+          'error': self.error,
+          'success': self.success,
+          'traditional': self.traditional,
+          'complete': self.complete_callback
+        };
+        settings.data = self.getValues();
+        if (Object.size(self.data) &gt; 0) {
+          $.each(settings.data, function (key, value) {
+            if (value === null) {
+              delete settings.data[key];
+            }
+          });
+        }
+        //Address msie bug and interplay with MASON
+        $.ajax(settings);
+      }
+    }
+  }
+};
+//additional constructors that are spawned
+S123.ajax.get = Object.spawn(S123.ajax.post, {
+  'cache': false, 
+  'url': '',
+  'data': {},
+  'type': 'GET',
+  'dataType': 'json',
+  'build_error_callback': function () {
+    var self = this;
+    this.error =  function (data) {  
+      S123.ui.create_widget.ajax_error.using(this);
+      self.error_callback(data);
+    };
+  }
+});
+
+
+
+
+</field>
+  </elements>
+ </story>
+</assets>

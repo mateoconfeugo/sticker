@@ -1,4 +1,4 @@
-(defproject management "0.1.0-SNAPSHOT"
+(defproject landing-site "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.4.0"]
@@ -10,6 +10,8 @@
                  [me.raynes/fs "1.4.0"]
                  [flourish-common "0.1.0-SNAPSHOT"]
                  [com.cemerick/friend "0.1.4"]
+                 [robert/hooke "1.3.0"]
+                 [org.clojure/tools.logging "0.2.6"]
                  ]
   :plugins [[lein-ring "0.8.2"]]
   :ring {:handler management.handler/app}

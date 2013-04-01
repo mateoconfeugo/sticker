@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+########################################################################
+# ABSTRACT: Application Command Line Script.
+########################################################################
+BEGIN {
+    use lib qq($ENV{HOME}/Dropbox/Public/cms/lib);
+}
+use lib qw(/usr/local/bricolage/lib);
+use CMS::App::SiteBuilder;
+CMS::App::SiteBuilder->run;

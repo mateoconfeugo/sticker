@@ -7,7 +7,7 @@
   (:gen-class))
 
 (defroutes app-routes
-  (GET "/" request (file-response "index.html" {:root "resources"}))
+  (GET "/" request (file-response "public/index.html" {:root "resources"}))
   (route/resources "/")
   (route/files "/" {:root "public"})
   (route/not-found "Not Found"))

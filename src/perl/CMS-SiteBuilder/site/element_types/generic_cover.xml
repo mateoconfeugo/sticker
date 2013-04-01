@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<assets xmlns="http://bricolage.sourceforge.net/assets.xsd">
+ <element_type>
+  <key_name>generic_cover</key_name>
+  <name>Generic Cover</name>
+  <description>A cover element type.</description>
+  <paginated>0</paginated>
+  <fixed_uri>1</fixed_uri>
+  <related_story>0</related_story>
+  <related_media>0</related_media>
+  <displayed>0</displayed>
+  <is_media>0</is_media>
+  <biz_class>Bric::Biz::Asset::Business::Story</biz_class>
+  <active>1</active>
+  <top_level>1</top_level>
+  <sites>
+   <site primary_oc="html">dev_search123</site>
+  </sites>
+  <output_channels>
+   <output_channel site="dev_search123">html</output_channel>
+  </output_channels>
+  <subelement_types>
+   <subelement_type>
+    <key_name>related_stories</key_name>
+    <min_occur>0</min_occur>
+    <max_occur>0</max_occur>
+    <place>1</place>
+   </subelement_type>
+   <subelement_type>
+    <key_name>related_media</key_name>
+    <min_occur>0</min_occur>
+    <max_occur>0</max_occur>
+    <place>2</place>
+   </subelement_type>
+  </subelement_types>
+  <field_types></field_types>
+ </element_type>
+</assets>
