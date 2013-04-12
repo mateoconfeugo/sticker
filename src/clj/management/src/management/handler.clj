@@ -8,7 +8,9 @@
                              [credentials :as creds]))
   (:use [hiccup.page :only (html5)]
         [ring.adapter.jetty :as ring]
+        [clojure.java.shell :only [sh]]        
         [compojure.core]
+        [watchtower.core]
         [management.controllers.user :only(user-routes) :as gui-user]
         [management.views.layout :as layout]))
 
@@ -32,10 +34,13 @@
                     :roles #{::user}}})
 
 (derive ::admin ::user)
-(derive ::publisher ::user)
-(derive ::advertiser ::user)
-(derive ::content-provider ::user)
-(derive ::feed-provider ::user)
+;;(derive ::publisher ::user)
+;;(derive ::advertiser ::user)
+;;(derive ::content-provider ::user)
+;;(derive ::feed-provider ::user)
+
+
+
 
 
 (defn run-of-network [] (str "run of network yall"))
@@ -70,7 +75,9 @@
   [x]
   (-> (json/generate-string x)
       resp/response
-          (resp/content-type "application/json")))
+      (resp/content-type "application/json")))
+
+
 
 (defroutes app-routes
   (GET "/" [] "welcome")
@@ -97,4 +104,13 @@
 (defn -main []
   (let [port (Integer/parseInt
               (or (System/getenv "PORT") "8087"))]
-    (start port)))
+    (start port)
+    ))
+
+(comment
+    (watcher ["/Users/matthewburns/github/florish-online/src/clj/management/resources/public/jemplate/top_menu.tt"]
+             (rate 50) ;; poll every 50ms
+             (file-filter ignore-dotfiles) 
+             (file-filter (extensions :tt))
+             (on-change #(sh "/opt/local/libexec/perl5.12/sitebin/jemplate --compile ./jemplate/*  > js/jemplates.js")))
+)    

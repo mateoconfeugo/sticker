@@ -1,0 +1,1 @@
+% $burner->display_element($_) for  $element->get_elements('javascript_snippet');

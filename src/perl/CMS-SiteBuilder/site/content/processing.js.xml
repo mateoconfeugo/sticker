@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<assets xmlns="http://bricolage.sourceforge.net/assets.xsd">
+ <story  element_type="javascript_library">
+  <site>dev_search123</site>
+  <name>processing</name>
+  <description></description>
+  <slug>processing</slug>
+  <primary_uri>/js/processing.js</primary_uri>
+  <priority>3</priority>
+  <publish_status>1</publish_status>
+  <active>1</active>
+  <source>Internal</source>
+  <cover_date>2010-07-27T06:52:00Z</cover_date>
+  <publish_date>2010-07-27T06:57:00Z</publish_date>
+  <first_publish_date>2010-07-27T06:54:57Z</first_publish_date>
+  <categories>
+   <category primary="1">/js/</category>
+  </categories>
+  <output_channels>
+   <output_channel primary="1">Javascript</output_channel>
+  </output_channels>
+  <keywords></keywords>
+  <contributors></contributors>
+  <elements>
+   <field type="code" order="0" />
+  </elements>
+ </story>
+</assets>

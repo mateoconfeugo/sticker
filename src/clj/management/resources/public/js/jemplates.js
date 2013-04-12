@@ -14,6 +14,22 @@ if (typeof(exports) == 'object') {
 if (typeof(Jemplate) == 'undefined')
     throw('Jemplate.js must be loaded before any Jemplate template files');
 
+Jemplate.templateMap['cms.tt'] = function(context) {
+    if (! context) throw('Jemplate function called without context\n');
+    var stash = context.stash;
+    var output = '';
+
+    try {
+output += '<div id="stage" class="span12"> <iframe class="span12" src="http://166.78.153.58:8080"></iframe> </div>	      ';
+    }
+    catch(e) {
+        var error = context.set_error(e, output);
+        throw(error);
+    }
+
+    return output;
+}
+
 Jemplate.templateMap['layout.tt'] = function(context) {
     if (! context) throw('Jemplate function called without context\n');
     var stash = context.stash;
@@ -46,7 +62,7 @@ output += context.include('top_menu.tt');
 output += '\n      </div>\n    </div>\n  </div>\n  <div class="container-fluid">\n    ';
 //line 12 "layout.tt"
 output += context.include('stage.tt');
-output += '\n  </div>\n  <div id="server_message_channel"></div>  \n</div>\n';
+output += '\n  </div>\n</div>\n';
     }
     catch(e) {
         var error = context.set_error(e, output);
@@ -308,7 +324,10 @@ Jemplate.templateMap['stage.tt'] = function(context) {
     var output = '';
 
     try {
-output += '<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="tabbable tabs-right container-fluid">\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n\n  <div class="row-fluid span12" >\n     <div id="stage" class="span10">\n     </div>	      \n    <div class="span2">\n    </div>\n </div>\n\n\n';
+output += '<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="tabbable tabs-right container-fluid">\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n\n<div class="row-fluid span12" >\n  ';
+//line 10 "stage.tt"
+output += context.include('cms.tt');
+output += '\n</div>\n\n\n';
     }
     catch(e) {
         var error = context.set_error(e, output);

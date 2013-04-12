@@ -1,0 +1,37 @@
+{
+   "swp_stage" : [
+      {}
+   ],
+   "keyword_list_link" : [
+      {}
+   ],
+   "page" : [
+      {
+         "paragraph" : "some hard hitting pandering"
+      }
+   ],
+   "landingsite_active" : "1",
+   "market_vector" : [],
+   "landingsite_name" : "SIP"
+}
+
+$VAR1 = {
+          'swp_stage' => [
+                           {}
+                         ],
+          'keyword_list_link' => [
+                                   {}
+                                 ],
+          'page' => [
+                      {
+                        'paragraph' => 'some hard hitting pandering'
+                      }
+                    ],
+          'landingsite_active' => '1',
+          'market_vector' => [],
+          'landingsite_name' => 'SIP'
+        };
+
+
+
+

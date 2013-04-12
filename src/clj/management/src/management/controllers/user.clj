@@ -19,15 +19,13 @@
      :subname (str "//" host ":" port "/" db-name)
      :user db-user
      :password db-password}))
-  
-
 
 (defn index []
   (view/index (model/all (get-db-conn))))
 
 (defn all-users []
   (view/users-list (model/all (get-db-conn))))
-
+(derive ::admin ::user)
 
 (defn create [user]
   (when-not (str/blank? (:first-name user))
@@ -35,6 +33,5 @@
   (ring/redirect "/all"))
 
 (defroutes user-routes
-  (GET  "/" [] (index) (friend/authorize #{::user} "This page can only be seen by authenticated users."))
-  (GET  "/all*" [id] (friend/authorize #{::user} "This page can only be seen by authenticated users.") (all-users))
-  (POST "/" [fname lname] (create {:first-name fname :last-name lname})))
+  (GET  "/user/:id" [id]  (all-users))
+  (POST "/user" [fname lname] (create {:first-name fname :last-name lname})))

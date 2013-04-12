@@ -1,0 +1,1 @@
+<input type="hidden" name="<% $element->get_value('name') %>" value="<% $element->get_value('value') %>" />

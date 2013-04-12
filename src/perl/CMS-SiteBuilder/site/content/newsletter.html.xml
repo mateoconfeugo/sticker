@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<assets xmlns="http://bricolage.sourceforge.net/assets.xsd">
+ <story  element_type="story">
+  <site>dev_search123</site>
+  <name>Newsletter</name>
+  <description>Newsletters users can subscribe to</description>
+  <slug>newsletter</slug>
+  <primary_uri>/html/press/newsletter.html</primary_uri>
+  <priority>3</priority>
+  <publish_status>0</publish_status>
+  <active>1</active>
+  <source>Internal</source>
+  <cover_date></cover_date>
+  <publish_date></publish_date>
+  <first_publish_date></first_publish_date>
+  <categories>
+   <category primary="1">/html/press</category>
+  </categories>
+  <output_channels>
+   <output_channel primary="1">html</output_channel>
+  </output_channels>
+  <keywords></keywords>
+  <contributors></contributors>
+  <elements>
+   <field type="deck" order="0">deck</field>
+   <container displayed="1" order="1" element_type="page">
+    <field type="paragraph" order="0">this is a paragraph</field>
+   </container>
+  </elements>
+ </story>
+</assets>

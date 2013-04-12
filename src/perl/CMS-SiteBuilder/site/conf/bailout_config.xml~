@@ -1,0 +1,778 @@
+<cms_site_configuration>
+  <name>dev_search123</name>
+  <bric_password>hot12dog</bric_password>
+  <bric_server>cms101.sk.valueclick.com:8095</bric_server>
+  <bric_soap>/home/mburns/perl5/bricolage/bin/bric_soap</bric_soap>
+  <bric_username>admin</bric_username>
+  <domain_name>dev_search123.com</domain_name>
+  <description>Search 123 main site</description>
+  <element_types_dir>/home/mburns/Projects/website_factory/mytmp/dev_search123.com/element_types</element_types_dir>
+  <media_publish_desk>dev s123 media publish</media_publish_desk>
+  <template_publish_desk>dev s123 template deploy</template_publish_desk>
+  <template_base_dir>/home/mburns/Projects/website_factory/mytmp/dev_search123.com/templates</template_base_dir>
+  <story_publish_desk>dev s123 story publish</story_publish_desk>
+  <story_base_dir>/home/mburns/Projects/website_factory/mytmp/dev_search123.com/content</story_base_dir>
+  
+  <media_resources_config>
+    <bric_soap>/home/mburns/perl5/home/mburns/perl5/bricolage/bin/bric_soap</bric_soap>
+    <media_upload_app>/home/mburns/bin/bric_media_upload </media_upload_app>
+    <password>hot12dog</password>
+    <server>cms101.sk.valueclick.com:8095</server>
+    <tar>/home/mburns/Projects/website_factory/mytmp/dev_search123.com/resources/s123resources.tar</tar>
+    <username>admin</username>
+  </media_resources_config>
+  
+  <categories>
+    <category>
+      <name>dev_s123root</name>
+      <description>root</description>
+      <directory>/</directory>
+      <uri>/</uri>
+    </category>
+    <category>
+      <name>html</name>
+      <description>html documents</description>
+      <directory>/html/</directory>
+      <uri>/html/</uri>
+    </category>
+    <category>
+      <name>about</name>
+      <description>knowledge base</description>
+      <directory>/html/about/</directory>
+      <uri>/html/about/</uri>
+    </category>
+    <category>
+      <name>publisher</name>
+      <description>publisher resources</description>
+      <directory>/html/publisher/</directory>
+      <uri>/html/publisher/</uri>
+    </category>
+    <category>
+      <name>advertiser</name>
+      <description>advertiser resources</description>
+      <directory>/html/advertiser/</directory>
+      <uri>/html/advertiser/</uri>
+    </category>
+    <category>
+      <name>press release</name>
+      <description>press releases</description>
+      <directory>/html/press/</directory>
+      <uri>/html/press/</uri>
+    </category>
+    <category>
+      <name>css</name>
+      <description>user generated css</description>
+      <directory>/css/</directory>
+      <uri>/css/</uri>
+    </category>
+    <category>
+      <name>javascript</name>
+      <description>javascript libraries</description>
+      <directory>/js/</directory>
+      <uri>/js/</uri>
+    </category>
+    <category>
+      <name>site images</name>
+      <description>site level images</description>
+      <directory>/images/</directory>
+      <uri>/images/</uri>
+    </category>
+    <category>
+      <name>login</name>
+      <description>login resources</description>
+      <directory>/html/login</directory>
+      <uri>/html/login/</uri>
+    </category>
+    <category>
+      <name>utils</name>
+      <description>Root for utility templates</description>
+      <directory>/utils/</directory>
+      <uri>/utils/</uri>
+    </category>
+    <category>
+      <name>utils_site</name>
+      <description>Utility templates for building the framework of the site</description>
+      <directory>/utils/site/</directory>
+      <uri>/utils/site/</uri>
+    </category>
+    <category>
+      <name>utils_tools</name>
+      <description>Utility templates for common needed tasks</description>
+      <directory>/utils/tools/</directory>
+      <uri>/utils/tools/</uri>
+    </category>        
+  </categories>
+
+  <destinations>
+    <destination>
+      <server_type>
+	<name>Dev Network share</name>
+	<description>NFS share connecting cms to web server</description>
+	<move_method>File System</move_method>
+	<output_channels>html, Javascript, css</output_channels>
+      </server_type>
+      <servers>
+	<server>
+	  <cookie></cookie>
+	  <doc_root>/home/mburns/cms/sites/dev_search123.com</doc_root>
+	  <host_name>cms101.sk.valueclick.com</host_name>
+	  <login>test</login>
+	  <os>Unix</os>
+	  <password></password>
+	</server>
+      </servers>
+    </destination>
+  </destinations>
+
+  <groups>
+    <group>
+      <name>dev_search123 operations</name>
+      <description></description>
+      <permanent>1</permanent>
+      <secret>0</secret>
+    </group>
+    <group>
+      <name>dev_search123 development</name>
+      <description></description>
+      <permanent>1</permanent>
+      <secret>0</secret>
+    </group>
+  </groups>
+
+  <output_channels>
+    <output_channel>
+      <name>html</name>
+      <active>1</active>
+      <description>channel that allows slugname to be the filename</description>
+      <file_ext>html</file_ext>
+      <filename>/%{slug}/</filename>
+      <fixed_uri_format>/%{categories}/</fixed_uri_format>
+      <include_channels>Javascript</include_channels>
+      <is_primary>0</is_primary>
+      <uri_format>/%{categories}/%Y/%m/%d/%{slug}/</uri_format>
+      <use_slug>1</use_slug>
+    </output_channel>
+    <output_channel>
+      <name>css</name>
+      <active>1</active>
+      <description>channel that allows slugname to be the filename</description>
+      <file_ext>css</file_ext>
+      <filename>/%{slug}/</filename>
+      <fixed_uri_format>/%{categories}/</fixed_uri_format>
+      <is_primary>0</is_primary>
+      <uri_format>/%{categories}/%Y/%m/%d/%{slug}/</uri_format>
+      <use_slug>1</use_slug>
+    </output_channel>
+    <output_channel>
+      <name>Javascript</name>
+      <active>1</active>
+      <description>channel that allows slugname to be the filename</description>
+      <file_ext>js</file_ext>
+      <filename>/%{slug}/</filename>
+      <fixed_uri_format>/%{categories}/</fixed_uri_format>
+      <is_primary>0</is_primary>
+      <uri_format>/%{categories}/%Y/%m/%d/%{slug}/</uri_format>
+      <use_slug>1</use_slug>
+    </output_channel>
+  </output_channels>
+
+  <templates>
+<!-- Category Templates -->
+    <template>
+      <name>autohandler</name>
+      <category>/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>site top autohandler does almost nothing</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>2</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>autohandler</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>autohandler responsible for createing dom framework</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>2</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+  
+<!-- Element Templates -->    
+    <template>
+      <name>generic_story</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>basic story element template</description>
+      <element_type>generic_story</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>network_advertiser_signup</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>basic story element template</description>
+      <element_type>network_advertiser_signup</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>    
+    <template>
+      <name>form</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>form element template</description>
+      <element_type>form</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>form checkbox input</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>form checkbox element template</description>
+      <element_type>form checkbox input</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>form hidden input</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>form hiddenelement template</description>
+      <element_type>form_hidden_input</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+        <template>
+      <name>form password input</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>form passwordelement template</description>
+      <element_type>form_password_input</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+        <template>
+      <name>form radio input</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>form radio  element template</description>
+      <element_type>form_radio_input</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>form reset</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>form reset button element template</description>
+      <element_type>form_rest_input</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>form text input</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>form text element template</description>
+      <element_type>form_text_input</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>form submit input</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>form submit inputelement template</description>
+      <element_type>form_submit_input</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>        
+    <template>
+      <name>page</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>page element template</description>
+      <element_type>page</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>channel</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>channel element template</description>
+      <element_type>channel</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>connection</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>connection element template</description>
+      <element_type>connection</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>faqs</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>faqs element template</description>
+      <element_type>faqs</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>faq</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>faq element template</description>
+      <element_type>faq</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+
+    <template>
+      <name>related stories</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>related stories element template</description>
+      <element_type>related_stories</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>related story</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>related story element template</description>
+      <element_type>related_story</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>related media</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>related media element template</description>
+      <element_type>related_media</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+
+    <template>
+      <name>story</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>basic story element template</description>
+      <element_type>story</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>cover</name>
+      <category>/html/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>basic coverstory element template</description>
+      <element_type>cover</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+
+    <template>
+      <name>css</name>
+      <category>/css/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>cascaded stylesheet</description>
+      <element_type>css</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>css</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+
+    <template>
+      <name>javascript snippet</name>
+      <category>/js/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>creates javascript elements into the site specific javascript library</description>
+      <expire_date>20110610170055</expire_date>
+      <element_type>javascript_snippet</element_type>
+      <element_type_id></element_type_id>      
+      <output_channel>Javascript</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    
+    <template>
+      <name>javascript library</name>
+      <category>/js/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>Javascript libraries to include and work on the html document</description>
+      <element_type>javascript_library</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>Javascript</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>1</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+
+    <template>
+      <name>javascript</name>
+      <category>/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>Javascript to include in to the site javascript library</description>
+      <element_type>javascript</element_type>
+      <element_type_id></element_type_id>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>Javascript</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+
+    <template>
+      <name>content</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>holds the main content of the page</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+
+    <template>
+      <name>footer</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>the bottom layout framework of the site</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>nav_bar</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>side menu</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>site_menu</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>main menu</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>        
+    <template>
+      <name>head</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>build the head node of the html dom</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>header</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>the top layout framework of the site</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>top</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>Top DOM level framework</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>wrap</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>Framwork of the site top level content layout struture</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>
+    </template>
+    <template>
+      <name>storylist</name>
+      <category>/utils_tools/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>Reteive a list of story ids</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>      
+    </template>
+    <template>
+      <name>search_box</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>Reteive a list of story ids</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>      
+    </template>
+    <template>
+      <name>copy_write</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>copywrite</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>      
+    </template>
+    <template>
+      <name>included_js_lib</name>
+      <category>/utils_site/</category>
+      <category__id></category__id>
+      <deploy_date>20100624194424</deploy_date>
+      <description>copywrite</description>
+      <expire_date>20110610170055</expire_date>
+      <output_channel>html</output_channel>
+      <output_channel__id></output_channel__id>
+      <tplate_type>3</tplate_type>
+      <workflow_id></workflow_id>      
+    </template>            
+  </templates>
+  <users>
+    <user>
+      <fname>ham</fname>
+      <lname>lettuce</lname>
+      <login>hsausage</login>
+      <mname>sausage</mname>
+      <password>password</password>
+      <prefix>Mr</prefix>
+      <suffix>Jr</suffix>
+    </user>
+  </users>
+  <workflows>
+    <workflow>
+      <name>story workflow</name>
+      <description>content workflow</description>
+      <start_desk>dev s123 content edit</start_desk>
+      <type>2</type>
+      <desks>
+	<desk>
+	  <name>dev s123 content edit</name>
+	  <description>Edit Desk</description>
+	  <publish>0</publish>
+	</desk>
+	<desk>
+	  <name>dev s123 content copy</name>
+	  <description>Copy Desk</description>
+	  <publish>0</publish>
+	</desk>
+	<desk>
+	  <name>dev s123 content legal</name>
+	  <description>Legal Desk</description>
+	  <publish>0</publish>
+	</desk>
+	<desk>
+	  <name>dev s123 content publish</name>
+	  <description>Publish Desk</description>
+	  <publish>1</publish>
+	</desk>
+      </desks>
+    </workflow>
+    <workflow>
+      <name>media workflow </name>
+      <description>media workflow</description>
+      <start_desk>dev s123 media art</start_desk>
+      <type>3</type>      
+      <desks>
+	<desk>
+	  <name>dev s123 media art</name>
+	  <description>Art Desk</description>
+	  <publish>0</publish>
+	</desk>
+	<desk>
+	  <name>dev s123 media legal</name>
+	  <description>Legal Desk</description>
+	  <publish>0</publish>
+	</desk>
+	<desk>
+	  <name>dev s123 media publish</name>
+	  <description>Publish Desk</description>
+	  <publish>1</publish>
+	</desk>
+      </desks>
+    </workflow>
+    <workflow>
+      <name>template workflow</name>
+      <description>template workflow</description>
+      <start_desk>dev s123 template develop</start_desk>
+      <type>1</type>
+      <desks>
+	<desk>
+	  <name>dev s123 template develop</name>
+	  <description>developer desk</description>
+	  <publish>0</publish>
+	</desk>
+	<desk>
+	  <name>dev s123 template deploy</name>
+	  <description>deployment desk</description>
+	  <publish>1</publish>
+	</desk>
+      </desks>
+    </workflow>
+  </workflows>
+</cms_site_configuration>

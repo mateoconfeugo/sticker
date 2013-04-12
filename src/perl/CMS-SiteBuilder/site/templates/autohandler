@@ -1,0 +1,5 @@
+<%flags>
+  inherit => undef
+</%flags>
+
+% $burner->chain_next(@_);

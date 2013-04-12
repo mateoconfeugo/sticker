@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assets xmlns="http://bricolage.sourceforge.net/assets.xsd">
+ <story  element_type="story">
+  <site>dev_search123</site>
+  <name>Advertiser features</name>
+  <description></description>
+  <slug>advertiser_features</slug>
+  <primary_uri>/html/advertiser/advertiser_features.html</primary_uri>
+  <priority>3</priority>
+  <publish_status>0</publish_status>
+  <active>1</active>
+  <source>Internal</source>
+  <categories>
+   <category primary="1">/html/advertiser</category>
+  </categories>
+  <output_channels>
+   <output_channel primary="1">html</output_channel>
+  </output_channels>
+  <keywords></keywords>
+  <contributors></contributors>
+  <elements>
+   <field type="deck" order="0">deck</field>
+  </elements>
+ </story>
+</assets>
