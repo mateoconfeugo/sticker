@@ -1,5 +1,5 @@
 [% META title = 'Landing Site Home Page' %]
-<div id="rootwizard" class="tabbable tabs-right">
+<div id="rootwizard" class="tabbable tabs-left">
      <div id="nav-controls-destination"></div>
   <ul class="nav nav-tabs">
     [% FOREACH p IN pages %]

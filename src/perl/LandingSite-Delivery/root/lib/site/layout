@@ -11,12 +11,15 @@
          [% INCLUDE site/top_menu.tt %]
       </div>
       <div class="span2"><img src="/img/PCSlogo.png" class="img-rounded logo"></div>
+      <div class="span1 offset8" id="side-lead-form"></div>
     </div>
   </div>
   <div class="container-fluid">
     [% INCLUDE site/stage %]
-    <div class="span9 offset2">[% content %]</div>
-  </div>.
+    <div class="span8 offset1">
+      [% content %]
+    </div>
+  </div>
   <div id="server_message_channel"></div>  
 </div>
 [% END %]
