@@ -4,4 +4,4 @@ export PERL5LIB=/home/pcs/florish-online/src/perl/LandingSite-Delivery/lib:$PERL
 source /home/pcs/perl5/perlbrew/etc/bashrc
 cd /home/pcs/florish-online/src/perl/LandingSite-Delivery
 #/home/pcs/perl5/perlbrew/bin/perlbrew use perl-5.16.2
-/home/pcs/perl5/perlbrew/perls/perl-5.16.2/bin/plackup --port 3000 --host 127.0.0.1 -I/home/pcs/florish-online/src/perl/LandingSite-Delivery/lib -a /home/pcs/florish-online/src/perl/LandingSite-Delivery/landingsite_delivery.psgi
+/home/pcs/perl5/perlbrew/perls/perl-5.16.2/bin/plackup --port 3000 --host 127.0.0.1 -I/home/pcs/florish-online/src/perl/LandingSite-Delivery/lib -a /home/pcs/florish-online/src/perl/LandingSite-Delivery/landingsite_delivery.psgi --access-log  /home/pcs/florish-online/log/landing_site_access.log

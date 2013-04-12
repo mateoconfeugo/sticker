@@ -45,6 +45,8 @@ sub view : Chained('market_vector') PathPart('view') Args(0) {
     $DB::single=1;
     my $item = $c->stash->{item};
     my $landing_site_id= $self->get_landing_site_id($c);
+    my $log_entry = {landing_site=>$landing_site_id, market_vector=>$c->session->{market_vectorid}};
+    $c->log->info(encode_json($log_entry));
     $c->{session}->{landing_site_id} = $landing_site_id;
     my $page_name = "$landing_site_id" . $c->session->{adgroup_id} . ".html";
     my $landing_path = catfile('site', 'landing_site', $landing_site_id,  $page_name);
