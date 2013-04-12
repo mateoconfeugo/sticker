@@ -4,7 +4,6 @@
   <span class="icon-bar"></span>
 </a>
 
-
 <a class="brand" href="#">Causal Marketing</a>
 <div class="nav-collapse collapse">
   <p class="navbar-text pull-right">&nbsp<a href="#" class="navbar-link">[% c.user.id %]</a></p>

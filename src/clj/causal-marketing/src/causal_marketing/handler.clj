@@ -1,18 +1,15 @@
 (ns causal-marketing.handler
   (:use [compojure.core]
         [ring.adapter.jetty :as ring]
-        [ring.util.response :only(file-response)])
+        [ring.util.response :as resp]
+        [net.cgrand.enlive-html :as html]
+        [flourish-common.config]
+        [causal-marketing.controllers.site  :only [site-routes]])
   (:require [compojure.handler :as handler]
             [compojure.route :as route])
   (:gen-class))
 
-(defroutes app-routes
-  (GET "/" request (file-response "public/index.html" {:root "resources"}))
-  (route/resources "/")
-  (route/files "/" {:root "public"})
-  (route/not-found "Not Found"))
-
-(def app (handler/site app-routes))
+(def app (handler/site site-routes))
 
 (defn start [port] (run-jetty app {:port port :join? false}))
 
@@ -22,3 +19,4 @@
               (or (System/getenv "PORT") "8087"))]
     (start port)))
 
+(defonce server (run-jetty #'app {:port 8087 :join? false}))

@@ -1,0 +1,179 @@
+{
+   "ad_campaign" : [
+      {
+         "ad_network" : "google__OPT__gorilla",
+         "campaign_id" : "1"
+      }
+   ],
+   "landing_site" : {
+      "1" : {
+         "swp_stage" : [
+            {}
+         ],
+         "page" : [
+            {
+               "related_media" : [
+                  {},
+                  {}
+               ],
+               "pull_quote" : [
+                  {
+                     "quote" : "The Patient Comfort Way"
+                  }
+               ],
+               "paragraph" : "What to do when you get diagnosed with a serious illness\r\nLive smart think healthy Join together the essential health aspects of:\r\n\r\n  Follow the Instructions of your physician \r\n  Detox\r\n  Good Nutrition\r\n  Restorative Supplements\r\n  Pain Management, and Insomnia\r\n  Purified alkaline water\r\n\r\n\r\nRestore, Rebuild,  renew, start fresh. ",
+               "inset" : [
+                  {
+                     "copy" : "Introducing"
+                  }
+               ]
+            },
+            {
+               "related_media" : [
+                  {},
+                  {}
+               ],
+               "pull_quote" : [
+                  {
+                     "quote" : "A fresh clean start"
+                  }
+               ],
+               "paragraph" : "Our Intestinal Cleanser of psyllium husk and seed \r\nNo laxative or herbal stimulants \r\nCan be used daily \r\nHas a hydrophilic (water-loving) action \r\nSoftens and eliminates hardened  bowel mucous lining  \r\nMaintain a healthy cholesterol level ",
+               "inset" : [
+                  {
+                     "copy" : "Detox"
+                  }
+               ]
+            },
+            {
+               "related_media" : [
+                  {},
+                  {}
+               ],
+               "pull_quote" : [
+                  {
+                     "quote" : "Hydration - Its basic - water powers life"
+                  }
+               ],
+               "paragraph" : "High alkaline water changing your body pH to a healthy place\r\nAlkaline drinking water increases body hydration\r\nBetter superior taste\r\nIncreases  water absorption to the body\r\nReduces the bloated feeling caused by drinking water\r\n\r\n",
+               "inset" : [
+                  {
+                     "copy" : "Water"
+                  }
+               ]
+            },
+            {
+               "related_media" : [
+                  {}
+               ],
+               "pull_quote" : [
+                  {
+                     "quote" : "Pain management  and sleeplessness"
+                  }
+               ],
+               "paragraph" : "Dissolvable natural oral strip\r\nIncreases appetiate\r\nGet a good nights rest \r\n\r\n",
+               "inset" : [
+                  {
+                     "copy" : "Pain"
+                  }
+               ]
+            },
+            {
+               "related_media" : [
+                  {},
+                  {}
+               ],
+               "pull_quote" : [
+                  {
+                     "quote" : "Customized vitamin program"
+                  }
+               ],
+               "paragraph" : "Get the correct nutrients at the correct time\r\nSynchronize the therapeutic  action with circadian rhythms\r\nFundamentally rebuild your body with best material",
+               "inset" : [
+                  {
+                     "copy" : "Vitamins"
+                  }
+               ]
+            },
+            {
+               "related_media" : [
+                  {}
+               ],
+               "pull_quote" : [
+                  {
+                     "quote" : "Contact Us"
+                  }
+               ],
+               "paragraph" : "For help or to help a loved one, call today",
+               "inset" : [
+                  {
+                     "copy" : "Get Help"
+                  }
+               ]
+            },
+            {
+               "related_media" : [
+                  {}
+               ],
+               "pull_quote" : [
+                  {
+                     "quote" : "How to become an authorized distributor"
+                  }
+               ],
+               "paragraph" : "The Patient Comfort Way products and services are available through authorized distributers\r\nFor your nearest distributor. or For distribution opportunities \r\n",
+               "inset" : [
+                  {
+                     "copy" : "Opportunities "
+                  }
+               ]
+            },
+            {
+               "pull_quote" : [
+                  {
+                     "quote" : "Register or find a support group."
+                  }
+               ],
+               "paragraph" : "Help others by signing up you support group.  Help yourself by finding support.",
+               "inset" : [
+                  {
+                     "copy" : "Support Groups"
+                  }
+               ]
+            }
+         ],
+         "landingsite_active" : "1",
+         "landingsite_name" : "Default Landing Site for Patient Confort Services Educational Campaign"
+      }
+   },
+   "profile_vector" : [
+      {
+         "age_dimension" : [
+            {
+               "age_dimension_high" : "60",
+               "age_dimension_lower" : "27"
+            }
+         ],
+         "income_dimension" : [
+            {
+               "income_level" : "lower-middle-class"
+            }
+         ],
+         "ethnicity_dimension" : [
+            {
+               "race" : "white"
+            }
+         ],
+         "gender_dimension" : [
+            {
+               "gender_dimension" : "female"
+            }
+         ]
+      }
+   ]
+}
+
+
+
+
+
+

@@ -7,7 +7,9 @@
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [compojure "1.1.5"]
                  [ring/ring-jetty-adapter "1.1.6"]                 
-                 [enlive "1.1.1"]]
+                 [enlive "1.1.1"]
+                 [flourish-common "0.1.0-SNAPSHOT"]
+                 [cms "0.1.0-SNAPSHOT"]]
   :dev-dependencies [[ring-serve "0.1.2"]]
   :plugins [[lein-ring "0.8.2"]]
   :ring {:handler causal-marketing.handler/app}
