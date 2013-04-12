@@ -2,18 +2,18 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route])
   (:use [ring.adapter.jetty :as ring]
-        [compojure.core]
+        [compojure.core :only (defroutes)]
         [landing-site.controllers.user :only(user-routes) :as gui-user]
         [landing-site.views.layout :as layout]
         [landing-site.controllers.ad-network-traffic :only (landing-site-routes)]))
 
 (defn run-of-network [] (str "run of network yall"))
 
-(defroutes app-routes
+(compojure.core/defroutes app-routes
   (context "/" [] landing-site-routes)
   (route/resources "/")
-  (route/files "/" {:root "public"})
-  (route/not-found [request] (run-of-network request)))
+  (route/files "/" {:root "public"}))
+;;  (route/not-found [request] (run-of-network request)))
 
 (def app (handler/site  app-routes))
 

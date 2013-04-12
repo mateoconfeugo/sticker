@@ -53,51 +53,11 @@ require.config({
 
 });
 
-
 require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstrapWizard'], 
 	function($, _, Backbone, Desktop) {
-
-	    $.fn.serializeObject = function()
-	    {
-		var o = {};
-		var a = this.serializeArray();
-		$.each(a, function() {
-		    if (o[this.name] !== undefined) {
-			if (!o[this.name].push) {
-			    o[this.name] = [o[this.name]];
-			}
-			o[this.name].push(this.value || '');
-		    } else {
-			o[this.name] = this.value || '';
-		    }
-		});
-		return o;
-	    };
-
-	    // Main entry point that runs after getting the configuration data
-	    var fetchSuccess = function(cfg) {
-		var router = new Desktop({config: cfg});
-		cfg.router = router;
-		Backbone.history.start();
-		$('#rootwizard').bootstrapWizard({
-		    'class': 'nav nav-tabs',
-		    onNext: function(event) { 
-//			$('#lead_form_link').trigger('click');
-//			router.navigate('lead_form', {trigger: true});
-			var index = $('#rootwizard').bootstrapWizard('currentIndex');
-			var size = $('#rootwizard').bootstrapWizard('navigationLength');
-			if(index >= size) {
-			    $('#lead_form_link').trigger('click');
-//			    return false;
-			}
-			return true;
-		    }
-		});
-	    };
-	    
-	    // Get configuration and tie to application
-	    var config = new Backbone.Model();
-	    config.url = "/clientconfig";
-	    config.fetch({success: fetchSuccess});
-	    $('#the_body').html(Jemplate.process("layout.tt"));
+	    $('#rootwizard').bootstrapWizard();
+//	    $('#header').html(Jemplate.process("layout.tt"));
+	    var pager_cntls = $(".pager wizard");
+	    $('.hero-unit').append($('#nav-controls'));
 	});
+
