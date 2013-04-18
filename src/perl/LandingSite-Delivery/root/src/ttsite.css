@@ -58,21 +58,33 @@ img {
     opacity: 0.2;
 }
 
+#header-question {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 20px;
+  color: white;
+}
+
 .logo {
     opacity: 1;
 }
-/*
-.btn-success {
-    color: orange;
-}
 
-.nav-tabs li{
-    color: orange;
-}
-*/
 .hero-unit p {
-  font-size: 100%;
+  font-size: 120%;
   font-weight: bold;
   text-rendering: optimizelegibility;
   color: #424849;
+}
+
+.hero-unit li {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 20px;
+  font-size: 120%;
+/*  color: #f89406; */
+}
+
+.hero-unit li {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 20px;
+  font-size: 20px;
+/*  color: #f89406; */
 }
