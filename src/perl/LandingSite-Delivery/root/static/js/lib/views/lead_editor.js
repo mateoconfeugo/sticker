@@ -11,38 +11,43 @@ define(
 		"click .btn": "updateModel",
 	    },
 	    initialize: function(options) {
-		_.bindAll(this, "render", "updateModel", "submit");
+		_.bindAll(this, "render", "updateModel", "submit", "gather_data");
+		this.template = options.template;
 		this.router = options.router;
 		this.model = new Lead();
 		this.model.on("sync", this.render);
 		this.render();
+		$.validator.addMethod("phoneUS", function(phone_number, element) {
+		    phone_number = phone_number.replace(/\s+/g, ""); 
+		    return this.optional(element) || phone_number.length > 9 &&
+			phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+		}, "Please specify a valid phone number");
 		return this;
 	    },
 	    render: function(e) {
-		this.$el.html(Jemplate.process("lead_editor.tt"));
-		$("#lead_form").validate();
+		this.$el.html(Jemplate.process(this.template));
+		$("#lead_form").validate(this.model.validation);
 		return this;
 	    },
 	    submit: function(e){
 //		e.preventDefault();
-
 	    },
-	    updateModel: function(e) {
-		e.preventDefault();
-		$("#lead_form").validate();
-		if(!$("#lead_form").valid()){
-		    return this;
-		}
-		var first_name = this.$('#lead_first_name').val();
-		this.model.set('first_name', first_name);
-		var last_name = this.$('#lead_last_name').val();
-		this.model.set('last_name', last_name);
+	    gather_data: function() {
+		var full_name = this.$('#lead_full_name').val();
+		this.model.set('full_name', full_name);
 		var email = this.$('#lead_email').val();
 		this.model.set('email', email);
 		var phone = this.$('#lead_phone').val();
 		this.model.set('phone', phone);
-		var zip = this.$('#lead_zip').val();
-		this.model.set('postal_code', zip);
+	    },
+	    updateModel: function(e) {
+		e.preventDefault();
+		var options = this.model.validation;
+		$("#lead_form").validate(options)
+		if(!$("#lead_form").valid()){
+		    return this;
+		}
+		this.gather_data();
 		this.model.save({}, {
 		    success: function(model, response, options) {
 			$('.modal-backdrop').remove();

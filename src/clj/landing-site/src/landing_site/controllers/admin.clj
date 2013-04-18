@@ -1,9 +1,9 @@
-(ns management.controllers.admin
+(ns landing-site.controllers.admin
   (:use [compojure.core :only (defroutes GET POST)])
   (:require [clojure.string :as str]
             [ring.util.response :as ring]
-            [management.views.admin :as view]
-            [management.models.admin :as model]))
+            [landing-site.views.admin :as view]
+            [landing-site.models.admin :as model]))
 
 (defn index []
   (view/index (model/all)))

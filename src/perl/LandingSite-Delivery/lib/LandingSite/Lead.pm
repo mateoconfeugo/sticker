@@ -1,16 +1,17 @@
 package LandingSite::Lead;
 use Moose;
 use FormValidator::Simple;
+use Number::Phone;
 our $VERSION = '0.01';
 
 with 'LandingSite::DB';
 
-my @fields = (qw|event_time  email first_name last_name postal_code  offer phone adnetwork adgroup listing profile campaign market_vector landing_site user_agent|);
+my @fields = (qw|event_time email full_name offer phone adnetwork adgroup listing profile campaign market_vector landing_site user_agent|);
 
 sub create {
   my ($self, $args) = @_;
   my $lead = $args->{lead};
-  my $sql = q|INSERT INTO lead_log (event_time, email, first_name, last_name, postal_code, offer, phone, adnetwork, adgroup, listing, profile, campaign, market_vector, landing_site, user_agent) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)|;
+  my $sql = q|INSERT INTO lead_log (event_time, email, full_name, offer, phone, adnetwork, adgroup, listing, profile, campaign, market_vector, landing_site, user_agent) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)|;
   my @vals = map { $lead->{$_} } @fields;
   my $sth = $self->dbh->prepare($sql);   
   $sth->execute(@vals);
@@ -20,12 +21,15 @@ sub create {
 sub validate {
     my ($self, $args) = @_;
     my $query = $args->{query};
+    my $locale = $args->{locale} || 'US';
+    my $phone_number = Number::Phone->new($locale, $query->{phone});
+    if($phone_number) {
+	$query->{phone} = ($phone_number->areacode . $phone_number->subscriber) * 1;
+    }
     my $result = FormValidator::Simple->check($query => [
-						   first_name => ['NOT_BLANK', 'ASCII', ['LENGTH', 2, 15]],
-						   last_name  => ['NOT_BLANK', 'ASCII', ['LENGTH', 2, 30]  ],
+						   full_name => ['NOT_BLANK', ['LENGTH', 2, 50]],
 						   email  => ['NOT_BLANK', 'EMAIL_LOOSE'],
-						   phone  => ['NOT_BLANK', 'INT'],
-						   postal_code  => ['NOT_BLANK', 'INT'],
+						   phone  => ['NOT_BLANK', 'INT', ['LENGTH', 10]],
 					       ]);
     return $result;
 }

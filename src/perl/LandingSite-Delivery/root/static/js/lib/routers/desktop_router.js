@@ -13,13 +13,14 @@ define(
 //		return this;
 //		$('#server_message_channel').html(view.render());
 //		this.manager.show({view: ServerMonitor, el: '#server_message_channel',  config: this.config});		   	       
-		this.manager.show({view: LeadEditor, el: '#stage',  config: this.config});
+		this.manager.show({view: LeadEditor, el: '#stage',  config: this.config, template: "lead_editor.tt"});
 	    },
             'routes': {
 		'lead_form': 'lead_editor'
             },
 	    'lead_editor':  function() {
-		this.manager.show({view: LeadEditor, el: '#stage',  config: this.config});
+		this.manager.show({view: LeadEditor, el: '#stage',  config: this.config, template: "lead_editor.tt"});
+//		this.manager.show({view: LeadEditor, el: '#stage',  config: this.config});
 //		this.$('#nav-controls-destination').html(this.$('#nav-controls').html());
 //		this.$('#nav-controls').remove();
 	    }

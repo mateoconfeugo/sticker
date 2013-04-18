@@ -61,8 +61,15 @@ img {
 .logo {
     opacity: 1;
 }
+/*
+.btn-success {
+    color: orange;
+}
 
-
+.nav-tabs li{
+    color: orange;
+}
+*/
 .hero-unit p {
   font-size: 100%;
   font-weight: bold;
