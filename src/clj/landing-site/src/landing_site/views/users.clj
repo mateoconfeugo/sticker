@@ -1,7 +1,7 @@
 (ns landing-site.views.users
   (:use [hiccup.core :only (h)]
         [hiccup.form :only (form-to label text-area submit-button text-field)])
-  (:require [management.views.layout :as layout]))
+  (:require [landing-site.views.layout :as layout]))
 
 (defn user-form []
   [:div {:id "user-form" :class "sixteen columns alpha omega"}

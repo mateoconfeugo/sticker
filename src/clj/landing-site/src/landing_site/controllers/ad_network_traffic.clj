@@ -1,5 +1,5 @@
 (ns landing-site.controllers.ad-network-traffic
-  (:use [landing-site.cms :as cms]
+  (:use [landing-site.core]
         [robert.hooke :as hooke]
         [compojure.core :only (defroutes GET)]        
         [clojure.tools.logging :only (info error)]))
@@ -13,7 +13,6 @@
 (defn view [{:keys[adnetwork campaign adgroup listing market-vector] :as settings}]
   "based on the coordinates encoded uri create the correct view response"
   (let [
-        cms (cms/new-cms-filesystem {:cfg cfg})        
         site-id (get-landing-site-id cms market-vector)
         files (assemble-site-files cms site-id)
         site-content (populate-contents cms files)]

@@ -14,6 +14,6 @@
                  [org.clojure/tools.logging "0.2.6"]
                  ]
   :plugins [[lein-ring "0.8.2"]]
-  :ring {:handler management.handler/app}
+  :ring {:handler landing-site.handler/app}
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.3"]]}})
