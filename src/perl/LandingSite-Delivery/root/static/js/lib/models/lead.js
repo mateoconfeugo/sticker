@@ -1,28 +1,23 @@
-define(['jquery', 'underscore', 'backbone'],
+define(['jquery', 'underscore', 'backbone', 'validate'],
        function($, _, Backbone) {
 	   var lead = Backbone.Model.extend({
 	       validation: {
-		   'lead_first_name': {
-		       required: true,
-		       msg: 'Please enter a last name'
-		   },
-		   'lead_last_name': {
-		       required: true,
-		       msg: 'Please enter a last name'
-		   },
-		   'lead_zip': {
-		       length: 5,
-		       required: true,
-		       msg: 'Please enter a valid zip'
-		   },
-		   'lead_email': {
-		       pattern: 'email',
-		       required: true,
-		       msg: 'Please enter a valid email'
-		   },
-		   'lead_phone': {
-		       pattern: 'digits',
-		       msg: 'Please enter a valid phone number'
+		   debug: true,
+		   rules: {
+		       'lead_full_name': {
+			   required: true,
+			   msg: 'Please enter a name'
+		       },
+		       'lead_email': {
+			   pattern: 'email',
+			   required: true,
+			   msg: 'Please enter a valid email'
+		       },
+		       'lead_phone': {
+			   msg: 'Please enter a valid phone number',
+			   required: true,
+			   phoneUS: true
+		       }
 		   }
 	       },
 	       urlRoot: 'lead'

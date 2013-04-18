@@ -1,6 +1,6 @@
 (ns landing-site.models.migration
   (:require [clojure.java.jdbc :as sql])
-  (:use     [management.config]))
+  (:use     [landing-site.config]))
 
 (defn create-user-table [db-conn]
   (sql/with-connection db-conn

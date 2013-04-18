@@ -95,8 +95,8 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/le
 		});
 		var pager_cntls = $(".pager wizard");
 		$('.hero-unit').append($('#nav-controls'));
-//		var lead_editor = new LeadEditor({el: '#side-lead-form', router: router});
-//		lead_editor.render()
+		var lead_editor = new LeadEditor({el: '#side-lead-form', router: router, template: "lead_form.tt"});
+		lead_editor.render();
 //		$('#side-lead-form').html(Jemplate.process("lead_form.tt"));
 	    };
 	    
