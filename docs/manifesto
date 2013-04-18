@@ -1,7 +1,7 @@
 Landing site system manifesto
 
 ASSUMPTION: More qualified LEADS will lead to more CONVERSIONS
-ASSUMPTION: CARRING THE SCENT and reducing the BAD STERORTYPE is going to lead to more LEADS
+ASSUMPTION: CARRYING THE SCENT and reducing the BAD STERORTYPE is going to lead to more LEADS
 ASSUMPTION: Understanding the right aspects to use to taylor the experience to each user agent will cause more CONVERSIONS.
 ASSUMPTION: Acturate profiling will cause more CONVERSIONS.
 ASSUMPTION: Each actual DEMOGRAPHIC PROFILE has a best way of delivering content via a LANDING SITE or VERTICAL SITE as to maximize the possible number of collected LEADS from that profile.
@@ -81,7 +81,6 @@ A  DEMOGRAPHIC PROFILE  is the result of a  projection of a PROFILING VECTOR   a
 A request coming into either a (LANDING SITE or VERTICAL SITE) server will server as a UNCATERGORIZED DEMOGRAPHIC VECTOR. 
 
 The UNCATERGORIZED DEMOGRAPHIC VECTOR will be projected against the POPULATION MATRIX and the result will be put into the NEAREST tagged DEMOGRAPHIC PROFILE.
-
 
 Particular categories of the VERTICAL SITES or LANDING Sites are mapped to specific categories of the forementioned sites.
 
@@ -220,3 +219,15 @@ The browser has gotten to the lead generation form and submitted the information
 The information is saved in the database and the user is redirected to the specified 
 url in the market vector.
 
+
+Logging 
+Documentation
+Testing
+Monitoring
+* Deployment 
+use lein pallet to deploy ring based applications to cloud servers
+use pallet to connect to cms server and publish relevent resources.
+
+
+
+Versioning
