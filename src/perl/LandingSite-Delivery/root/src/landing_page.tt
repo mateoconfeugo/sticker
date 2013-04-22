@@ -1,27 +1,24 @@
 [% META title = 'Landing Site Home Page' %]
-<div id="rootwizard" class="tabbable tabs-top">
-     <div id="nav-controls-destination"></div>
-  <ul class="nav nav-tabs">
+
+<div id="rootwizard" class="tabbable tabs-right span8 offset1container-fluid">
+  <ul id="nav-controls-destination" class="nav nav-tabs">
     [% FOREACH p IN pages %]
     <li><a href="#tab[% p.order %]" data-toggle="tab" class="btn btn-success" >[% p.header %]</a></li>
     [% END %]
   </ul>
-
-  <div class="tab-content">
+  <section class="tab-content">
     [% FOREACH p IN pages %]
     <div class="tab-pane" id="tab[% p.order %]">[% p.content_data %]</div>
     [% END %]
    [% INCLUDE nav_controls %]
-  </div>
+  </section>
 </div>
 
 [% BLOCK nav_controls %]
-  <div id="nav-controls">
-    <ul class="pager wizard">
+    <ul id="nav-controls" class="pager wizard">
       <li class="previous first" style="display:none;"><a href="#">First</a></li>
       <li class="previous"><a href="#">Previous</a></li>
       <li class="next last" style="display:none;"><a href="#">Last</a></li>
       <li class="next"><a href="#">Next</a></li>
     </ul>
-  </div>
 [% END %]

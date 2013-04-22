@@ -1,3 +1,3 @@
 <a class="brand" href="#lead_form">Introducing the Patient Comfort Way!</a>
-<div class="span3 "><a  id="lead_form_link" href="#myModal" role="button" class="btn btn-warning" data-toggle="modal">Learn More</a></div>
-<div><h3 id="header-question">Do you suffer from Serious Pain?</h3></div>
+<a  id="lead_form_link" href="#myModal" role="button" class="btn btn-warning class="span3" data-toggle="modal">Learn More</a>
+<h3 id="header-question">Do you suffer from Serious Pain?</h3>
