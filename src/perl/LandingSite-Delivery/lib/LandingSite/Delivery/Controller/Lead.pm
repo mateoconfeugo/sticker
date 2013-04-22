@@ -8,16 +8,7 @@ use Riemann::Client;
 use MIME::Lite::TT::HTML;
 
 with "LandingSite::DB";
-
-has monitor => (is=>'rw', lazy_build=>1);
-
-sub _build_monitor {
-    my $self = shift;
-    my $host = 'localhost'; #|| $self->monitor_host;
-    my $port = 5555; # $self->monitor_port;
-    my $r = Riemann::Client->new(host=>$host, port=>$port);
-    return $r;
-}
+with "AppMonitoring";
 
 BEGIN { extends 'Catalyst::Controller::REST' }
 

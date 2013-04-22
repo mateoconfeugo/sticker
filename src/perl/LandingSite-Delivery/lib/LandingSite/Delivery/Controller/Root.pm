@@ -7,15 +7,7 @@ use Riemann::Client;
 use JSON::XS;
 use namespace::autoclean;
 
-has monitor => (is=>'rw', lazy_build=>1);
-
-sub _build_monitor {
-    my $self = shift;
-    my $host = 'localhost'; #|| $self->monitor_host;
-    my $port = 5555; # $self->monitor_port;
-    my $r = Riemann::Client->new(host=>$host, port=>$port);
-    return $r;
-}
+with "AppMonitoring";
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -76,7 +68,7 @@ sub populate_content {
 ########################################################################
 sub  pages : Regex('(\d)(\d)?\.html$')  {
     my ($self, $c) = @_;
-#    $DB::single=1;
+    $DB::single=1;
     my $landing_site_id = $c->req->captures->[0] || 1;
     my $number = $c->req->captures->[1];
     my $token = $c->session->{token};
