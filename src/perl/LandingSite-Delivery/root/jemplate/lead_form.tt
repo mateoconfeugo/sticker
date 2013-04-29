@@ -1,4 +1,3 @@
-<div class="span2">
   <div class="alert alert-error" style="display:none">
     <strong>Ooops!</strong> Try again
   </div>
@@ -14,9 +13,7 @@
 	  <label>Email</label><input id="lead_email" type="text"  class="required email"/>
 	  <label>Phone</label><input id="lead_phone" type="text"  class="required phoneUS"/>
 	  <input id="lead_newsletter" type="checkbox" checked=true> Get Our Free Newsletter<br/>
-      <input type="submit" value="Go" class="btn submit"><a href="#terms_conditions">&nbspTerms and Conditions</a>
+      <input type="submit" value="Go" class="btn submit"><a href="#terms_conditions_modal" data-toggle="modal">&nbspTerms and Conditions</a>
     </fieldset>
   </form>
-</div>
-</div>
 

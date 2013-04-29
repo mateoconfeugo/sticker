@@ -53,27 +53,8 @@ require.config({
 
 });
 
-
 require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/lead_editor', 'bootstrapWizard'], 
 	function($, _, Backbone, Desktop, LeadEditor) {
-
-	    $.fn.serializeObject = function()
-	    {
-		var o = {};
-		var a = this.serializeArray();
-		$.each(a, function() {
-		    if (o[this.name] !== undefined) {
-			if (!o[this.name].push) {
-			    o[this.name] = [o[this.name]];
-			}
-			o[this.name].push(this.value || '');
-		    } else {
-			o[this.name] = this.value || '';
-		    }
-		});
-		return o;
-	    };
-
 	    // Main entry point that runs after getting the configuration data
 	    var fetchSuccess = function(cfg) {
 		var router = new Desktop({config: cfg});
@@ -83,11 +64,11 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/le
 		    'class': 'nav nav-tabs',
 		    onNext: function(event) { 
 //			$('#lead_form_link').trigger('click');
-//			router.navigate('lead_form', {trigger: true});
+			router.navigate('lead_form', {trigger: true});
 			var index = $('#rootwizard').bootstrapWizard('currentIndex');
 			var size = $('#rootwizard').bootstrapWizard('navigationLength');
 			if(index >= size) {
-			    $('#lead_form_link').trigger('click');
+			    $('#lead-form-link').trigger('click');
 //			    return false;
 			}
 			return true;
@@ -97,7 +78,6 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/le
 		$('.hero-unit').append($('#nav-controls'));
 //		var lead_editor = new LeadEditor({el: '#side-lead-form', router: router, template: "lead_form.tt"});
 //		lead_editor.render();
-//		$('#side-lead-form').html(Jemplate.process("lead_form.tt"));
 	    };
 	    
 	    // Get configuration and tie to application
