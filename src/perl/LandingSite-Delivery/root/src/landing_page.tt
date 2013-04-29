@@ -1,6 +1,5 @@
 [% META title = 'Landing Site Home Page' %]
-
-<div id="rootwizard" class="tabbable tabs-right span8 offset1container-fluid">
+<div id="rootwizard" class="tabbable tabs-top span8 container-fluid">
   <ul id="nav-controls-destination" class="nav nav-tabs">
     [% FOREACH p IN pages %]
     <li><a href="#tab[% p.order %]" data-toggle="tab" class="btn btn-success" >[% p.header %]</a></li>

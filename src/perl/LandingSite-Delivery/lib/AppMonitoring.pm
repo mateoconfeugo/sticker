@@ -6,7 +6,8 @@ has monitor => (is=>'rw', lazy_build=>1, predicate=>'has_monitor');
 
 sub _build_monitor {
     my $self = shift;
-    my $host = 'localhost'; #|| $self->monitor_host;
+#    my $host = 'localhost'; #|| $self->monitor_host;
+    my $host ='166.78.153.58'; #|| $self->monitor_host;
     my $port = 5555; # $self->monitor_port;
     my $client;
     try { 

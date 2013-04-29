@@ -6,16 +6,19 @@
 
 [% BLOCK html5_body %]
    [% INCLUDE html5_nav %]
-   [% INCLUDE html5_page_header %]
-   [% content %]
+   [% INCLUDE html5_page %]
    [% INCLUDE html5_page_footer %]
 [% END %]
 
-[% BLOCK html5_page_header %]
-<header class="row span12">      
-  <aside class="span2 box" id="side-lead-form">[% INCLUDE lead_form %]</aside>
-  <aside class="span2 offset10" id="logo"><img src="/img/PCSlogo.png" class="img-rounded logo"></aside>
-</header>
+[% BLOCK html5_page %]
+<div class="row span12 page-content">
+  [% content %]
+  <header>      
+    <aside id="side-lead-form" class="box">[% INCLUDE lead_form %]</aside>
+  </header>
+ [% INCLUDE support_group_modal %]
+ [% INCLUDE terms_conditions_modal %]
+</div>
 [% END %]
 
 [% BLOCK html5_nav %]
@@ -28,14 +31,18 @@
   <footer id="server_message_channel"></footer>  
 [% END %]
 
-[% BLOCK lead_form %]
-<div class="span2">
+[% BLOCK form_validation_message %]
   <div class="alert alert-error" style="display:none">
     <strong>Ooops!</strong> Try again
   </div>
   <div class="alert alert-success" style="display:none">
     <strong>Success!</strong> You passed the validation.
   </div>
+[% END %]
+
+[% BLOCK lead_form %]
+<div> 
+   [% INCLUDE form_validation_message %]
   <form class="cmxform" id="lead_form" autocomplete="on" method="POST">
     <fieldset>
       <legend>Pain Solutions<br/>
@@ -45,10 +52,20 @@
 	  <label>Email</label><input id="lead_email" type="text"  class="required email"/>
 	  <label>Phone</label><input id="lead_phone" type="text"  class="required phoneUS"/>
 	  <input id="lead_newsletter" type="checkbox" checked=true> Get Our Free Newsletter<br/>
-      <input type="submit" value="Go" class="btn submit"><a href="#terms_conditions">&nbspTerms and Conditions</a>
+      <input type="submit" value="Go" class="btn submit"><a href="#terms_and_conditions_modal" data-toggle="modal">&nbsp Terms and Conditions</a>
     </fieldset>
   </form>
 </div>
+[% END %]
+
+[% BLOCK support_group_modal %]
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+  [% INCLUDE support_group_form %]
+  </div>
 </div>
 [% END %]
 
@@ -56,4 +73,39 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
+[% END %]
+
+
+[% BLOCK terms_conditions_modal %]
+<div id="terms_and_conditions_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="terms_andcondtions_label" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+  [% INCLUDE terms_and_conditions %]
+  </div>
+</div>
+[% END %]
+
+[% BLOCK terms_and_conditions %]
+  <p>We value your privacy - all information given to patient comfort referral won't be shared with any 3rd party<p>
+[% END %]
+
+
+
+[% BLOCK  support_group_form %]
+   [% INCLUDE form_validation_message %]
+  <form class="cmxform" id="support_group_form" autocomplete="on" method="POST">
+    <fieldset>
+      <legend>Part of a support group?<br/>
+      <h5>Register your support group today and introduce others to the Patient Comfort Way</h5>
+      </legend>
+          <label>Name</label><input id="lead_full_name" type="text"  class="required"/>
+	  <label>Email</label><input id="lead_email" type="text"  class="required email"/>
+	  <label>Phone</label><input id="lead_phone" type="text"  class="required phoneUS"/>
+	  <label>Zip</label><input id="lead_postal_code" type="text"/>
+	  <input id="lead_newsletter" type="checkbox" checked=true> Get Our Free Newsletter<br/>
+      <input type="submit" value="Go" class="btn submit"><a href="#terms_and_conditions_modal" data-toggle="modal">&nbspTerms and Conditions</a>
+    </fieldset>
+  </form>
 [% END %]

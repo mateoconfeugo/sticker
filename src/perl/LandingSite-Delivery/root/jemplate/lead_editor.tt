@@ -1,8 +1,11 @@
+     [% INCLUDE modal %]
+<!--
 <div  class="container-fluid">
    <div class="row-fluid">	
-     [% INCLUDE modal %]
+
    </div>
 </div>
+-->
 
  
 [% BLOCK modal %]
