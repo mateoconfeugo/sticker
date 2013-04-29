@@ -1,3 +1,5 @@
-<a class="brand" href="#lead_form">Introducing the Patient Comfort Way!</a>
-<a  id="lead_form_link" href="#myModal" role="button" class="btn btn-warning class="span3" data-toggle="modal">Learn More</a>
-<h3 id="header-question">Do you suffer from Serious Pain?</h3>
+<ul id="top-bar">
+  <li><h3 class="header-question-left">Do you suffer from Serious Pain?</h3></li>
+  <li><h3 class="header-question-left">Introducing the Patient Comfort Way!</h3></li>
+  <li><a  id="lead-form-link" href="#myModal" role="button" class="btn btn-warning" data-toggle="modal">Support Groups</a></li>
+</ul>
