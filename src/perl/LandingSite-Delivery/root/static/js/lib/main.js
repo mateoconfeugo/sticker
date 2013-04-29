@@ -54,8 +54,8 @@ require.config({
 });
 
 
-require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstrapWizard'], 
-	function($, _, Backbone, Desktop) {
+require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/lead_editor', 'bootstrapWizard'], 
+	function($, _, Backbone, Desktop, LeadEditor) {
 
 	    $.fn.serializeObject = function()
 	    {
@@ -93,6 +93,11 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstra
 			return true;
 		    }
 		});
+		var pager_cntls = $(".pager wizard");
+		$('.hero-unit').append($('#nav-controls'));
+//		var lead_editor = new LeadEditor({el: '#side-lead-form', router: router, template: "lead_form.tt"});
+//		lead_editor.render();
+//		$('#side-lead-form').html(Jemplate.process("lead_form.tt"));
 	    };
 	    
 	    // Get configuration and tie to application

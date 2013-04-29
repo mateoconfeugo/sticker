@@ -14,9 +14,9 @@ define(['jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 		view.close();
             }
 	},
-	openView: function (viewType, el, cfg) {
+	openView: function (viewType, el, cfg, template) {
 	    if(viewType) {
-		var view = new viewType({el: el, config: cfg});
+		var view = new viewType({el: el, config: cfg, template: template});
 		this.currentView = view;
 		if(view.renderOnInitialize ) {
 		   view.render();
@@ -27,8 +27,9 @@ define(['jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 	    var view = options.view;
 	    var el = options.el;
 	    var cfg = options.config;
+	    var template = options.template;
             this.closeView(this.currentView);
-            this.openView(view, el, cfg);
+            this.openView(view, el, cfg, template);
 	}
     });
 });

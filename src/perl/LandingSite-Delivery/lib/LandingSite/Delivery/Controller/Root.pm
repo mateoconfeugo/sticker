@@ -3,8 +3,12 @@ use Moose;
 use Try::Tiny;
 use File::Spec::Functions qw(catfile);
 use File::Slurp qw(read_file);
-use namespace::autoclean;
+use Riemann::Client;
 use JSON::XS;
+use namespace::autoclean;
+
+with "AppMonitoring";
+
 BEGIN { extends 'Catalyst::Controller' }
 
 sub get_nav_header {
@@ -85,6 +89,15 @@ sub  pages : Regex('(\d)(\d)?\.html$')  {
     my $selected_page = File::Slurp::read_file($c->path_to($path));
 
     # push response through template
+
+    $self->monitor->send({
+	service => 'clicks',
+	state   => 'okay',
+	tags => ["visit"],
+	metric  => 1,
+	description => 'Real time count of unique visists to the landing site'});
+
+
     $c->{stash}->{pages} = $pages;
     $c->{stash}->{selected_page} = $selected_page;
     $c->{stash}->{template} = 'landing_page.tt';
