@@ -12,3 +12,15 @@ get phone number correct and validated
 secure database
 report cronjob
 move to port 80
+
+* remove hiccup
+* ad enlive
+* move config to zookeepr
+* log data with kafka
+* rieman monitoring
+* korma data map
+* combine lessons learned from causal marketing to refactor landing site
+
+
+
+
