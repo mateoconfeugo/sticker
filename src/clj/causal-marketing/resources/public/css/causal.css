@@ -77,3 +77,7 @@ img {
   text-rendering: optimizelegibility;
   color: #424849;
 }
+
+article {
+    background: yellow;
+}
