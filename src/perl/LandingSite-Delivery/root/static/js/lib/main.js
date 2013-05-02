@@ -64,7 +64,7 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/le
 		    'class': 'nav nav-tabs',
 		    onNext: function(event) { 
 //			$('#lead_form_link').trigger('click');
-			router.navigate('lead_form', {trigger: true});
+//			router.navigate('lead_form', {trigger: true});
 			var index = $('#rootwizard').bootstrapWizard('currentIndex');
 			var size = $('#rootwizard').bootstrapWizard('navigationLength');
 			if(index >= size) {

@@ -20,9 +20,10 @@
      :body site-content
      :status (set-status)}))
 
+(def uri-path-schema "/adnetwork/:adnetwork/campaign/:campaign/adgroup/:adgroup/listing/:listing/market_vector/:market_vector/view")
+(def ad-network-params [adnetwork campaign ad_group listing market_vector & request])
 (defroutes landing-site-routes
-  (GET "/adnetwork/:adnetwork/campaign/:campaign/adgroup/:adgroup/listing/:listing/market_vector/:market_vector/view"
-   [adnetwork campaign ad_group listing market_vector & request]
-   (view {:adnetwork adnetwork  :campaign campaign :adgroup ad_group :listing listing :market-vector market_vector :request request})))
+  (GET uri-path-schema ad-network-params
+       (view {:adnetwork adnetwork  :campaign campaign :adgroup ad_group :listing listing :market-vector market_vector :request request})))
 
 

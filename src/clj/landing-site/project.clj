@@ -12,7 +12,9 @@
                  [cms "0.1.0-SNAPSHOT"]
                  [com.cemerick/friend "0.1.4"]
                  [robert/hooke "1.3.0"]
+                 [com.googlecode.libphonenumber/libphonenumber "5.4"]
                  [org.clojure/tools.logging "0.2.6"]
+                 [metis "0.3.0"]
                  ]
   :plugins [[lein-ring "0.8.2"]]
   :ring {:handler landing-site.handler/app}
