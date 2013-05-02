@@ -1,5 +1,7 @@
 [% META title = 'Thank you page' %]
-<p>Thank you for your interesting on of our representatives will be contacting you shortly.</p>
+<div class="thank-you-message">
+  <h2>Thank you for your interesting on of our representatives will be contacting you shortly.</h2>
+</div>
 
 <!-- Google Code for pcs lead Conversion Page -->
 <script type="text/javascript">

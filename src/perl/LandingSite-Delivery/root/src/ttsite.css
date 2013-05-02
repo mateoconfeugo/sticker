@@ -296,3 +296,7 @@ ul li a h1 {
     font-style: italic;
  text-shadow: 2px 2px 2px #aaa;
 }
+
+.thank-you-message {
+    padding: 30px;
+}
