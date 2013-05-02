@@ -1,7 +1,7 @@
 (ns causal-marketing.views.snippets
   (:use [net.cgrand.enlive-html :as html]))
 
-(defsnippet site-nav-header "templates/site-nav-header.html" [:div#header :div.container-fluid.nav]
+(defsnippet site-nav-header "templates/site-nav-header.html" [:nav.container-fluid]
   [site-name]
   [:a.brand] (content site-name))
 
@@ -19,8 +19,8 @@
   [:.menu-header]   (content drop_down_menu_name)
   [:ul.dropdown-menu] (content (map model  menu_item)))
 
-(def ^:dynamic *nav-bar-sel* [:div.container-fluid.nav])
+(def ^:dynamic *nav-bar-sel* [:nav.container-fluid])
 (defsnippet nav-bar  "templates/site-nav-header.html" *nav-bar-sel*
   [{:keys [title menu-data]}]
   [:a.brand] (content title)
-  [:ul#nav-bar-dropdown-menu] (content (map #(menu-model % menu-item-model)  menu-data)))
+  [:ul#nav-bar-dropdown-menu] (html/content (map #(menu-model % menu-item-model)  menu-data)))

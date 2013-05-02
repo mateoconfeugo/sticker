@@ -1,35 +1,34 @@
 {
     "name" : "LandingSite::Delivery",
     "Plugin::Static::Simple" : {
-      "include_path" : [
-         "root/static",
-         "root/static/img",
-         "root/static/images",
-         "root/static/css",
-         "root/static/js"
-      ]
-   },
+	"include_path" : [
+            "root/static",
+            "root/static/img",
+            "root/static/images",
+            "root/static/css",
+            "root/static/js"
+	]
+    },
     "clientConfig" : {
-      "models" : {
-         "dispenser" : {
-            "url" : "http://localhost:3000/dispenser/volume"
-         },
-      },
-      "views" : {
-         "RecipeBuilder" : {
-            "host_element" : "#hero-unit",
-            "template" : "recipe_builder.tt",
-            "url" : "http://localhost:3000/api/rest/recipe"
-         },
-      },
-      "host_element" : "stage"
-   },
-   "View::Jemplate" : {
-       "jemplate_dir" : "root/jemplate",
-       "jemplate_ext" : "tt"
-   },
+	"models" : {
+            "dispenser" : {
+		"url" : "http://localhost:3000/dispenser/volume"
+            }
+	},
+	"views" : {
+            "RecipeBuilder" : {
+		"host_element" : "#hero-unit",
+		"template" : "recipe_builder.tt",
+		"url" : "http://localhost:3000/api/rest/recipe"
+            }
+	},
+	"host_element" : "stage"
+    },
+    "View::Jemplate" : {
+	"jemplate_dir" : "root/jemplate",
+	"jemplate_ext" : "tt"
+    },
     "namespace": "",
     "disable_component_resolution_regex_fallback": 1,
     "enable_catalyst_header":  1 
-
 }
