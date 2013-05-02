@@ -1,6 +1,6 @@
 (ns landing-site.controllers.user
   (:use [compojure.core :only (defroutes GET POST)]
-        [landing-site.config :only(new-config read-config)])
+        [flourish-common.config :only(new-config read-config)])
   (:require [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds]))

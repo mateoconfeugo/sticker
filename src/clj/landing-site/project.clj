@@ -9,6 +9,7 @@
                  [mysql/mysql-connector-java "5.1.6"]
                  [me.raynes/fs "1.4.0"]
                  [flourish-common "0.1.0-SNAPSHOT"]
+                 [cms "0.1.0-SNAPSHOT"]
                  [com.cemerick/friend "0.1.4"]
                  [robert/hooke "1.3.0"]
                  [org.clojure/tools.logging "0.2.6"]

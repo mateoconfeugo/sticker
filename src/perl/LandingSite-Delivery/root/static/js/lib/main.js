@@ -40,8 +40,8 @@ require.config({
 	bootstrapWizard: '/js/lib/jquery.bootstrap.wizard.min',
 	socketio: '/js/lib/socket.io',
 	bootstrap: '/js/lib/bootstrap',
-	log4javascript:'/js/lib/log4javascript',
-	validate:'/js/lib/jquery.validate.min'
+	log4javascript: '/js/lib/log4javascript',
+	validate: 'jquery.validate.min'
     },
     text: {
 	useXhr: function (url, protocol, hostname, port) {

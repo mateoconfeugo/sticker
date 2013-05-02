@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'validate'],
+define(['jquery', 'underscore', 'backbone'],
        function($, _, Backbone) {
 	   var lead = Backbone.Model.extend({
 	       validation: {
