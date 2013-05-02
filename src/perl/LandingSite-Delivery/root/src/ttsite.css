@@ -24,6 +24,9 @@ body {
     background-size: 30%; 
 }
 
+footer {
+    clear: both;
+}
 
 #footer {
     background-color: [% site.col.head %];
@@ -137,6 +140,7 @@ header {
     float: right;
     padding: 0px 80px 0px 0px;
     margin: 0px 0px 10px 0px;
+
 }
 
 .header-question-right {
@@ -186,6 +190,7 @@ img {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+
 }
 
 .hero-unit {
