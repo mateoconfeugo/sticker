@@ -14,9 +14,14 @@
                  [robert/hooke "1.3.0"]
                  [com.googlecode.libphonenumber/libphonenumber "5.4"]
                  [org.clojure/tools.logging "0.2.6"]
+                 [korma "0.3.0-RC5"]                 
                  [metis "0.3.0"]
+                 [expectations "1.4.33"]
                  ]
-  :plugins [[lein-ring "0.8.2"]]
+  :plugins [[lein-ring "0.8.2"]
+            [lein-expectations "0.0.7"]
+            [lein-autoexpect "0.2.5"]]
   :ring {:handler landing-site.handler/app}
-  :profiles
-  {:dev {:dependencies [[ring-mock "0.1.3"]]}})
+  :profiles {:dev {:dependencies [[ring-mock "0.1.3"]
+                                  ]}})
+

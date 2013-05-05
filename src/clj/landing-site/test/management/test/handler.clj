@@ -1,3 +1,4 @@
+(comment
 (ns test.handler
   (:use [clojure.test :only (is testing deftest)]
         [ring.mock.request]  
@@ -40,3 +41,4 @@ test-response
       (is (= (:status response) 404)))))
 
 (test-app)
+)

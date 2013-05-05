@@ -1,9 +1,10 @@
-(ns test.handler
+(comment
+(ns handler
   (:use [clojure.test :only (is testing deftest)]
-        [ring.mock.request]  
+        [ring.mock.request]
         [landing-site.handler :only(app)]
-        [landing-site.controllers.ad-network-traffic]        
-        ))
+        [landing-site.controllers.ad-network-traffic]
+        [expectations]))
 
 (def test-request {:request-method :get
                    :uri "/adnetwork/1/campaign/1/adgroup/1/listing/A/market_vector/1/view"
@@ -14,8 +15,8 @@
                     :headers {"Content-Type" "text/html"}
                     :body "<h1>Hello user 1</h1>"})
 
-test-request
-test-response
+;;test-request
+;;test-response
 
 (deftest test-adnetwork-traffic-view
   (testing "extracting the data from the path"
@@ -40,3 +41,4 @@ test-response
       (is (= (:status response) 404)))))
 
 (test-app)
+)

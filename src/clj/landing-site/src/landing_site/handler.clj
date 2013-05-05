@@ -2,20 +2,15 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route])
   (:use [ring.adapter.jetty :as ring]
-        [compojure.core :only (defroutes)]
-        [landing-site.controllers.user :only(user-routes) :as gui-user]
-        [landing-site.views.layout :as layout]
-        [landing-site.controllers.ad-network-traffic :only (landing-site-routes)]))
+        [compojure.core :only (defroutes)]        
+        [ring.util.response :as resp]
+        [net.cgrand.enlive-html :as html]
+        [flourish-common.config]
+        [landing-site.controllers.ad-network-traffic :only (landing-site-routes)])
+  (:require [compojure.handler :as handler]
+            [compojure.route :as route]))
 
-(defn run-of-network [] (str "run of network yall"))
-
-(compojure.core/defroutes app-routes
-  (context "/" [] landing-site-routes)
-  (route/resources "/")
-  (route/files "/" {:root "public"}))
-;;  (route/not-found [request] (run-of-network request)))
-
-(def app (handler/site  app-routes))
+(def app (handler/site  landing-site-routes))
 
 (defn start [port] (run-jetty app {:port port :join? false}))
 
