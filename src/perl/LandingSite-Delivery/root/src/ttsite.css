@@ -163,8 +163,9 @@ font-weight: bold;
 
 
 img {
-    max-width: 100%;
+    width: 100%;
 }
+
 
 #rootwizard {
 
@@ -250,6 +251,10 @@ img {
     box-shadow: 1px 1px 3px rgba(0,0,0,.12);
 }
 
+.leading img {
+  width: (width)px;
+  height: (height)px;
+}
 
 aside h2 {
  font-family: 'Comfortaa', sans-serif;

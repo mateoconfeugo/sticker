@@ -53,8 +53,8 @@ require.config({
 
 });
 
-require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/lead_editor', 'bootstrapWizard'], 
-	function($, _, Backbone, Desktop, LeadEditor) {
+require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/lead_editor', 'views/support_group_lead', 'bootstrapWizard'], 
+	function($, _, Backbone, Desktop, LeadEditor, SupportLead) {
 	    // Main entry point that runs after getting the configuration data
 	    var fetchSuccess = function(cfg) {
 		var router = new Desktop({config: cfg});
@@ -76,8 +76,8 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/le
 		});
 		var pager_cntls = $(".pager wizard");
 		$('.hero-unit').append($('#nav-controls'));
-//		var lead_editor = new LeadEditor({el: '#side-lead-form', router: router, template: "lead_form.tt"});
-//		lead_editor.render();
+		var lead_editor = new LeadEditor({el: '#side-lead-form', router: router, template: "lead_form.tt"});
+		var support_lead  = new SupportLead({ el: '#support-group-form',  router: router});
 	    };
 	    
 	    // Get configuration and tie to application

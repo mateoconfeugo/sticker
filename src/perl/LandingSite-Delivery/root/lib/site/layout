@@ -43,7 +43,7 @@
 [% BLOCK lead_form %]
 <div> 
    [% INCLUDE form_validation_message %]
-  <form id="lead_form">
+  <form id="lead_form"  autocomplete="on" method="POST">
     <fieldset>
       <legend>Pain Solutions<br/>
       <h5>Ask us if you qualify</h5>
@@ -52,7 +52,8 @@
 	  <label>Email</label><input id="lead_email" type="text"  class="required email"/>
 	  <label>Phone</label><input id="lead_phone" type="text"  class="required phoneUS"/>
 	  <input id="lead_newsletter" type="checkbox" checked=true> Get Our Free Newsletter<br/>
-      <input type="submit"  value="Go" class="lead-btn"><a href="#terms_and_conditions_modal" data-toggle="modal">&nbsp Terms and Conditions</a>
+      <input type="submit"  value="Go" class="lead-btn"/>
+           <a href="#terms_and_conditions_modal" data-toggle="modal">&nbsp Terms and Conditions</a>
     </fieldset>
   </form>
 </div>
@@ -91,11 +92,9 @@
   <p>We value your privacy - all information given to patient comfort referral won't be shared with any 3rd party<p>
 [% END %]
 
-
-
 [% BLOCK  support_group_form %]
    [% INCLUDE form_validation_message %]
-  <form class="cmxform" id="support_group_form" autocomplete="on" method="POST">
+  <form id="support-group-form" autocomplete="on" method="POST">
     <fieldset>
       <legend>Part of a support group?<br/>
       <h5>Register your support group today and introduce others to the Patient Comfort Way</h5>
@@ -105,7 +104,7 @@
 	  <label>Phone</label><input id="lead_phone" type="text"  class="required phoneUS"/>
 	  <label>Zip</label><input id="lead_postal_code" type="text"/>
 	  <input id="lead_newsletter" type="checkbox" checked=true> Get Our Free Newsletter<br/>
-      <input type="submit" value="Go" class="btn submit"><a href="#terms_and_conditions_modal" data-toggle="modal">&nbspTerms and Conditions</a>
+      <input type="submit" value="Go" id="support" class="support-group-lead-btn submit"><a href="#terms_and_conditions_modal" data-toggle="modal">&nbspTerms and Conditions</a>
     </fieldset>
   </form>
 [% END %]
