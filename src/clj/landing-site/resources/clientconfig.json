@@ -1,0 +1,17 @@
+{
+ "clientconfig" : {
+     "host_element" : "stage",
+      "models" : {
+         "dispenser" : {
+            "url" : "http://localhost:3000/dispenser/volume"
+         }
+      },
+      "views" : {
+         "RecipeBuilder" : {
+            "host_element" : "#hero-unit",
+            "template" : "recipe_builder.tt",
+            "url" : "http://localhost:3000/api/rest/recipe"
+         }
+      }
+   }
+}

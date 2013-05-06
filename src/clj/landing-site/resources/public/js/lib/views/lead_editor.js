@@ -8,7 +8,7 @@ define(
     function($, _, Backbone, Lead) {
 	var lead_editor =  Backbone.View.extend({
 	    events: {
-		"click .btn": "updateModel",
+		"click .lead-btn": "updateModel",
 	    },
 	    initialize: function(options) {
 		_.bindAll(this, "render", "updateModel", "submit");

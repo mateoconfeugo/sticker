@@ -27,13 +27,14 @@
 
 (defn log-lead [lead]
   "Store the lead in the database"
-  (let [is-valid (empty? (validate-lead lead))
+  (let [message (validate-lead lead)
+        is-valid (empty? message)
         storable-lead (dissoc (assoc lead
                                 :email (:email-address lead)
                                 :phone (:phone-number lead)
                                 :full_name (:full-name lead)) :email-address :full-name :phone-number)]
     (if is-valid
       (insert lead_log (values [storable-lead]))
-      (throw (DataFormatException. "bad lead data")))))
+      (throw (DataFormatException. (println message))))))
             
 

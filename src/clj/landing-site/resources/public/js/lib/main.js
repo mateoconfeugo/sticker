@@ -97,6 +97,6 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstra
 	    
 	    // Get configuration and tie to application
 	    var config = new Backbone.Model();
-	    config.url = "/clientconfig/clientconfig";
+	    config.url = "/clientconfig";
 	    config.fetch({success: fetchSuccess});
 	});

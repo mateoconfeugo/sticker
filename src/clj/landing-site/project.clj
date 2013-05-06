@@ -1,9 +1,9 @@
-(defproject landing-site "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+(defproject landing-site "0.1.0"
+  :description "http landing site server"
+  :url "http://www.marketwithgusto.com/products/landing-site-server"
+  :resource-paths ["resources"]  
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [compojure "1.1.5"]
-                 [hiccup "1.0.2"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [ring/ring-jetty-adapter "1.1.6"]
                  [mysql/mysql-connector-java "5.1.6"]
@@ -16,12 +16,11 @@
                  [org.clojure/tools.logging "0.2.6"]
                  [korma "0.3.0-RC5"]                 
                  [metis "0.3.0"]
-                 [expectations "1.4.33"]
-                 ]
+                 [cheshire "5.0.2"]                 
+                 [expectations "1.4.33"]]
   :plugins [[lein-ring "0.8.2"]
             [lein-expectations "0.0.7"]
             [lein-autoexpect "0.2.5"]]
   :ring {:handler landing-site.handler/app}
-  :profiles {:dev {:dependencies [[ring-mock "0.1.3"]
-                                  ]}})
+  :profiles {:dev {:dependencies [[ring-mock "0.1.3"]]}})
 
