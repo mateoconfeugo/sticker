@@ -1,3 +1,4 @@
+(comment
 (ns landing-site.controllers.admin
   (:use [compojure.core :only (defroutes GET POST)])
   (:require [clojure.string :as str]
@@ -16,3 +17,4 @@
 (defroutes routes
   (GET  "/" [] (index))
   (POST "/" [user] (create user)))
+)
