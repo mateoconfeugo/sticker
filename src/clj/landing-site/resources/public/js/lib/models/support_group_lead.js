@@ -17,10 +17,15 @@ define(['jquery', 'underscore', 'backbone'],
 			   msg: 'Please enter a valid phone number',
 			   required: true,
 			   phoneUS: true
+		       },
+		       'lead_zip': {
+			   msg: 'Please enter a valid phone number',
+			   required: true,
+			   postalUS: true
 		       }
 		   }
 	       },
-	       urlRoot: '/lead'
+	       urlRoot: 'supportlead/support_lead'
 	   });
 	   return lead;
        });	  

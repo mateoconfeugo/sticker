@@ -5,7 +5,6 @@
   [site-name]
   [:a.brand] (content site-name))
 
-
 ;;menu items
 (def ^:dynamic  *menu-item-sel* [[:ul.dropdown-menu (nth-of-type 1)] :> first-child])
 (defsnippet menu-item-model "templates/site-nav-header.html" *menu-item-sel*
@@ -25,3 +24,4 @@
   [{:keys [title menu-data]}]
   [:a.brand] (content title)
   [:ul#nav-bar-dropdown-menu] (html/content (map #(menu-model % menu-item-model)  menu-data)))
+

@@ -1,0 +1,7 @@
+# for image or via file
+make bind-address in mysql.cnf 0.0.0.0
+
+install on target test machines
+bzip2 for riemann download
+
+maybe ruby and gems for the riemann webserver

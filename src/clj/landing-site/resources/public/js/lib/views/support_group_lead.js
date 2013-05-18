@@ -1,25 +1,27 @@
-/* 
-   Component Name: lead_editor
-   Description:  Gather leads
-*/
-
 define(
-    ["jquery", "underscore", "backbone", "models/lead", "validate"],
-    function($, _, Backbone, Lead) {
-	var lead_editor =  Backbone.View.extend({
+    ["jquery", "underscore", "backbone", "models/support_group_lead", "validate"],
+    function($, _, Backbone, SupportLead) {
+	var support_lead =  Backbone.View.extend({
 	    events: {
-		"click #lead-form-submit": "updateModel",
+		"click .support-group-lead-btn": "update_support_lead"
 	    },
 	    initialize: function(options) {
-		_.bindAll(this, "render", "updateModel", "submit", "gather_data", "on_save_success", "on_save_error");
-		this.template = options.template;
+		_.bindAll(this, "render",  "submit", "gather_data", "update_support_lead", "on_save_success", "on_save_error");
 		this.router = options.router;
-		this.model = new Lead();
+		this.model = new SupportLead();
+		this.model.on("sync", this.render);
+		this.render();
+
 		$.validator.addMethod("phoneUS", function(phone_number, element) {
 		    phone_number = phone_number.replace(/\s+/g, ""); 
 		    return this.optional(element) || phone_number.length > 9 &&
 			phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
 		}, "Please specify a valid phone number");
+
+		$.validator.addMethod("postalUS", function(value, element) {
+		    return this.optional(element) || /\d{5}-\d{4}$|^\d{5}$/.test(value);
+		}, "The specified US ZIP Code is invalid");
+		return this;
 	    },
 	    render: function(e) {
 		return this;
@@ -29,43 +31,37 @@ define(
 	    },
 	    gather_data: function(model) {
 		var full_name = this.$('#lead_full_name').val();
-		this.model.set('full_name', full_name);
+		model.set('full_name', full_name);
 		var email = this.$('#lead_email').val();
-		this.model.set('email', email);
+		model.set('email', email);
 		var phone = this.$('#lead_phone').val();
-		this.model.set('phone', phone);
+		model.set('phone', phone);
 		try {
 		    var postal_code = this.$('#lead_postal_code').val();
-		    this.model.set('postal_code', postal_code);
+		    model.set('postal_code', postal_code);
 		} catch(err) {}
-		return this;
+		return model;
 	    },
-	    updateModel: function(e) {
+	    update_support_lead: function(e) {
 		e.preventDefault();
 		var options = this.model.validation;
-		$("#lead_form").validate(options)
-		if(!$("#lead_form").valid()){
+		$("#support-group-form").validate(options)
+		if(!$("#support-group-form").valid()){
 		    return this;
 		}
-		this.gather_data();
-		// TODO: figure out why this needs to be hacked like this
-		this.model.urlRoot = "/lead";
-		this.model.save({},{
-				success: this.on_save_success,
-				error: this.on_save_error
-			       });
-		return this;
+		this.gather_data(this.model);
+		this.model.save({}, {success: this.on_save_success, error: this.on_save_error});
 	    },
 	    on_save_success: function(model, response, options) {
 		$('.modal-backdrop').remove();
 		$('#lead_form_link').remove();
-		$('#rootwizard').remove();
+		$('#myModal').remove();
+		$('#rootwizard').html(Jemplate.process("thank_you.tt"));			
 		$('aside#side-lead-form').remove();
-		window.location.replace("/thank-you/" + this.model.get("full_name"));
 	    },
 	    on_save_error: function(e, response) {
 		var json = JSON.parse(response.responseText);
-		var html = Jemplate.process("server_validation_message.tt", {errors: json});
+		var html = Jemplate.process("server_validation_message.tt", {errors: JSON.parse(json.error)});
 		this.$('.alert-error').show();
 		this.$('.alert-error').append(html);
 	    },
@@ -73,8 +69,8 @@ define(
 		this.$el.empty();
 		this.unbind();
 		return this;
-    }
+	    }
 	});
-	return lead_editor;
+	return support_lead;
     });
 

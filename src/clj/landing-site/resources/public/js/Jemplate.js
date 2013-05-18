@@ -20,12 +20,30 @@ Jemplate.templateMap['lead_editor.tt'] = function(context) {
     var output = '';
 
     try {
-output += '     ';
-//line 1 "lead_editor.tt"
+output += '<div  class="container-fluid">\n   <div class="row-fluid">	\n     ';
+//line 3 "lead_editor.tt"
 output += context.include('modal');
-output += '\n<!--\n<div  class="container-fluid">\n   <div class="row-fluid">	\n\n   </div>\n</div>\n-->\n\n \n';
+output += '\n   </div>\n</div>\n\n \n';
 
 output += '\n\n\n';
+
+output += '\n';
+    }
+    catch(e) {
+        var error = context.set_error(e, output);
+        throw(error);
+    }
+
+    return output;
+}
+
+Jemplate.templateMap['lead_form'] = function(context) {
+    if (! context) throw('Jemplate function called without context\n');
+    var stash = context.stash;
+    var output = '';
+
+    try {
+output += '\n<div class="span8">\n  <div class="alert alert-error" style="display:none">\n    <strong>Ooops!</strong> You did not pass the validation.\n  </div>\n  <div class="alert alert-success" style="display:none">\n    <strong>Success!</strong> You passed the validation.\n  </div>\n  <form class="cmxform" id="lead_form">\n    <fieldset>\n      <legend>For information on how to get help or help a loved one<br/>\n      </legend>\n      <label>First Name</label><input id="lead_first_name" type="text"  class="required"/>\n	  <label>Last Name</label><input id="lead_last_name" type="text"  class="required"/>\n	  <label>Email</label><input id="lead_email" type="text"  class="required email"/>\n	  <label>Phone</label><input id="lead_phone" type="text"  class="required"/>\n	  <label>Zip</label><input id="lead_zip" type="text"  class="required"/>\n      <input type="submit" value="Go" class="btn submit">\n    </fieldset>\n  </form>\n</div>\n</div>\n';
     }
     catch(e) {
         var error = context.set_error(e, output);
@@ -41,42 +59,10 @@ Jemplate.templateMap['modal'] = function(context) {
     var output = '';
 
     try {
-output += '\n<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="false">×</button>\n  </div>\n  <div class="modal-body">\n    ';
-//line 17 "lead_editor.tt"
-output += context.include('lead_form.tt');
+output += '\n<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\n  <div class="modal-header">\n    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\n  </div>\n  <div class="modal-body">\n    ';
+//line 14 "lead_editor.tt"
+output += context.include('lead_form');
 output += '\n  </div>\n</div>\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
-Jemplate.templateMap['lead_form.tt'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-output += '  <div class="alert alert-error" style="display:none">\n    <strong>Ooops!</strong> Try again\n  </div>\n  <div class="alert alert-success" style="display:none">\n    <strong>Success!</strong> You passed the validation.\n  </div>\n  <form class="cmxform" id="lead_form" autocomplete="on" method="POST">\n    <fieldset>\n      <legend>Pain Solutions<br/>\n      <h5>Ask us if you qualify</h5>\n      </legend>\n          <label>Name</label><input id="lead_full_name" type="text"  class="required"/>\n	  <label>Email</label><input id="lead_email" type="text"  class="required email"/>\n	  <label>Phone</label><input id="lead_phone" type="text"  class="required phoneUS"/>\n	  <input id="lead_newsletter" type="checkbox" checked=true> Get Our Free Newsletter<br/>\n      <input type="submit" value="Go" class="btn submit"><a href="#terms_conditions_modal" data-toggle="modal">&nbspTerms and Conditions</a>\n    </fieldset>\n  </form>\n\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
-Jemplate.templateMap['lead_form.tt~'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-output += '<div class="span8">\n  <div class="alert alert-error" style="display:none">\n    <strong>Ooops!</strong> You did not pass the validation.\n  </div>\n  <div class="alert alert-success" style="display:none">\n    <strong>Success!</strong> You passed the validation.\n  </div>\n  <form class="cmxform" id="lead_form">\n    <fieldset>\n      <legend>Get help or help a loved one now<br/>\n              Call (310) 883-3714\n      </legend>\n          <label>Name</label><input id="person_name" type="text"  class="required"/>\n	  <label>Email</label><input id="lead_email" type="text"  class="required email"/>\n	  <label>Phone</label><input id="lead_phone" type="text"  class="required"/>\n      <input type="submit" value="Go" class="btn submit">\n    </fieldset>\n  </form>\n</div>\n</div>\n\n';
     }
     catch(e) {
         var error = context.set_error(e, output);
@@ -230,7 +216,7 @@ Jemplate.templateMap['server_validation_message.tt'] = function(context) {
     var output = '';
 
     try {
-output += '<div  class="container-fluid">\n   <div class="row-fluid">	\n     <ul>\n     ';
+output += '<div  class="container-fluid">\n   <div class="row-fluid">\n     <ul>\n     ';
 //line 6 "server_validation_message.tt"
 
 // FOREACH 
@@ -264,6 +250,56 @@ output += '</li>\n     ';;
     stash.set('loop', oldloop);
 })();
 
+output += '\n     </ul>\n    </div>\n</div>\n';
+    }
+    catch(e) {
+        var error = context.set_error(e, output);
+        throw(error);
+    }
+
+    return output;
+}
+
+Jemplate.templateMap['server_validation_message.tt.bkp'] = function(context) {
+    if (! context) throw('Jemplate function called without context\n');
+    var stash = context.stash;
+    var output = '';
+
+    try {
+output += '<div  class="container-fluid">\n   <div class="row-fluid">	\n     <ul>\n     ';
+//line 6 "server_validation_message.tt.bkp"
+
+// FOREACH 
+(function() {
+    var list = stash.get(['errors', 0, 'keys', 0]);
+    list = new Jemplate.Iterator(list);
+    var retval = list.get_first();
+    var value = retval[0];
+    var done = retval[1];
+    var oldloop;
+    try { oldloop = stash.get('loop') } finally {}
+    stash.set('loop', list);
+    try {
+        while (! done) {
+            stash.data['i'] = value;
+output += '\n         <li> ';
+//line 5 "server_validation_message.tt.bkp"
+output += stash.get('i');
+output += '  ';
+//line 5 "server_validation_message.tt.bkp"
+output += stash.get(['errors', 0, stash.get('i'), 0]);
+output += '</li>\n     ';;
+            retval = list.get_next();
+            value = retval[0];
+            done = retval[1];
+        }
+    }
+    catch(e) {
+        throw(context.set_error(e, output));
+    }
+    stash.set('loop', oldloop);
+})();
+
 output += '\n     </ul>\n   </div>\n</div>\n';
     }
     catch(e) {
@@ -281,7 +317,7 @@ Jemplate.templateMap['thank_you.tt'] = function(context) {
 
     try {
 
-output += '\n<div class="thank-you-message">\n  <h2>Thank you for your interesting on of our representatives will be contacting you shortly.</h2>\n</div>\n\n<!-- Google Code for pcs lead Conversion Page -->\n<script type="text/javascript">\n/* <![CDATA[ */\nvar google_conversion_id = 998141555;\nvar google_conversion_language = "en";\nvar google_conversion_format = "3";\nvar google_conversion_color = "ffffff";\nvar google_conversion_label = "XsyICM2gsQgQ89z52wM";\nvar google_conversion_value = 0;\n/* ]]> */\n</script>\n<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">\n</script>\n<noscript>\n<div style="display:inline;">\n<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/998141555/?value=0&amp;label=XsyICM2gsQgQ89z52wM&amp;guid=ON&amp;script=0"/>\n</div>\n</noscript>\n';
+output += '\n<p>Thank you for your interesting on of our representatives will be contacting you shortly.</p>\n\n<!-- Google Code for pcs lead Conversion Page -->\n<script type="text/javascript">\n/* <![CDATA[ */\nvar google_conversion_id = 998141555;\nvar google_conversion_language = "en";\nvar google_conversion_format = "3";\nvar google_conversion_color = "ffffff";\nvar google_conversion_label = "XsyICM2gsQgQ89z52wM";\nvar google_conversion_value = 0;\n/* ]]> */\n</script>\n<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">\n</script>\n<noscript>\n<div style="display:inline;">\n<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/998141555/?value=0&amp;label=XsyICM2gsQgQ89z52wM&amp;guid=ON&amp;script=0"/>\n</div>\n</noscript>\n';
     }
     catch(e) {
         var error = context.set_error(e, output);

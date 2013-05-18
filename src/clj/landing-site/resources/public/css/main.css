@@ -109,14 +109,6 @@ ul li a h1 {
     border: 0;
 }
 
-.box {
-    width: 225px;
-    border: 1px solid #C6A765;
-    background-color:  hsla(40, 47%, 96%, 0.8);
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-}
 
 .page-content {
     padding: 50px 0px 0px 1px;
@@ -303,3 +295,17 @@ ul li a h1 {
     padding: 30px;
 }
 
+.box  {
+    width: 225px;
+    border: 1px solid #C6A765;
+    background-color:  hsla(40, 47%, 96%, 0.8);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+fieldset {
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
