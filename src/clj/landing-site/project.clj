@@ -1,7 +1,8 @@
 (defproject landing-site "0.1.0"
   :description "http landing site server"
   :url "http://www.marketwithgusto.com/products/landing-site-server"
-  :resource-paths ["resources"]  
+  :resource-paths ["resources"]
+  :pallet {:source-paths ["pallet/src"] :resource-paths ["pallet/resources"]}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [clj-webdriver "0.6.0"]                 
                  [compojure "1.1.5"]
@@ -26,15 +27,16 @@
                  [com.palletops/app-deploy-crate "0.8.0-alpha.1"]
                  [com.palletops/runit-crate "0.8.0-alpha.1"]
                  [com.palletops/riemann-crate "0.8.0-alpha.2"]
-;;                 [vmfest "0.3.0-alpha.5"]
-;;                 [vmfest "0.3.0-alpha.5"]                 
+                 [org.clojure/tools.trace "0.7.5"]                 
+                 [vmfest "0.3.0-alpha.5"]                 
                  [org.clojars.tbatchelli/vboxjxpcom "4.2.4"]]                 
   :jvm-opts ["-Dvbox.home=/Applications/VirtualBox.app/Contents/MacOS"]
   :html5-docs-source-path "src/landing_site"
   :plugins [[lein-ring "0.8.5"]
             [lein-expectations "0.0.7"]
-            [lein-autoexpect "0.2.5"]
-            [lein-dpkg "0.1.0"]            
+          [com.palletops/pallet-lein "0.6.0-beta.9"]            [lein-autoexpect "0.2.5"]
+            [lein-dpkg "0.1.0"]
+;;            [lein-ritz "0.6.0"]            
             [lein-html5-docs "2.0.0"]
             [com.palletops/pallet-lein "0.6.0-beta.9"]
             [lein-cloverage "1.0.2"]]            
@@ -44,7 +46,7 @@
              :pallet {:dependencies
                       [[com.palletops/pallet "0.8.0-beta.9"]
                        [com.palletops/pallet-vmfest "0.3.0-alpha.4"]
-  ;;                     [vmfest "0.3.0-alpha.5"]
+                       [vmfest "0.3.0-alpha.5"]
                        [org.clojars.tbatchelli/vboxjxpcom "4.2.4"]
                        [com.palletops/java-crate "0.8.0-beta.4"]
                        [com.palletops/runit-crate "0.8.0-alpha.1"]

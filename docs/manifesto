@@ -219,11 +219,179 @@ The information is saved in the database and the user is redirected to the speci
 
 Logging
 Documentation
-Testing
-Monitoring
-* Deployment
-use lein pallet to deploy ring based applications to cloud servers
-use pallet to connect to cms server and publish relevent resources.
+
+*  Developing, Testing, Releasing, Deploying, Maintaining, Provisioning
+How to be a one armed paper hanger
+Using pallet, lein, vmfest, expections and clj-driver to automate your development provisioning release deployment testing system admin stuff
+especially if running a web based service.
+
+* What is my Approach?
+By effectively combining the various use of clojure libraries one can eliminate 
+ much of the drudgery of developing, testing, releasing, deploying and maintaining software
+* What are the features that make that happen
+Provide major components of a continuous delivery system
+Programmatically provision system resources
+Run your system of many servers on different providers  via simple single command line commands
+Automated end to end testings
+Test your system in the different computing environments with real servers and real web browsers
+Organize and automate your common tasks in a easily reusable way.
+* Pieces
+Clojure
+Pallet
+Lein
+Vmfest
+Expectations
+clj-driver
+
+* Clojure?
+Its a lisp based programming language that runs on the java virtual machine and it takes the form of a java library so all sorts of interop is possible and pretty easy.  Clojure does demand you raise your game and pays you richly for doing so.  Clojure is a very powerful pragmatic language thats not very dogmatic. 
+
+* What is pallet?
+** They say
+Pallet is platform for agile and programmatic automation of infrastructure in the cloud, on server racks or directly on virtual machines. Pallet provides cloud provider and operating system independence, and allows for an unprecedented level of customization.
+Pallet is a clojure libary that compiles DSL functions  down to a set shell commands which are run across an ssh connection.
+
+* Pallet Concepts
+** The Node
+** Node Specs
+** The Computing Service Provider
+*** Getting Setup
+**** Access 
+**** Controlling your environment
+** Server Specs
+** Group Specs
+** Operations
+*** Converge
+*** Lift
+** Crates
+** Actions
+
+* What is lein?
+Leiningen is the easiest way to use Clojure. With a focus on project automation and declarative configuration, it gets out of your way and lets you focus on your code. lein is the command line implemenation tool of the leiningen project.
+
+* Lein concepts
+** Plugins
+
+* What is vmfest?
+VMFest is a PalletOps project to turn VirtualBox into a light-weight cloud provider. This is very useful for when developing cloud automation. VirtualBox's Virtual Machines (VMs) boot very quickly (seconds), so why not take advantage of it?
+VMFest takes the form of a library, and you can use it as a toolkit to create your own virtualization environments.
+
+* What is clj-driver
+This is a Clojure library for driving an actual web browser using Selenium-WebDriver as the backend. This allows you to acturatelly run simulation of user interations with your application.  Provides higher-level Clojure functions to make interacting with the browser easier.
+
+* What is expectation 
+expectations is a minimalist's testing framework
+Simply require expectations and your tests will be run on JVM shutdown.
+What you are testing is inferred from the expected and actual types
+Stacktraces are trimmed of clojure library lines and java.lang lines
+Focused error & failure messages
+
+* How it works together to make your life easier
+
+** lein pallet plugin
+A leiningen plugin for running pallet tasks for a pallet deployment project.
+*** How to
+Make a Crate
+Pass arguments to converge/lift operations
+
+** Release/Deploy/Maintain on the following conceptal system environments
+*** Locally - dev
+*** On virtual machines  running locally - dev-qa
+*** On cloud test servers
+*** On cloud QA servers
+*** On cloud production blue
+*** On cloud production green
+
+** lein expectations
+A leiningen plugin to make running tests written using expectations library.
+
+** lein autoexpect 
+Leiningen plug-in for automatically running expectations whenever your Clojure project's source changes.
+
+* Organize
+How you organize all this is key 
+** Namespaces
+[project-name].nodes.[domain-of-concern]
+[project-name].servers.[domain-of-concern]
+[project-name].groups.[domain-of-concern]
+** Configurations
+project.clj
+pallet.clj
+
+* Development Aspect
+** tools and techniques
+nrepl
+lein with-profile pallet repl :headless
+nrepl-interaction-mode
+lein uberjar
+
+* Testing aspect
+Tests can spin up the system in the desired environment and have control the web browser
+to perform actions against the system then check the various pieces to test for the desired
+affect. Using autoexpect you can always be running your tests as you run your system in 
+a local environment or on virtual boxes.  Since pallet is just a library its very easy to
+programmaticaly do whatever.
+
+* Documentation aspect
+lein plugin to extract documentation from code and present it in a nice format.
+
+* Release and Versioning aspects
+
+* Deployment Aspect
+Examples of the different deployment operations 
+**  lein pallet  converge monitoring.groups.monitoring/monitoring 2 -P :vmfest
+Create 2 virtual box instances of the node described in the ~/.pallet/services/vmfest.clj file and name them according to the group spec referred via its namespace. 
+** lein pallet  lift monitoring.groups.monitoring/monitoring  -P :vmfest
+Apply the server-specs to the specified group of existing nodes
+**  lein pallet  converge monitoring.groups.monitoring/monitoring 0 -P :vmfest
+Teardown the system
+**  lein pallet  converge monitoring.groups.monitoring/monitoring 1 -P :qa-cloud
+creates 1 node in the cloud with a qa node and installs the monitoring group specification 
+
+* Maintaince
+Since its ultimately shell over ssh (s.o.s) and its just a clojure library.  
+Create a seperate lein project dedicated to maintenace.
+Capture maintenance in code.
+Automate with cron if possible
+Monitoring data
+Log data
+Users Groups
+Email
+
+* Provisioning
+Since its ultimately shell over ssh (s.o.s) and its just a clojure library.  
+Its very easy to programmaticaly do whatever.
+Spin up an entire new instance of your infrastructure.
+
+* Tips
+Factor common support server os instances into a dev-ops project for the system
+Factor common maintenance tasks for system into a maintenance project system
+Create a provisioning project to combine all the servers together in a repeatable way
+
+* System Architecture Description
+** Load balancer ???
+** Web server proxy (nginx)
+** Database server (mysql)
+** Configuration Server (zookeeper)
+** File Server (nfs)
+** Application Server wine-celler.jar
+** Monitoring Server (riemann)
+** Cruncher (hadoop)
+** Real Time Distributed Tasks (storm)
+** Content Management System (bricolage)
+** Email Server (postfix)
+
+* System Admin Task Areas
+;;======================================================================
+;; Server specifications: These are the servers that make up a 
+;; onlines physical presence
+;; Things to specify on each
+;; 1: Users and Groups
+;; 2: Application and 3rd Party Packages
+;; 3: Cronjobs
+;; 4: Services
+;; 5: Files
+;; 6: Symbolic Links
+;;======================================================================
 
 
-Versioning
