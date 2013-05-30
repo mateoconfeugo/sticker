@@ -4,9 +4,8 @@
            [java.util.zip  DataFormatException])
   (:use [metis.core]
         [landing-site.core]
-        [korma.core :only [defentity database insert values]]
-        [riemann.client :only [send-event tcp-client]]        
-        [korma.db :only [defdb mysql]]))
+        [riemann.client :only [send-event tcp-client]]))        
+        
 
 (defdb db (mysql {:db db-name :user db-user :password db-password :host db-address} ))
 (defentity lead_log (database db))

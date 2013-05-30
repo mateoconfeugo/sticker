@@ -309,7 +309,32 @@ A leiningen plugin to make running tests written using expectations library.
 Leiningen plug-in for automatically running expectations whenever your Clojure project's source changes.
 
 * Organize
-How you organize all this is key 
+** Levels of organization
+*** 
+*** Dev Ops
+pallet group specs and crates that set up 3rd party software
+*** System Provisioning
+pallet group specs, crates and cluster spect that create complete working systems.  
+This is the functional business implemented in is various configurations.
+Now lein pallet is used to spin up the system in the following manners
+**** locally
+**** virtual box machine
+****  existing node
+****  provision new node on the cloud
+test
+qa
+dev pod
+new customer
+green blue deployment
+
+*** Project
+the server group spec and crates for our software
+*** Test
+How you organize all this is key
+Project level unit, component, acceptance tests will use resources from dev-ops and other projects
+System level acceptance tests will be in dev-ops
+Business level acceptance tests will be in provisioning
+ 
 ** Namespaces
 [project-name].nodes.[domain-of-concern]
 [project-name].servers.[domain-of-concern]
@@ -331,6 +356,13 @@ to perform actions against the system then check the various pieces to test for 
 affect. Using autoexpect you can always be running your tests as you run your system in 
 a local environment or on virtual boxes.  Since pallet is just a library its very easy to
 programmaticaly do whatever.
+
+** Project Unit Tests
+** Project Component Tests
+** Project Acceptance Tests
+
+** Business Acceptance Tests
+
 
 * Documentation aspect
 lein plugin to extract documentation from code and present it in a nice format.
@@ -380,6 +412,11 @@ Create a provisioning project to combine all the servers together in a repeatabl
 ** Real Time Distributed Tasks (storm)
 ** Content Management System (bricolage)
 ** Email Server (postfix)
+
+* Additional Development Architecture
+** Typical publisher site
+** Typical advertiser site
+** Feed Partner Simulator
 
 * System Admin Task Areas
 ;;======================================================================

@@ -1,6 +1,27 @@
 (ns management.config
   "Configuration component that reads a json file when created"
-  (:use [cheshire.core]))
+  (:use [cheshire.core]
+        [cemerick.friend.workflows :only[interactive-form]]
+        [cemerick.friend.credentials :only[hash-bcrypt]]))
+
+(def users {"root" {:username "root"
+                    :password (hash-bcrypt "sa")
+                    :roles #{::admin}}
+            "paul" {:username "paul"
+                    :password (hash-bcrypt "sa")
+                    :roles #{::publisher}}
+            "ann" {:username "ann"
+                    :password (hash-bcrypt "sa")
+                   :roles #{::advertiser}}
+            "carl" {:username "carl"
+                    :password (hash-bcrypt "sa")
+                    :roles #{::content-provider}}
+            "freddy" {:username "freddy"
+                    :password (hash-bcrypt "sa")
+                    :roles #{::feed-provider}}
+            "jane" {:username "jane"
+                    :password (hash-bcrypt "sa")
+                    :roles #{::user}}})
 
 ;; INTERFACE SPECIFICATION
 (defprotocol Config
@@ -23,3 +44,7 @@
     (read-config [this ]
       cfg))))
 
+(def db-name "mgnt")
+(def db-user "test1")
+(def db-password "test123")
+(def db-address "localhost")

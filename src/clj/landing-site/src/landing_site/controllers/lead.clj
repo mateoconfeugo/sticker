@@ -2,7 +2,7 @@
   (:use [ring.util.response :only [content-type response redirect]]        
         [compojure.core :only [defroutes POST]]
         [landing-site.models.lead :only [log-lead]]
-        [landing-site.core :only[cfg] :as app]
+        [landing-site.config :only[cfg] :as app]
         [cheshire.core :only [parse-string generate-string]]
         [postal.core :only[send-message]]
         [clostache.parser :only[render-resource]]))

@@ -42,7 +42,6 @@
 (use-fixtures
  :each clean-up)
 
-
 (def db mysql-db)
 
 (deftest test-create-feed-partner-table 

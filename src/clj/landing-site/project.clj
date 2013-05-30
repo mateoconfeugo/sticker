@@ -1,8 +1,8 @@
 (defproject landing-site "0.1.0"
-  :description "http landing site server"
-  :url "http://www.marketwithgusto.com/products/landing-site-server"
+  :description "http landing site optimization server"
+  :url "https://www.marketwithgusto.com/dev/landing-site-server"
   :resource-paths ["resources"]
-  :pallet {:source-paths ["pallet/src"] :resource-paths ["pallet/resources"]}
+  :pallet {:source-paths ["pallet/src/landing_site"] :resource-paths ["pallet/resources"]}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [clj-webdriver "0.6.0"]                 
                  [compojure "1.1.5"]
@@ -34,7 +34,7 @@
   :html5-docs-source-path "src/landing_site"
   :plugins [[lein-ring "0.8.5"]
             [lein-expectations "0.0.7"]
-          [com.palletops/pallet-lein "0.6.0-beta.9"]            [lein-autoexpect "0.2.5"]
+            [lein-autoexpect "0.2.5"]
             [lein-dpkg "0.1.0"]
 ;;            [lein-ritz "0.6.0"]            
             [lein-html5-docs "2.0.0"]
