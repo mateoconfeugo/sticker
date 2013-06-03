@@ -307,6 +307,12 @@ ul li a h1 {
  text-shadow: 2px 2px 2px #aaa;
 }
 
+#top-bar li h3{
+    font-size: 400%;
+
+}
+
+
 .thank-you-message {
     padding: 30px;
 }
