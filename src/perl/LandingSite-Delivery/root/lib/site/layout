@@ -45,7 +45,7 @@
    [% INCLUDE form_validation_message %]
   <form id="lead_form"  autocomplete="on" method="POST">
     <fieldset>
-      <legend>Pain Solutions<br/>
+      <legend>Solutions<br/>
       <h5>Ask us if you qualify</h5>
       </legend>
           <label>Name</label><input id="lead_full_name" type="text"  class="required"/>
