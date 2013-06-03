@@ -2,7 +2,7 @@
   (:use [ring.util.response :only [content-type file-response response]]        
         [compojure.core :only [defroutes GET ANY]]
         [compojure.route :as route :only [not-found files resources]]
-        [landing-site.core]
+        [landing-site.config]
         [riemann.client :only [send-event tcp-client]]                
         [landing-site.views.host-dom :as host :only [render]]
         [landing-site.views.static-page :only [render-static-page]]))
@@ -14,8 +14,9 @@
   (let [new-session (assoc session :adnetwork adnetwork :campaign campaign :ad-group ad-group
                            :listing listing :market-vector market-vector :session session)
         monitoring-bus (tcp-client)]
-    (riemann.client/send-event monitoring-bus {:service "clicks" :state "ok" :tags["landing-site"]
-                                               :metric 1 :description "traffic generated from adnetwork"})
+;;    (if monitoring-bus 
+;;      (riemann.client/send-event monitoring-bus {:service "clicks" :state "ok" :tags["landing-site"]
+;;                                                 :metric 1 :description "traffic generated from adnetwork"}))
     (->  (host/render token cms) (assoc :session new-session))))
 
 (defroutes landing-site-routes

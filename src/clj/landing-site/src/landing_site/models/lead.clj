@@ -3,7 +3,9 @@
   (:import [com.google.i18n.phonenumbers PhoneNumberUtil NumberParseException]
            [java.util.zip  DataFormatException])
   (:use [metis.core]
-        [landing-site.core]
+        [landing-site.config]
+        [korma.db :only [defdb mysql]]
+        [korma.core :only [defentity database insert values]]        
         [riemann.client :only [send-event tcp-client]]))        
         
 

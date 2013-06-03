@@ -13,11 +13,12 @@ body {
     margin: 0px;
     padding: 0px;
     height: 100%;
-    background: hsla(0, 0%, 100%, 0.55) url(/img/PCSlogo.png) no-repeat right bottom fixed;
+/*    background: hsla(0, 0%, 100%, 0.55) url(/img/PCSlogo.png) no-repeat right bottom fixed; */
     -webkit-background-size: 30%;
     -moz-background-size: 30%;
     -o-background-size: 30%;
     background-size: 30%; 
+    background-color: ivory;
 }
 
 footer {
@@ -63,11 +64,13 @@ img {
     opacity: 0.35;
 }
 /*
-  #lead-form-link {
+#lead-form-link {
   margin: 0px 25px 0px 150px;
   padding: 10px 50px 10px 50px; 
+  background-color: #EFCA55;
   }
-  */
+*/
+
 .logo {
     opacity: 1;
 }
@@ -297,8 +300,11 @@ ul li a h1 {
 
 .box  {
     width: 225px;
-    border: 1px solid #C6A765;
-    background-color:  hsla(40, 47%, 96%, 0.8);
+/*    border: 1px solid #C6A765;  */
+/*    border: 1px solid  #EFCA55; */
+    color: green;
+/*    background-color:  hsla(40, 47%, 96%, 0.8); */
+    background: hsla(0, 0%, 100%, 0.55) url(/img/transparent-sun-cloud.jpeg) center no-repeat;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
