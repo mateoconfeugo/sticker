@@ -1,18 +1,9 @@
 (ns management.controllers.admin
-  (:use [compojure.core :only (defroutes GET POST)])
-  (:require [clojure.string :as str]
-            [ring.util.response :as ring]
-            [management.views.admin :as view]
-            [management.models.admin :as model]))
+  (:use [compojure.core :only [defroutes GET]]
+        [management.views.admin :as admin :only [admin-dashboard]]
+        [ring.util.response :only [content-type file-response]]))
 
-(defn index []
-  (view/index (model/all)))
+(defroutes admin-mgmt-routes
+  (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json"))
+  (GET "/admin/:admin-id" [id] (admin-dashboard {})))
 
-(defn create [user]
-  (when-not (str/blank? user)
-    (model/create user))
-  (ring/redirect "/"))
-
-(defroutes routes
-  (GET  "/" [] (index))
-  (POST "/" [user] (create user)))

@@ -2,7 +2,7 @@
     "website" : {
 	"site-cfg-dir-path" : "market_vector",
 	"site-tag": "landing_site",
-	"site-name": "company-website",
-	"market_vector": "default-demo"
+	"site-name": "1",
+	"market_vector": "default_demo"
     }
 }

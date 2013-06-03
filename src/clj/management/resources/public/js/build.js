@@ -1,7 +1,7 @@
 ({
     baseUrl: "./lib",
     name: "main",
-    out: "main-built.js",
+    out: "lib/main-built.js",
     paths: {
 	jquery: 'jquery.min',
 	underscore: 'underscore-min',
@@ -11,6 +11,6 @@
 	socketio: 'socket.io',
 	bootstrap: 'bootstrap',
 	log4javascript:'log4javascript',
-	validate:'validate.min'
+	validate:'jquery.validate.min'
     },
 })

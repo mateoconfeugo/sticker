@@ -27,13 +27,11 @@
 (defn render-request [afn & args]
   (fn [req] (render-to-response (apply afn args))))
 
-
 (defn serve-file [filename]
   (file-response
    {:root *webdir*
     :index-files? true
     :html-files? true}))
-
 
 (defn run-server* [app & {:keys [port] :or {port 8089}}]
   (let [nses (if-let [m (meta app)]

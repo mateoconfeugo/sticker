@@ -14,64 +14,6 @@ if (typeof(exports) == 'object') {
 if (typeof(Jemplate) == 'undefined')
     throw('Jemplate.js must be loaded before any Jemplate template files');
 
-Jemplate.templateMap['cms.tt'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-output += '<div id="stage" class="span12"> <iframe class="span12" src="http://166.78.153.58:8080"></iframe> </div>	      ';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
-Jemplate.templateMap['layout.tt'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-//line 1 "layout.tt"
-output += context.include('body');
-output += '\n';
-
-output += '\n\n\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
-Jemplate.templateMap['body'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-output += '\n<div class="container-fluid">\n  <div class="navbar navbar-inverse navbar-fixed-top">\n    <div class="navbar-inner">\n      <div class="container-fluid">\n         ';
-//line 7 "layout.tt"
-output += context.include('top_menu.tt');
-output += '\n      </div>\n    </div>\n  </div>\n  <div class="container-fluid">\n    ';
-//line 12 "layout.tt"
-output += context.include('stage.tt');
-output += '\n  </div>\n</div>\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
 Jemplate.templateMap['lead_editor.tt'] = function(context) {
     if (! context) throw('Jemplate function called without context\n');
     var stash = context.stash;
@@ -318,25 +260,6 @@ output += '\n     </ul>\n   </div>\n</div>\n';
     return output;
 }
 
-Jemplate.templateMap['stage.tt'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-output += '<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="tabbable tabs-right container-fluid">\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n<div class="row-fluid">&nbsp</div>\n\n<div class="row-fluid span12" >\n  ';
-//line 10 "stage.tt"
-output += context.include('cms.tt');
-output += '\n</div>\n\n\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
 Jemplate.templateMap['thank_you.tt'] = function(context) {
     if (! context) throw('Jemplate function called without context\n');
     var stash = context.stash;
@@ -345,100 +268,6 @@ Jemplate.templateMap['thank_you.tt'] = function(context) {
     try {
 
 output += '\n<p>Thank you for your interesting on of our representatives will be contacting you shortly.</p>\n\n<!-- Google Code for pcs lead Conversion Page -->\n<script type="text/javascript">\n/* <![CDATA[ */\nvar google_conversion_id = 998141555;\nvar google_conversion_language = "en";\nvar google_conversion_format = "3";\nvar google_conversion_color = "ffffff";\nvar google_conversion_label = "XsyICM2gsQgQ89z52wM";\nvar google_conversion_value = 0;\n/* ]]> */\n</script>\n<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">\n</script>\n<noscript>\n<div style="display:inline;">\n<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/998141555/?value=0&amp;label=XsyICM2gsQgQ89z52wM&amp;guid=ON&amp;script=0"/>\n</div>\n</noscript>\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
-Jemplate.templateMap['top_menu.tt'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-output += '<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">\n  <span class="icon-bar"></span>\n  <span class="icon-bar"></span>\n  <span class="icon-bar"></span>\n</a>\n\n\n<a class="brand" href="#">Causal Marketing</a>\n<div class="nav-collapse collapse">\n  <p class="navbar-text pull-right">&nbsp<a href="#" class="navbar-link">';
-//line 10 "top_menu.tt"
-output += stash.get(['c', 0, 'user', 0, 'id', 0]);
-output += '</a></p>\n';
-//line 13 "top_menu.tt"
-if (stash.get(['c', 0, 'user_exists', 0])) {
-output += '\n <p class="navbar-text pull-right"><a href="';
-//line 12 "top_menu.tt"
-output += stash.get(['c', 0, 'uri_for', [ '/logout' ]]);
-output += '">logout&nbsp&nbsp</a></p>\n';
-}
-
-output += '\n<ul class="nav" role="navigation">\n  <li>';
-//line 15 "top_menu.tt"
-output += context.include('tool_menu_item');
-output += '</li>\n  <li class="active dropdown">';
-//line 16 "top_menu.tt"
-output += context.include('reports_menu_item');
-output += '</li>\n  <li><a href="#new">Alerts &nbsp;<i class="icon-bell icon-large"></i></a></li>\n  <li><a href="#warnings">Warnings &nbsp;<i class="icon-warning-sign icon-large"></i></a></li>\n  <li><a href="#help">Help&nbsp;<i class="icon-info-sign icon-large"></i></a></li>\n</ul>\n</div><!--/.nav-collapse -->\n\n';
-
-output += '\n\n';
-
-output += '\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
-Jemplate.templateMap['reports_menu_item'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-output += '\n<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">Reports &nbsp; <i class="icon-leaf"></i></a>\n<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">\n  <li><a tabindex="-1" href="#Publisher">Publisher<i class="icon-leaf icon-large"></i></a></li>\n  <li><a tabindex="-1" href="#mixer">Advertiser</a></li>\n  <li><a tabindex="-1" href="#recipe">Ad Networks</a></li>\n</ul>\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
-Jemplate.templateMap['tool_menu_item'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-output += '	      \n<a href="#new" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">Tools &nbsp; <i class="icon-plus icon-large"></i></a>\n<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">\n  <li class="dropdown-submenu">\n    <a tabindex="-1" href="#">Tools</a>\n    <ul class="dropdown-menu">\n      <li><a tabindex="-1" href="#">Landing Site</a></li>\n      <li><a tabindex="-1" href="#">Marketing Vector</a></li>\n      <li><a tabindex="-1" href="#">Vertical Site</a></li>\n    </ul>\n  </li>		\n  <li><a tabindex="-1" href="#">Campaigns</a></li>\n  <li><a tabindex="-1" href="#">Preferences</a></li>\n</ul>\n';
-    }
-    catch(e) {
-        var error = context.set_error(e, output);
-        throw(error);
-    }
-
-    return output;
-}
-
-Jemplate.templateMap['wrapper.tt'] = function(context) {
-    if (! context) throw('Jemplate function called without context\n');
-    var stash = context.stash;
-    var output = '';
-
-    try {
-//line 1 "wrapper.tt"
-
-// WRAPPER
-output += (function() {
-    var output = '';
-output += stash.get('content');;
-    return context.include('layout.tt', { 'content': output });
-})();
-
     }
     catch(e) {
         var error = context.set_error(e, output);

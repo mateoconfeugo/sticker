@@ -40,8 +40,8 @@ require.config({
 	bootstrapWizard: '/js/lib/jquery.bootstrap.wizard.min',
 	socketio: '/js/lib/socket.io',
 	bootstrap: '/js/lib/bootstrap',
-	log4javascript:'/js/lib/log4javascript',
-	validate:'/js/lib/jquery.validate.min'
+	log4javascript: '/js/lib/log4javascript',
+	validate: 'jquery.validate.min'
     },
     text: {
 	useXhr: function (url, protocol, hostname, port) {
@@ -53,27 +53,8 @@ require.config({
 
 });
 
-
-require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstrapWizard'], 
-	function($, _, Backbone, Desktop) {
-
-	    $.fn.serializeObject = function()
-	    {
-		var o = {};
-		var a = this.serializeArray();
-		$.each(a, function() {
-		    if (o[this.name] !== undefined) {
-			if (!o[this.name].push) {
-			    o[this.name] = [o[this.name]];
-			}
-			o[this.name].push(this.value || '');
-		    } else {
-			o[this.name] = this.value || '';
-		    }
-		});
-		return o;
-	    };
-
+require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/lead_editor', 'views/support_group_lead', 'bootstrapWizard'], 
+	function($, _, Backbone, Desktop, LeadEditor, SupportLead) {
 	    // Main entry point that runs after getting the configuration data
 	    var fetchSuccess = function(cfg) {
 		var router = new Desktop({config: cfg});
@@ -82,21 +63,21 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'bootstra
 		$('#rootwizard').bootstrapWizard({
 		    'class': 'nav nav-tabs',
 		    onNext: function(event) { 
-//			$('#lead_form_link').trigger('click');
-//			router.navigate('lead_form', {trigger: true});
 			var index = $('#rootwizard').bootstrapWizard('currentIndex');
 			var size = $('#rootwizard').bootstrapWizard('navigationLength');
 			if(index >= size) {
-			    $('#lead_form_link').trigger('click');
-//			    return false;
+			    $('#lead-form-link').trigger('click');
 			}
 			return true;
 		    }
 		});
+		var pager_cntls = $(".pager wizard");
+		$('.hero-unit').append($('#nav-controls'));
+		var support_lead  = new SupportLead({ el: '#support-group-form',  router: router});
 	    };
 	    
 	    // Get configuration and tie to application
 	    var config = new Backbone.Model();
-	    config.url = "/clientconfig/clientconfig";
+	    config.url = "/clientconfig";
 	    config.fetch({success: fetchSuccess});
 	});

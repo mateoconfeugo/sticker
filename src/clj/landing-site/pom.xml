@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>management</groupId>
-  <artifactId>management</artifactId>
+  <groupId>landing-site</groupId>
+  <artifactId>landing-site</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.0-SNAPSHOT</version>
-  <name>management</name>
-  <description>FIXME: write description</description>
-  <url>http://example.com/FIXME</url>
+  <version>0.1.0</version>
+  <name>landing-site</name>
+  <description>http landing site server</description>
+  <url>http://www.marketwithgusto.com/products/landing-site-server</url>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
@@ -30,9 +30,9 @@
   <repositories>
     <repository>
       <id>central</id>
-      <url>http://repo1.maven.org/maven2</url>
+      <url>http://repo1.maven.org/maven2/</url>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
       </snapshots>
       <releases>
         <enabled>true</enabled>
@@ -53,17 +53,17 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.4.0</version>
+      <version>1.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>clj-webdriver</groupId>
+      <artifactId>clj-webdriver</artifactId>
+      <version>0.6.0</version>
     </dependency>
     <dependency>
       <groupId>compojure</groupId>
       <artifactId>compojure</artifactId>
       <version>1.1.5</version>
-    </dependency>
-    <dependency>
-      <groupId>hiccup</groupId>
-      <artifactId>hiccup</artifactId>
-      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
@@ -81,14 +81,59 @@
       <version>5.1.6</version>
     </dependency>
     <dependency>
-      <groupId>me.raynes</groupId>
-      <artifactId>fs</artifactId>
-      <version>1.4.0</version>
-    </dependency>
-    <dependency>
       <groupId>flourish-common</groupId>
       <artifactId>flourish-common</artifactId>
       <version>0.1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>cms</groupId>
+      <artifactId>cms</artifactId>
+      <version>0.1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.libphonenumber</groupId>
+      <artifactId>libphonenumber</artifactId>
+      <version>5.4</version>
+    </dependency>
+    <dependency>
+      <groupId>korma</groupId>
+      <artifactId>korma</artifactId>
+      <version>0.3.0-RC5</version>
+    </dependency>
+    <dependency>
+      <groupId>metis</groupId>
+      <artifactId>metis</artifactId>
+      <version>0.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>cheshire</groupId>
+      <artifactId>cheshire</artifactId>
+      <version>5.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>zookeeper-clj</groupId>
+      <artifactId>zookeeper-clj</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+    <dependency>
+      <groupId>riemann-clojure-client</groupId>
+      <artifactId>riemann-clojure-client</artifactId>
+      <version>0.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.draines</groupId>
+      <artifactId>postal</artifactId>
+      <version>1.10.2</version>
+    </dependency>
+    <dependency>
+      <groupId>de.ubercode.clostache</groupId>
+      <artifactId>clostache</artifactId>
+      <version>1.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>expectations</groupId>
+      <artifactId>expectations</artifactId>
+      <version>1.4.33</version>
     </dependency>
     <dependency>
       <groupId>ring-mock</groupId>

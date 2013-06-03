@@ -2,6 +2,8 @@
 /lib
 /classes
 /checkouts
+/.configleaf
+src/cfg/current.clj
 pom.xml
 *.jar
 *.class
