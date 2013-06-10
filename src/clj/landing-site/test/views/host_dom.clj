@@ -1,11 +1,12 @@
-(ns views.host_dom
+(ns views.host-dom
   (:use [landing-site.views.host-dom :as host]
+        [landing-site.views.snippets]
         [expectations]
-        [landing-site.core]
+        [landing-site.config]
         [cms.site]
         [korma.core :only [defentity database insert values select where] :as kdb]
         [korma.db :only [defdb mysql]]
-        [flourish-common.web-page-utils :only [run-server render-to-response render-request]]))
+        [flourish-common.web-page-utils :only [run-server render-to-response render-request render-snippet]]))
     
 
 (def html-output (host/render token cms))
@@ -16,3 +17,5 @@
 
 (first pages-contents)
 (def output (render-to-response (host/index-with-webapp-pages {:site-name "MarketWithGusto.com" :pages pages-contents :menu-data menu})))
+(render-snippet offer "blah")
+(offer {})

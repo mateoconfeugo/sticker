@@ -13,16 +13,13 @@ body {
     margin: 0px;
     padding: 0px;
     height: 100%;
-/*    background: hsla(0, 0%, 100%, 0.55) url(/img/PCSlogo.png) no-repeat right bottom fixed; */
-    -webkit-background-size: 30%;
-    -moz-background-size: 30%;
-    -o-background-size: 30%;
-    background-size: 30%; 
     background-color: ivory;
+/*    background-color: rgb(221, 221, 189);  */
 }
 
 footer {
     clear: both;
+    background-color: red;
 }
 
 #footer {
@@ -60,9 +57,16 @@ h1.title {
 
 .hero-background {}
 
-img {
-    opacity: 0.35;
+.leading img {
+    opacity: 0.45; 
 }
+
+#cloud img {
+    opacity: 0.35; 
+}
+
+
+
 /*
 #lead-form-link {
   margin: 0px 25px 0px 150px;
@@ -96,6 +100,10 @@ ul li a h1 {
     line-height: 10px;
 }
 
+#lead_newsletter h5 {
+    font-size: 50%;
+}
+
 /*
   ul li a:hover {
   font-size: 100%;
@@ -115,6 +123,17 @@ ul li a h1 {
 
 .page-content {
     padding: 50px 0px 0px 1px;
+/*
+    background: hsla(0, 0%, 100%, 1) url(/img/transparent-logo.png) no-repeat center right fixed;
+    -webkit-background-size: 20%;
+    -moz-background-size: 20%;
+    -o-background-size: 20%;
+    background-size: 20%; 
+    background-color: ivory; */
+}
+
+html {
+    background-color: ivory; 
 }
 
 aside div {
@@ -123,12 +142,13 @@ aside div {
 }
 
 #side-lead-form {
+/*    float: left; */
     padding: 5px 5px 5px 8px;
+/*    background: hsla(0, 0%, 100%, .0) url(/img/transparent-sun-cloud.png) top right no-repeat; */
 }
 
 header {
-    float: right;
-    padding: 0px 80px 0px 0px;
+    padding: 0px 40px 0px 0px;
     margin: 0px 0px 10px 0px;
 }
 
@@ -156,10 +176,11 @@ img {
 }
 
 
-#rootwizard {}
+#rootwizard {
+}
 
 #rootwizard div {
-    float: left;
+
     padding: 9;
 }
 
@@ -182,10 +203,15 @@ img {
 }
 
 .hero-unit {
-    background-color: hsla(0, 0%, 93%, 0.85);
+/*    background-color: hsla(0, 0%, 93%, 0.85); */
+    background-color: white;
     max-width: 100%;
     float: left;
     display: block;
+    -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.12);
+    -moz-box-shadow: 1px 1px 3px rgba(0,0,0,.12);
+    box-shadow: 1px 1px 3px rgba(0,0,0,.12);
+    border: 1px solid #D9E0E6;
 }
 
 .hero-unit p {
@@ -225,22 +251,23 @@ img {
 }
 
 .leading {
-    float: left;
-    max-width: 15%;
-    margin: 0 0px  0 4px;
+    float: right; 
+    max-width: 45%;
+    margin: 0 80px  0 4px;
     padding: 4px;
-    border: 1px solid #D9E0E6;
-    border-bottom-color: #C8CDD2;
-    border-right-color:  #C8CDD2;
-    background: #FFF;
-    -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.12);
-    -moz-box-shadow: 1px 1px 3px rgba(0,0,0,.12);
-    box-shadow: 1px 1px 3px rgba(0,0,0,.12);
+    background: ivory;
 }
 
 .leading img {
     width: (width)px;
     height: (height)px;
+    -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,.12);
+    -moz-box-shadow: 1px 1px 3px rgba(0,0,0,.12);
+    box-shadow: 1px 1px 3px rgba(0,0,0,.12);
+    border: 1px solid #D9E0E6;
+    border-bottom-color: #C8CDD2; 
+    border-right-color:  #C8CDD2;
+
 }
 
 aside h2 {
@@ -290,8 +317,14 @@ ul li a h1 {
     display: inline;
     padding: 0px 20px 0px 20px;
     margin: 0;
+
     font-style: italic;
     text-shadow: 2px 2px 2px #aaa;
+}
+
+
+#top-bar li h3{
+    font-size: 400%;
 }
 
 .thank-you-message {
@@ -302,12 +335,20 @@ ul li a h1 {
     width: 225px;
 /*    border: 1px solid #C6A765;  */
 /*    border: 1px solid  #EFCA55; */
-    color: green;
+/*    color: green; */
 /*    background-color:  hsla(40, 47%, 96%, 0.8); */
-    background: hsla(0, 0%, 100%, 0.55) url(/img/transparent-sun-cloud.jpeg) center no-repeat;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+}
+
+#cloud {
+/*    float: right;
+    background: hsla(0, 0%, 100%, .0) url(/img/transparent-sun-cloud.png) top right no-repeat; */
+}
+
+.box h5 {
+    font-size: 150%;
 }
 
 fieldset {

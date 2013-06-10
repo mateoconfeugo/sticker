@@ -1,6 +1,6 @@
 (ns landing-site.views.host-dom
   (:use [net.cgrand.enlive-html]
-        [landing-site.views.snippets :only[nav-bar]]        
+        [landing-site.views.snippets :only[nav-bar offer]]        
         [cms.site :only [new-cms-site get-site-menu get-site-contents]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
                                                maybe-content maybe-substitute page-not-found]]))
@@ -20,7 +20,9 @@
                                                     (set-attr :id (str "tab" (:order p)))
                                                     (html-content (:contents p))))
    [[:ul.pages (nth-of-type 1)] :> first-child] (add-class "active")
-   [[:.tab-pane first-child]] (add-class "active"))
+   [[:.tab-pane first-child]] (add-class "active")
+   [[:li.leading] :> last-child] (content ""))
+;;(offer {})
 
 (defn render
   [id cms]
@@ -32,14 +34,4 @@
         pages (reverse (map #(assoc %1 :order %2)  pages page_num))]
     (render-to-response (index-with-webapp-pages {:site-name "MarketWithGusto.com" :pages pages :menu-data menu}))))
 
-
-;;(def-landing-site "templates/index.html")
-;; TODO: Make this generic so we can have all sorts of customizable landing pages
-(comment
-(defn map-elements-into-dom
-  [{:keys [:template :settings :mappings]}]
-  "maps the user configured landing site components into the dom declared by the template"))
-
-  ;;  (map-elements-into-dom {:template "templates/index.html" :settings settings}
-  ;;  [: (nth-of-type 1)]  (html/content (nav-bar {:title site-name :menu-data menu-data}))
 

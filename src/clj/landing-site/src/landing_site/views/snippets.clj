@@ -5,6 +5,12 @@
   [site-name]
   [:a.brand] (content site-name))
 
+
+(def ^:dynamic  *offer-sel* [:div.offer])
+(defsnippet offer "templates/offer.html" *offer-sel*
+  [offer]
+  [:ul] (set-attr :id "foo"))
+
 ;;menu items
 (def ^:dynamic  *menu-item-sel* [[:ul.dropdown-menu (nth-of-type 1)] :> first-child])
 (defsnippet menu-item-model "templates/site-nav-header.html" *menu-item-sel*

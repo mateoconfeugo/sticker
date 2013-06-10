@@ -5,22 +5,36 @@ X lead database
 X form validation
 X adjust content
 
-wizard navigation
+X wizard navigation
 compress javascript and css into single download
-color
-get phone number correct and validated
+
+X get phone number correct and validated
 secure database
 report cronjob
 move to port 80
 
-* remove hiccup
-* ad enlive
+X* remove hiccup
+X* ad enlive
 * move config to zookeepr
 * log data with kafka
-* rieman monitoring
-* korma data map
-* combine lessons learned from causal marketing to refactor landing site
+X* rieman monitoring
+X* korma data map
+X* combine lessons learned from causal marketing to refactor landing site
 
+X move all configurable/customizable elements of the landing page into the cms
+** Lead Form
+** Support Lead Form fields lables button content
+** Site Header Content
+** Modal Button Content
+** Media Queries
+** Site Images
+** Navigation buttons need to at the top
+** color
+** Link to the California form
+** Email
+** create cloud form background
+** Make newsletter bigger
+** get images to publish to the resources/public/img - maybe use a symlink that will sort it out
 
 
 

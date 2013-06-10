@@ -130,4 +130,99 @@ programmaticaly do whatever.
 ;; 6: Symbolic Links
 ;;======================================================================
 
+What files need to be put in place
+* Application libraries
+* Startup and supervise scripts
+* Third party dependencies
+* CMS published files
+* configuration files
+
+* Provisioning scenarios
+The software is run several different environments
+** DEVELOPMENT
+Every thing runs local on the developers single box.   The testing
+suite is run from the same box.  This scenario is what is used when
+the developer has created a feature branch and working locally  where
+they can't do any damage.   All the java dependencies are satified
+using a local maven repository.  This scenario employs  lein
+autoexpect plugin so that the testing suite is always running.
+
+** DEV QA
+Everything is checked out and built from scratch on the host and deployed from there
+to virtual box machines the host spins to  simulate the production
+infrastructure  the various parts of the system.   The host then runs
+the acceptance tests against the virutal system before the feature
+branch is merged back into the  delvelopment branch.  Then the
+develop branch publishes the feature into github.
+
+** QA RELEASE
+Testing scenarios can be run on  the cloud hosted node/box/machine.
+The ops/qa  starts is process of getting, building, package,
+provisioning and deploying  when a release is started.  The ops/qa
+server will then run the acceptance tests against against the system
+it just spun up.  
+ When the acceptance test pass its time to finish the release.  
+*** This will mean the release branch is merged into develop and into master
+*** The master branch is tagged
+*** The release branch is removed
+*** The newly spun up QA environment is now the blue/green environment depending on what production is
+
+** PRODUCTION RELEASE
+The overall idea is the traffic will slowly be shunted from the
+previous releases prod environment to the environment that was spun up
+in the QA RELEASE.  When it deemed save the ratio of resources in
+shifted from the previous release production environement to the new
+release and the new releases color is now set to production.  Then all
+the traffic is shunted to the new release and the old environment
+sticks around with all  the system now running on minimal resource.
+And will exist untill the next  new release.  The only thing that
+needs to be running is probably the databases that now are the
+replication slaves
+
+customers can choose between sharing resources (less
+expensive) or having their own deicated servers in the cloud
+
+
+*** FLOURISH ASSETS
+**** Databases
+***** Shared amongst clients
+***** Internal
+**** Flourish Online Servers
+
+*** CUSTOMER ASSETS
+
+
+
+All the servers that make up system can be run as any user
+
+
+** DEVELOPMENT
+NEW DEVELOPMENT SETUP ON EXISTING NODE (developer laptop)
+** Checkout project and publish cms resources to a pre-existing box (node)
+** This will require a pallet crate that manipulates bricolage
+** Checkout Git
+** determine what user to run under
+
+
+** TEST
+All These senarios will have to check out the source and build the
+individual pieces from scratch.  These parts are then used  in the
+following TEST scenarios
+* COMPLETE SYSTEM RUNNING LOCALLY  SHARED LIBRARIES
+** CONDITIONS Requirements
+*** All the java servers are bundled up in jar file and uses the dependencies in the local .m2 repository
+*** Each server running as a unique unix user but part of a common group
+*** All acceptence, component, and unix test can run  without any internet connection
+
+* COMPLETE SYSTEM RUNNING LOCALLY  UBERJARS
+All the java servers are bundled up in single file standalone uberjars
+
+* COMPLETE SYSTEM RUNNING ON LOCALLY HOSTED VIRTUAL MACHINES
+
+* INDIVIDUAL SERVERS AND DEPENDENCIES RUNNING LOCALLY
+
+* INDIVIDUAL SERVERS AND DEPENDENCIES RUNNING ON LOCALLY HOSTED VIRTUAL MACHINES
+
+
+
 
