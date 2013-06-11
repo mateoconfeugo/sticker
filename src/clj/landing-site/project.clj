@@ -2,7 +2,6 @@
   :description "http landing site optimization server"
   :url "https://www.marketwithgusto.com/dev/landing-site-server"
   :resource-paths ["resources"]
-  :pallet {:source-paths ["pallet/src/landing_site"] :resource-paths ["pallet/resources"]}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [clj-webdriver "0.6.0"]                 
                  [compojure "1.1.5"]
@@ -16,6 +15,9 @@
                  [korma "0.3.0-RC5"]                 
                  [metis "0.3.0"]
                  [cheshire "5.0.2"]
+                 [com.ibdknox.socket_io_netty/socket-io-netty "0.3.4"]                 
+                 [clj-socketio "0.2.3"]
+                 [aleph "0.3.0-rc1"]
                  [org.clojars.tbatchelli/vboxjxpcom "4.2.4"]
                  [zookeeper-clj "0.9.1"]                 
                  [riemann-clojure-client "0.2.1"]
@@ -28,7 +30,11 @@
                  [com.palletops/runit-crate "0.8.0-alpha.1"]
                  [com.palletops/riemann-crate "0.8.0-alpha.2"]
                  [org.clojure/tools.trace "0.7.5"]                 
-                 [vmfest "0.3.0-alpha.5"]                 
+                 [vmfest "0.3.0-alpha.5"]
+                 [log4j/log4j "1.2.16" :exclusions [javax.mail/mail javax.jms/jms com.sun.jdmk/jmxtools com.sun.jmx/jmxri]]
+                 [org.slf4j/slf4j-log4j12 "1.6.4"]
+                 [org.clojure/tools.logging "0.2.3"]
+                 [ clj-logging-config "1.9.7"]
                  [org.clojars.tbatchelli/vboxjxpcom "4.2.4"]]                 
   :jvm-opts ["-Dvbox.home=/Applications/VirtualBox.app/Contents/MacOS"]
   :html5-docs-source-path "src/landing_site"

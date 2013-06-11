@@ -1,10 +1,10 @@
 (ns landing-site.server.monitoring
   "Returns the group spec to provision, install and load landing site database"
   (:use [clojure.core]
-        [pallet [api :only [server-spec plan-fn]
-                 actions :only [remote-directory user remote-file exec-script*]]]
-        [landing-site [servers.packages :only[with-bzip2]
-                       config :only [monitoring-settings]]]))
+        [pallet.actions :only [remote-directory user remote-file exec-script*]]
+        [pallet.api :only [server-spec plan-fn]]
+        [landing-site.dev-ops-config :only [monitoring-settings]]        
+        [landing-site.servers.packages :only[with-bzip2]]))
 
 (def download-riemann (server-spec
                        :phases {:install (remote-directory  (:install-dir monitoring-settings)

@@ -1,8 +1,9 @@
 (ns landing-site.servers.packages
   "packages needed by the different servers"
-  (:use [pallet.api :only[server-spec plan-fn]]
+  (:use [landing-site.dev-ops-config :only[delivery-settings]]
         [pallet.actions :only[package remote-file]]
-        [landing-site.config :only[delivery-settings]]))
+        [pallet.api :only[server-spec plan-fn]]))
+
 
 ;; landing site business server (lsbs)
 (def lsbs-app-jar (server-spec :phases {:configure (plan-fn (remote-file (:remote-jar delivery-settings)

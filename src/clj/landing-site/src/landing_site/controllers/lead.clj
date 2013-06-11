@@ -1,12 +1,13 @@
 (ns landing-site.controllers.lead
-  (:use [ring.util.response :only [content-type response redirect]]        
+  "Store leads, send out thank you email and redirect to correct page"
+  (:use [cheshire.core :only [parse-string generate-string]]
+        [clostache.parser :only[render-resource]]        
         [compojure.core :only [defroutes POST]]
-        [landing-site.models.lead :only [log-lead]]
         [landing-site.config :only[cfg] :as app]
-        [cheshire.core :only [parse-string generate-string]]
+        [landing-site.models.lead :only [log-lead]]
         [postal.core :only[send-message]]
-        [clostache.parser :only[render-resource]]))
-
+        [ring.util.response :only [content-type response redirect]]))
+        
 (defn send-thank-you
   [{:keys[name email settings]}]
   "sends the thank you message to person who just completed the lead"  
@@ -19,21 +20,23 @@
   [post-data]
   "format lead data, store it, send you email, redirect to conversion page"
   (let [lead (dissoc (assoc post-data
-                       :full-name (:full_name post-data)
-                       :phone-number (:phone post-data)
-                       :email-address (:email post-data))
+                                   :full-name (:full_name post-data)
+                                   :phone-number (:phone post-data)
+                                   :email-address (:email post-data))
                      :full_name :phone :email)
         result (log-lead lead)]
-    (if (:id result)
-;;      (do
-;;        (send-thank-you {:name (:full-name lead)  :email (:email-address lead)
-;;                         :settings (-> app/cfg :lead :thank-you-email)})
-        (-> (response (generate-string result)) (content-type "application/json"))
-        ;;      (-> (redirect (str (-> app/cfg :lead :redirect-uri) "/"  (:full-name lead))))
-      ;;        (-> (redirect (str (-> app/cfg :lead :redirect-uri))))
-      {:status 500 :headers {} :body (generate-string result)})))
-
+    (if-let [id (:id result)
+             lead-name (:full-name lead)
+             lead-email (:email-address lead)
+             email-settings (-> app/cfg :lead :thank-you-email)
+             _ (send-thank-you {:name lead-name  :email lead-email :settings email-settings})]
+      (-> (redirect (str (-> app/cfg :lead :redirect-uri) "/"  (:full-name lead))))
+      {:status 500 :headers {} :body (generate-string result}))
+    result))
       
 (defroutes lead-gen-routes
   (POST "/lead" {body :body} (handle-lead (parse-string (slurp body) true))))
 
+
+;;(-> (response (generate-string result)) (content-type "application/json"))        
+;;        (-> (redirect (str (-> app/cfg :lead :redirect-uri))))

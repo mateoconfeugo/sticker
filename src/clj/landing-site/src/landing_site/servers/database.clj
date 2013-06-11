@@ -1,8 +1,8 @@
 (ns landing-site.servers.database
-  (:use [pallet.api :only[server-spec plan-fn]]
-        [pallet.actions :only[remote-file exec-script*]]
-        [landing-site.config :only[db-settings]]
-        [landing-site.servers.packages :only[with-mysql-client]]))
+  (:use [landing-site.dev-ops-config :only[db-settings]]
+        [landing-site.servers.packages :only[with-mysql-client]]
+        [pallet.api :only[server-spec plan-fn]]
+        [pallet.actions :only[remote-file exec-script*]]))
 
 (def copy-schema (server-spec :phases {:configure (plan-fn
                                                    (remote-file "landing-site.sql"

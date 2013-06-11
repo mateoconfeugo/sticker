@@ -53,9 +53,17 @@ require.config({
 
 });
 
-require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/lead_editor', 'views/support_group_lead', 'bootstrapWizard'], 
-	function($, _, Backbone, Desktop, LeadEditor, SupportLead) {
-	    // Main entry point that runs after getting the configuration data
+require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/lead_editor', 'views/support_group_lead',  'models/mouse_position', 'bootstrapWizard'], 
+	function($, _, Backbone, Desktop, LeadEditor, SupportLead, MousePosition) {
+
+	    var setup_heatmapping = function(cfg) {
+		$("body").mousemove(function(event) {
+		    var coord = new MousePosition({});
+		    coord.set("x", event.pageX);
+		    coord.set("y", event.pageY);
+		    coord.save()});
+	    };
+
 	    var fetchSuccess = function(cfg) {
 		var router = new Desktop({config: cfg});
 		cfg.router = router;
@@ -74,6 +82,7 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/le
 		var pager_cntls = $(".pager wizard");
 		$('.hero-unit').append($('#nav-controls'));
 		var support_lead  = new SupportLead({ el: '#support-group-form',  router: router});
+		setup_heatmapping(cfg);
 	    };
 	    
 	    // Get configuration and tie to application

@@ -1,8 +1,9 @@
 (ns landing-site.server.supervise
   "Provision and install landing site optimization server"
-  (:use [pallet [api :only [server-spec plan-fn]
-                 actions :only [package rsync-directory exec-scripts*]]]
-        [landing-site.config :only [delivery-settings]]))
+  (:use[landing-site.config :only [delivery-settings]]
+       [pallet.actions :only [package rsync-directory exec-scripts*]]
+       [pallet.api :only [server-spec plan-fn]]))
+
 
 (def install-supervise  (server-spec :phases {:install (plan-fn
                                                         (package "rsync")
