@@ -1,0 +1,2 @@
+#!/bin/sh 
+/usr/bin/rsync -az -e '/usr/bin/ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -i /home/{{username}}/.ssh/id_rsa' bric201@ops1.causalmarketing.com:/home/bric201/landing-sites/{{username}}/{{domain-name}}  /home/{{username}}/website

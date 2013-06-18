@@ -1,4 +1,12 @@
-(ns provisioning.core)
+(ns provisioning.core
+  (:use [clojure.tools.cli :only [cli]]))
+
+(cli args
+     ["-p" "--port" "Listen on this port" :parse-fn #(Integer. %)]
+     ["-h" "--host" "The hostname" :default "localhost"]
+     ["-v" "--[no-]verbose" :default true]
+     ["-l" "--log-directory" :default "/some/path"]))
+
 
 
 (defn add-operating-agent []

@@ -1,10 +1,9 @@
 (ns dev-ops.user-account
   (:use
-   [pallet.script.lib :as lib]
-   (pallet [core :only [lift group-spec plan-fn node-spec]]
-           [stevedore :as stevedore]
-           [configure :only [compute-service defpallet]])
-   [pallet.actions :only [user group remote-file exec-script*]]))
+   [pallet.api :only [lift group-spec plan-fn node-spec]]
+   [pallet.stevedore :as stevedore]
+   [pallet.configure :only [compute-service defpallet]]
+   [pallet.actions :only [user group remote-file exec-script* exec-script]]))
 
 
 ;;======================================================================
@@ -21,7 +20,7 @@
                                                         :private-key-path "/Users/matthewburns/.ssh/id_rsa"
                                                         :public-key-path "/Users/matthewburns/.ssh/id_rsa.pub"}}
                                                 :node-list [
-                                                            ["ops1" "flourish-ls" "166.78.153.58" :debian]]}}))
+                                                            ["web100" "flourish-ls" "166.78.154.230" :debian]]}}))
 
 (def release-target (pallet.configure/compute-service-from-config release-pallet :data-center {}))
 
@@ -56,11 +55,11 @@
  :compute boxes-with-databases)
 
 (def ham ( (lift
- (group-spec "flourish-ls"
-             :phases {
-                      :configure (pallet.core/plan-fn
-                                  (release-landing-site))})
- :compute release-target)))
+            (group-spec "flourish-ls"
+                        :phases {
+                                 :configure (pallet.core/plan-fn
+                                             (release-landing-site))})
+            :compute release-target)))
 
 (pallet.core/node-spec tag
   :configure (pallet.core/plan-fn

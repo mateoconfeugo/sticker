@@ -9,9 +9,7 @@
 
 (defn determine-cfg-location []
   "Obtain the application config file directory"
-  (if-let [ cfg-dir (System/getProperty "LSBS_CFG_DIR")]
-    cfg-dir
-    (str (System/getProperty "user.dir") "/website/config")))
+    (str (System/getProperty "user.dir") "/config"))
 
 ;; determine environment variables
 ;;(def app-user (or (System/getenv  "LSBS_USER") (System/getProperty "user.name")))
@@ -20,9 +18,10 @@
 (def app-group "pallet-admin")
 (def home-dir (or (System/getenv "LSBS_HOME") (System/getProperty "user.home")))
 (def root-dir (or (System/getenv "LSBS_ROOT_DIR") home-dir))
-(def website-dir (or (System/getenv "LSBS_WEBSITE") (str root-dir "/website")))
+(def website-dir (or (System/getenv "LSBS_WEBSITE") (str root-dir "/website/patientcomfortrefferal.com/site")))
 (def cfg-dir (or (System/getenv "LSBS_CFG_DIR") (str root-dir "/website/config")))
-(def cfg (parse-string (slurp(str cfg-dir "/site-config.json")) true))
+;;(def cfg (parse-string (slurp(str cfg-dir "/site-config.json")) true))
+(def cfg (parse-string (slurp "config/site-config.json") true))
 (def db-address (or (System/getenv "LSBS_DB_ADDRESS") "127.0.0.1"))
 (def db-name (or (System/getenv "LSBS_DB_NAME") (str app-user "-lead-db")))
 (def db-user (or (System/getenv "LSBS_DB_USER") "root"))

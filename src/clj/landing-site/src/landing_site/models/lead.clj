@@ -1,6 +1,7 @@
 (ns landing-site.models.lead
   "storing, validating and manipulating leads"
   (:import [com.google.i18n.phonenumbers PhoneNumberUtil NumberParseException]
+           [java.io IOException]
            [java.util.zip  DataFormatException])
   (:use [metis.core]
         [landing-site.config]
@@ -44,7 +45,7 @@
                                 :full_name (:full-name lead)) :email-address :full-name :phone-number)]
     (if is-valid
       (do
-        (if-let [monitoring-bus (try (tcp-client) (catch IOException))]
+        (if-let [monitoring-bus (try (tcp-client) (catch IOException e))]
           (riemann.client/send-event monitoring-bus {:service "leads" :state "ok" :tags["landing-site"]
                                                      :metric 1 :description "lead form filled out correctly"}))
         {:id (:GENERATED_KEY (insert lead_log (values [storable-lead])))})

@@ -20,18 +20,19 @@
   [post-data]
   "format lead data, store it, send you email, redirect to conversion page"
   (let [lead (dissoc (assoc post-data
-                                   :full-name (:full_name post-data)
-                                   :phone-number (:phone post-data)
-                                   :email-address (:email post-data))
-                     :full_name :phone :email)
+                       :full-name (:full_name post-data)
+                       :phone-number (:phone post-data)
+                       :email-address (:email post-data)
+                       :full_name :phone :email))
+        lead-name (:full-name lead)
+        lead-email (:email-address lead)
+        email-settings (-> app/cfg :lead :thank-you-email)
         result (log-lead lead)]
-    (if-let [id (:id result)
-             lead-name (:full-name lead)
-             lead-email (:email-address lead)
-             email-settings (-> app/cfg :lead :thank-you-email)
-             _ (send-thank-you {:name lead-name  :email lead-email :settings email-settings})]
-      (-> (redirect (str (-> app/cfg :lead :redirect-uri) "/"  (:full-name lead))))
-      {:status 500 :headers {} :body (generate-string result}))
+    (if-let [id (:id result)]
+      (do
+        (send-thank-you {:name lead-name  :email lead-email :settings email-settings})
+        (-> (redirect (str (-> app/cfg :lead :redirect-uri) "/"  (:full-name lead)))))
+      {:status 500 :headers {} :body (generate-string result)})
     result))
       
 (defroutes lead-gen-routes

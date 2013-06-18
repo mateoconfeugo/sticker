@@ -9,21 +9,22 @@
         [landing-site.controllers.ad-network-traffic :only (landing-site-routes)]
         [landing-site.controllers.lead :only[lead-gen-routes]]
         [landing-site.controllers.conversion :only[conversion-routes]]
-        [landing-site.controllers.heatmap :only[heatmap-routes]]                
+;;        [landing-site.controllers.heatmap :only[heatmap-routes]]                
         [riemann.client :only [tcp-client send-event]]
         [ring.adapter.jetty :as ring]
+        [ring.middleware.logger]
         [ring.middleware.params :only [wrap-params]]
         [ring.util.response :as resp])
   (:gen-class ))
 
-(def app (handler/site (wrap-params (routes
-                                     lead-gen-routes                 
-                                     landing-site-routes
-                                     conversion-routes
-                                     heatmap-routes
-                                     (route/resources "/")
-                                     (route/files "/" {:root "public"})
-                                     (route/not-found "Not Found")))))
+(def app (handler/site (wrap-with-logger (wrap-params (routes  
+                                                               lead-gen-routes                 
+                                                               landing-site-routes
+                                                               conversion-routes
+                                                               ;;                                      heatmap-routes
+                                                               (route/resources "/")
+                                                               (route/files "/" {:root "public"})
+                                                               (route/not-found "Not Found"))))))
 
 (defn start-lsbs [port]
   (run-jetty app {:port port :join? false}))

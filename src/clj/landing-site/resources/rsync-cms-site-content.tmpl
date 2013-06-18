@@ -1,0 +1,11 @@
+#!/bin/sh 
+
+RSYNC=/usr/bin/rsync 
+SSH=/usr/bin/ssh 
+KEY=$HOME/.ssh/$USER-$HOST-rsyc-key
+RUSER=bric201
+RHOST=ops1.causalmarketing
+RPATH=/home/bric201/$USER/sites/{{ domain-name }}
+LPATH=:/home/$HOME/website/{{ domain-name }}
+
+$RSYNC -az -e "$SSH -i $KEY" $RUSER@$RHOST:$RPATH $LPATH 

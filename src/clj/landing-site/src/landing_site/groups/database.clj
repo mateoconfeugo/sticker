@@ -1,13 +1,14 @@
 (ns landing-site.groups.database
   "Create a node that installs, creates, runs the landing site databases"
-  (:use  [landing-site.servers.database]
-         [landing-site.dev-ops-config :only[db-settings]]        
-         [landing-site.servers.packages :only[with-mysql-client]]
-         [pallet.api :only [group-spec converge lift]]
-         [pallet.configure :only [compute-service]]))
+  (:use  [landing-site.dev-ops-config :only[qa-release-target]]
+         [landing-site.servers.database :only[lead-database-spec]]
+         [pallet.api :only [group-spec converge lift]]))
 
-(def database-group (group-spec (:group-spec-name db-settings)
-                                :node-spec (:node-spec db-settings)
-                                :extends [with-mysql-client copy-schema create-database load-schema]))
+(def db-group-spec (group-spec "flourish-ls" :extends [lead-database-spec]))
+(def qa-lead-db (lift db-group-spec :compute qa-release-target))
+;;(def production-lead-db (lift db-group-spec :compute production-blue))
+;;(def qa-lead-db (lift (group-spec "flourish-ls" :extends [lead-database-spec]) :compute qa-release-target))
+;;(def production-lead-db (lift (group-spec "flourish-ls" :extends [lead-database-spec]) :compute production-blue))
+  
 
 

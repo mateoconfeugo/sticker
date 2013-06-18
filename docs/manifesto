@@ -435,3 +435,22 @@ Create a provisioning project to combine all the servers together in a repeatabl
 
 
 
+each billable operator gets a home directory that the applications can run under
+
+Each cms directory in the /home/bric201/sites dir is the domain name.
+
+pallet lift operation that does the following
+* creates a new user and group on the landing site server target
+* creates a new public private key combination on the site server target
+* using the .profile template populate it and copy to the landing site server target
+* source the profile file to set up the environment
+* fill in the rsync-cms-site-content and copy to target with correct permissions
+* make crontab entry for the rsync-cms-site on landing site server target
+
+Coordinate everything with the .profile file 
+we probably want the .profile file templated
+
+
+rsync -avz -e "ssh -i /home/pallet-admin/cron/web100-rsync-key" bric201@ops1.causalmarketing.com:/home/bric201/stuff ./tmp
+
+0 5 * * * /home/thisuser/cron/rsync-remotehost-backups 

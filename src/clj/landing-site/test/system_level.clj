@@ -1,17 +1,15 @@
-(comment
+(ns system-level
     "System Level tests need to create the virtual environment that allows all
    the services that the landing site needs to created and running as it would
    in production just at a smaller scale
   High level acceptance tests that make sure business level functionality is achieved
    ACCEPTANCE TESTS:
-     * User via web browser navigates to landing site enters a valid lead and it got stored in database")
-
-(ns system-level
+     * User via web browser navigates to landing site enters a valid lead and it got stored in database"  
   (:use [pallet.action :only[with-action-options]]
         [pallet.configure :only[compute-service]]
         [pallet.api :only[converge]]
         [landing-site.handler]
-        [landing-site.config :only [db-settings delivery-settings]]
+        [landing-site.dev-ops-config]
         [landing-site.groups.database :only[database-group]]
         [landing-site.groups.delivery :only[delivery-group]]        
         [expectations]

@@ -9,7 +9,7 @@ export LSBS_GROUP=$USER
 export LSBS_HOME=$HOME
 export LSBS_ROOT_DIR=$HOME
 export LSBS_CFG_DIR=$LSBS_ROOT_DIR/website/config
-export LSBS_WEBSITE=$LSBS_ROOT_DIR/website
+export LSBS_WEBSITE=$LSBS_ROOT_DIR/website/patientcomfortreferral.com/site
 # TODO:  retrieve these in most secure manner test values 
 export LSBS_DB_ADDRESS="127.0.0.1"
 export LSBS_DB_USER="root"

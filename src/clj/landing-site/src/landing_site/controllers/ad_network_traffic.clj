@@ -1,5 +1,5 @@
 (ns landing-site.controllers.ad-network-traffic
-  (:import (java.io IOException))
+  (:import [java.io IOException])
   (:use [compojure.core :only [defroutes GET ANY]]
         [compojure.route :as route :only [not-found files resources]]
         [landing-site.config]
@@ -13,7 +13,7 @@
   "Wrap the biz logic with the session setup"
   (let [new-session (assoc session :adnetwork adnetwork :campaign campaign :ad-group ad-group
                            :listing listing :market-vector market-vector :session session)]
-    (if-let [monitoring-bus (try (tcp-client) (catch IOException))]
+    (if-let [monitoring-bus (try (tcp-client) (catch IOException e))]
       (riemann.client/send-event monitoring-bus {:service "clicks" :state "ok" :tags["landing-site"]
                                                  :metric 1 :description "traffic generated from adnetwork"}))
     (->  (host-dom/render token cms) (assoc :session new-session))))

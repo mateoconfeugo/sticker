@@ -1,0 +1,26 @@
+{
+    "website" : {
+	"site-cfg-dir-path" : "market_vector",
+	"site-tag": "landing_site",
+	"site-name": "1",
+	"market_vector": "1"
+    },
+    "riemann" : {
+	"host" : "127.0.0.1",
+	"port" : 5555
+    },
+    "mail" : {
+	"delivery-mode" : "test"
+    },
+    "heatmap": {
+	"log-path": "logs/heatmap.log"
+    },
+    "lead": {	
+	"redirect-uri" : "thank-you",
+	"thank-you-email" : {
+	    "from" : "test@test.com",
+	    "subject" : "this is a test",
+	    "template-path" : "resources/templates/email/thank_you.tmpl"
+	}
+    }
+}
