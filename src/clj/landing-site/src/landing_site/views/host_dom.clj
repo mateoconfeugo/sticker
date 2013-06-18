@@ -1,7 +1,7 @@
 (ns landing-site.views.host-dom
   (:use [net.cgrand.enlive-html]
         [landing-site.views.snippets :only[nav-bar offer]]        
-        [cms.site :only [new-cms-site get-site-menu get-site-contents]]
+        [cms.site :only [get-site-menu get-site-contents]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
                                                maybe-content maybe-substitute page-not-found]]))
 

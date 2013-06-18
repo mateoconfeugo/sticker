@@ -1,5 +1,7 @@
 (ns cms.site
-  "Interacting with cms consturcted site"
+  "Interacting with cms consturcted site
+   the site data is made up of being able to
+   access html page files, market vector and matrix json file"
   (:use [cheshire.core :only (parse-string)]
         [me.raynes.fs :only(directory?) :as fs]))
 

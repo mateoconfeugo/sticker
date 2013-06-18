@@ -9,7 +9,7 @@
         [ring.util.response :only [content-type file-response response]]))
 
 (defn handle-adnetwork-traffic
-  [{:keys [adnetwork campaign ad-group listing market-vector session] :as settings}]
+  [cms & {:keys [adnetwork campaign ad-group listing market-vector session] :as settings}]
   "Wrap the biz logic with the session setup"
   (let [new-session (assoc session :adnetwork adnetwork :campaign campaign :ad-group ad-group
                            :listing listing :market-vector market-vector :session session)]
@@ -19,12 +19,12 @@
     (->  (host-dom/render token cms) (assoc :session new-session))))
 
 (defroutes landing-site-routes
-  (GET "/" [] (host-dom/render token cms))
-  (GET "/static" [file] (render-static-page (str static-html-dir file) cms token))
+  (GET "/" request (host-dom/render token (:cms request)))
+  (GET "/static" [file :as req] (render-static-page (str static-html-dir file) (:cms req) token))
   (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json"))
   (GET "/adnetwork/:adnetwork/campaign/:campaign/adgroup/:adgroup/listing/:listing/market_vector/:market_vector/view"
-      [adnetwork campaign ad_group listing market_vector :as {session :session}]
-    (handle-adnetwork-traffic {:adnetwork adnetwork :campaign campaign :ad-group ad_group
+      [adnetwork campaign ad_group listing market_vector :as {session :session} :as req]
+    (handle-adnetwork-traffic (:cms req) {:adnetwork adnetwork :campaign campaign :ad-group ad_group
                                :market-vector market_vector :session session})))
 
 (comment  

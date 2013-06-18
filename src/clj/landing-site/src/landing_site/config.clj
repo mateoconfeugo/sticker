@@ -18,7 +18,8 @@
 (def app-group "pallet-admin")
 (def home-dir (or (System/getenv "LSBS_HOME") (System/getProperty "user.home")))
 (def root-dir (or (System/getenv "LSBS_ROOT_DIR") home-dir))
-(def website-dir (or (System/getenv "LSBS_WEBSITE") (str root-dir "/website/patientcomfortrefferal.com/site")))
+(def website-dir (or (System/getenv "LSBS_WEBSITE") (str root-dir "/website/site")))
+;;(def website-dir (or (System/getenv "LSBS_WEBSITE") (str root-dir "/website/patientcomfortreferral.com/site")))
 (def cfg-dir (or (System/getenv "LSBS_CFG_DIR") (str root-dir "/website/config")))
 ;;(def cfg (parse-string (slurp(str cfg-dir "/site-config.json")) true))
 (def cfg (parse-string (slurp "config/site-config.json") true))
@@ -41,6 +42,6 @@
 (def site-name (-> cfg :website :site-name))
 
 ;; application objects
-(def cms (new-cms-site {:base-path website-dir :site-cfg-path token-type :site-tag site-tag :site-name site-name}))
+;;(def cms (new-cms-site {:base-path website-dir :site-cfg-path token-type :site-tag site-tag :site-name site-name}))
 (def monitoring-bus (tcp-client :host monitoring-uri :port monitoring-port ))
 

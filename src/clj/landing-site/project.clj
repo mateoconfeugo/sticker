@@ -27,8 +27,10 @@
                  [riemann-clojure-client "0.2.1"]                 
                  [ring/ring-jetty-adapter "1.1.6"]
                  [ring.middleware.logger "0.4.0"]
+                 [clojurewerkz/urly "1.0.0"]		 
                  [zookeeper-clj "0.9.1"]]                 
-  :jvm-opts ["-Dvbox.home=/Applications/VirtualBox.app/Contents/MacOS"]
+		 :jvm-opts ^:replace []
+;;  :jvm-opts ["-Dvbox.home=/Applications/VirtualBox.app/Contents/MacOS"]
   :html5-docs-source-path "src/landing_site"
   :plugins [[lein-ring "0.8.5"]
             [lein-expectations "0.0.7"]
@@ -61,7 +63,6 @@
                        [mysql-crate "0.1.0-SNAPSHOT"]                       
                        [org.slf4j/jcl-over-slf4j "1.7.3"]]}}
     :repositories {"sonatype-snapshots" "https://oss.sonatype.org/content/repositories/snapshots"
-                   "sonatype" "https://oss.sonatype.org/content/repositories/releases/"
-                   "local" "/usr/local/localrepo"})
+                   "sonatype" "https://oss.sonatype.org/content/repositories/releases/"})
 
 
