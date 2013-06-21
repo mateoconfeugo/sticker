@@ -9,22 +9,22 @@
         [ring.util.response :only [content-type file-response response]]))
 
 (defn handle-adnetwork-traffic
-  [cms & {:keys [adnetwork campaign ad-group listing market-vector session] :as settings}]
+  [req & {:keys [adnetwork campaign ad-group listing market-vector session] :as settings}]
   "Wrap the biz logic with the session setup"
   (let [new-session (assoc session :adnetwork adnetwork :campaign campaign :ad-group ad-group
                            :listing listing :market-vector market-vector :session session)]
     (if-let [monitoring-bus (try (tcp-client) (catch IOException e))]
       (riemann.client/send-event monitoring-bus {:service "clicks" :state "ok" :tags["landing-site"]
                                                  :metric 1 :description "traffic generated from adnetwork"}))
-    (->  (host-dom/render token cms) (assoc :session new-session))))
+    (->  (host-dom/render (assoc req :session new-session) market-vector))))
 
 (defroutes landing-site-routes
-  (GET "/" request (host-dom/render token (:cms request)))
-  (GET "/static" [file :as req] (render-static-page (str static-html-dir file) (:cms req) token))
+  (GET "/static" [file :as req] (render-static-page (str static-html-dir file) (:cms req)))
   (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json"))
+  (GET "/" request (host-dom/render request))
   (GET "/adnetwork/:adnetwork/campaign/:campaign/adgroup/:adgroup/listing/:listing/market_vector/:market_vector/view"
       [adnetwork campaign ad_group listing market_vector :as {session :session} :as req]
-    (handle-adnetwork-traffic (:cms req) {:adnetwork adnetwork :campaign campaign :ad-group ad_group
+    (handle-adnetwork-traffic req {:adnetwork adnetwork :campaign campaign :ad-group ad_group
                                :market-vector market_vector :session session})))
 
 (comment  

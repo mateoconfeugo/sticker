@@ -32,10 +32,10 @@
   [[:.tab-pane first-child]] (add-class "active"))
 
 (defn render
-  [id cms]
+  [cms]
   "Take the sequence of pages in insert them into an unordered list"
-  (let [menu (:drop_down_menu (first (get-site-menu cms id)))
-        pages (get-site-contents cms id)
+  (let [pages (get-site-contents cms)
+        menu (:drop_down_menu (first (get-site-menu cms)))        
         num_pages (count pages)
         page_num (range 0 num_pages)
         pages (reverse (map #(assoc %1 :order %2)  pages page_num))]

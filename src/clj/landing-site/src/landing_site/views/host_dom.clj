@@ -1,7 +1,7 @@
 (ns landing-site.views.host-dom
   (:use [net.cgrand.enlive-html]
         [landing-site.views.snippets :only[nav-bar offer]]        
-        [cms.site :only [get-site-menu get-site-contents]]
+        [cms.site :only [new-cms-site get-site-menu get-site-contents get-market-vector str->int]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
                                                maybe-content maybe-substitute page-not-found]]))
 
@@ -25,10 +25,15 @@
 ;;(offer {})
 
 (defn render
-  [id cms]
+  [req & market-vector-id]
   "Take the sequence of pages in insert them into an unordered list"
-  (let [menu (:drop_down_menu (first (get-site-menu cms id)))
-        pages (get-site-contents cms id)
+  (let [dir landing-site.config/website-dir
+        matrix-id 1
+        domain (if-let [d (-> req :params :ls-url)] d (str (:server-name req) "/"))
+        mv-id (or market-vector-id (or (str->int (-> req :params :market-vector)) (get-market-vector domain dir matrix-id)))
+        cms (new-cms-site {:webdir dir :market-vector-id mv-id :domain-name domain})
+        menu (:drop_down_menu (first (get-site-menu cms)))
+        pages (get-site-contents cms)
         num_pages (count pages)
         page_num (range 0 num_pages)
         pages (reverse (map #(assoc %1 :order %2)  pages page_num))]

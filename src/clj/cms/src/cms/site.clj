@@ -18,63 +18,63 @@
   (:copy (first (-> page :inset ))))
 
 (defn get-site-id
-  [{:keys [base-path rel-path site-tag token]}]
-  "Retreive the id of the site the token is linked with"
-  (let [mv-path (str  base-path  "/" rel-path "/" token "/" token ".json")]
-    (str->int (name (first (keys ((keyword site-tag) (parse-string (slurp mv-path) true))))))))
+  [base-dir  market-vector-id]
+  "Retreive the id of the site the market-vector-id is linked with"
+  (let [mv-path (str  base-dir  "/market_vector/" market-vector-id "/" market-vector-id ".json")]
+    (str->int (name (first (keys ((keyword "landing_site") (parse-string (slurp mv-path) true))))))))
 
-(defn assemble-site-files [base-path  site-tag site-name]
+(defn assemble-site-files [base-dir landing-site-id]
   "Determines the files that make up a site"  
-  (let [directory (clojure.java.io/file (str base-path "/" site-tag "/" site-name))]
+  (let [directory (clojure.java.io/file (str base-dir "/landing_site/" landing-site-id))]
     (regex-file-seq #".*\.html" directory)))
-;;    (file-seq directory)))
 
 (defn get-site-data
-  [base-path rel-path site-tag token]
+  [base-dir  market-vector-id]
   "retreive data structure that decribes the site"
-  (let [mv-path (str  base-path  "/" rel-path "/" token "/" token ".json")
-        data (get (parse-string (slurp mv-path) true) (keyword site-tag))]
+  (let [mv-path (str  base-dir  "/market_vector/" market-vector-id "/" market-vector-id ".json")
+        data (get (parse-string (slurp mv-path) true) (keyword "landing_site"))]
     (get  data (first (keys data)))))
 
-(defn populate-contents [base-path rel-path site-tag files token]
+(defn populate-contents [base-dir files market-vector-id]
   "gets all the content for the single page web app view of the site"  
   (let [f (filter fs/file? files)
         pages (map slurp f)
-        headers (map get-header (:page (get-site-data  base-path rel-path site-tag token)))]
-        (map (fn [x] {:header (first x) :contents (last x)}) (zipmap headers pages))))
+        headers (map get-header (:page (get-site-data  base-dir market-vector-id)))]
+    (map (fn [x] {:header (first x) :contents (last x)}) (zipmap headers pages))))
+
+(defn get-market-vector
+  [domain-name website-dir  matrix-id]
+  (:market_vector_id (first (parse-string (slurp (str website-dir "/" domain-name "/site/market_matrix/" matrix-id "/" matrix-id ".json")) true))))
 
 ;; INTERFACE SPECIFICATION
 (defprotocol CMS-Site
   "Site content file lookup interface"
-  (get-site-contents [this token]
+  (get-site-contents [this]
     "Gets all the pages and prepares them for the view")
-  (get-site-menu [this token]
+  (show-settings [this])
+  (get-site-menu [this]
     "Retrieves the menu configuration for the site"))
 
 ;; IMPLEMENTATION CONSTRUCTOR
-(defn new-landing-site
-  [{:keys[base-path site-cfg-path site-tag] :as settings}]
-  (let [one 1]
-      (reify CMS-Site
-        ;; PROTOCOL METHOD IMPLEMENTATIONS    
-        (get-site-contents [this token]
-          (let [options {:base-path base-path :rel-path site-cfg-path :site-tag site-tag :token token}
-                site-id (get-site-id options)
-                page-files (assemble-site-files base-path site-tag site-id)]
-          (populate-contents base-path site-cfg-path site-tag page-files token ))))))
 
 
 (defn new-cms-site
-  [{:keys[base-path site-cfg-path site-tag site-name] :as settings}]
-  (let [one 1]
-      (reify CMS-Site
+  [{:keys[domain-name market-vector-id webdir] :as settings}]
+  (reify CMS-Site
 
-        ;; PROTOCOL METHOD IMPLEMENTATIONS    
-        (get-site-contents [this token]
-          (let [options {:base-path base-path :rel-path site-cfg-path
-                         :site-tag site-tag :token token}
-                page-files (assemble-site-files base-path site-tag site-name)]
-            (populate-contents base-path site-cfg-path site-tag page-files token )))
+    (show-settings [this]
+      settings)
 
-        (get-site-menu [this token]
-          (:site_nav_header (first (:single_page_webapp (get-site-data  base-path site-cfg-path site-tag token))))))))
+    (get-site-contents
+      [this]
+      (let [base-dir (str webdir "/" domain-name "/site")
+            landing-site-id (get-site-id base-dir market-vector-id)
+            page-files (assemble-site-files base-dir landing-site-id)]
+        (populate-contents base-dir page-files market-vector-id)))
+
+    (get-site-menu
+      [this]
+      (let [base-dir (str webdir "/" domain-name "/site")]
+        (:site_nav_header (first (:single_page_webapp (get-site-data base-dir  market-vector-id))))))))
+
+

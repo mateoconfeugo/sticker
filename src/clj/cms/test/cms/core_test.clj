@@ -1,9 +1,8 @@
 (ns cms.core-test
   (:use [clojure.test :only (is testing deftest)]
         [ring.mock.request]
-        [landing-site.cms]
         [landing-site.config]
-        [cms.core]
+        [cms.site]
         [me.raynes.fs :only(directory?) :as fs]))
 
 
@@ -43,8 +42,23 @@
           page (first contents)]
       (is (= expected (:header page)) "populating the contents of the pages"))))
 
+(deftest test-get-site-menu
+  (testing "extracting the path data from the data encoded in a request"
+    (let [cms (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 1})
+          menu (get-site-menue cms)
+          expected "Support Groups"
+          page (first contents)]
+      (is (= expected (:header page)) "populating the contents of the pages"))))
+
+
+(def x-client (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 1}))
+
+(show-settings x-client)
+(get-site-contents x-client)
+
+
 
 (def path (-> test-cfg :landing-site :cms-root-dir))
-(def cms (new-cms-site {:base-path path}))
-(def contents (get-site-contents cms test-market-vector))
+(def cms (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 1}))
+(def menu (get-site-menu cms))
 

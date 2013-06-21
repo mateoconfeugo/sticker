@@ -71,7 +71,7 @@
 (def delivery-result (lift delivery-user-group :compute qa-release-target))
 (def delivery-result (lift delivery-cfg-group :compute qa-release-target))
 (def delivery-result (lift delivery-supervise-group :compute qa-release-target))
-(def delivery-result (lift delivery-app-group :compute qa-release-target))
+;;(def delivery-result (lift delivery-app-group :compute qa-release-target))
 
 (def cms-delivery-group-spec (group-spec "flourish-ls" :extends [cms-client-spec]))
 (def cms-delivery-result (lift cms-delivery-group-spec :compute qa-release-target))
@@ -79,8 +79,8 @@
 
 (def cms-group-spec (group-spec "flourish-ls" :extends [(setup-user-on-cms pcs-cms-server-qa)]))
 (def cms-result (lift cms-group-spec :compute  production-cms))
-(def start-qa (group-spec "flourish-ls" :extends [(launch-lsbs pcs-cms-server-qa )]))
-(def cms-result (lift start-qa :compute  qa-release-target))
+;;(def start-qa (group-spec "flourish-ls" :extends [(launch-lsbs pcs-cms-server-qa )]))
+;;(def cms-result (lift start-qa :compute  qa-release-target))
 
 
     

@@ -17,7 +17,7 @@
 (def site-tag (-> cfg :website :site-tag))
 (def site-name (-> cfg :website :site-name))
 
-(def cms (new-cms-site {:base-path root-dir :site-cfg-path token-type :site-tag site-tag :site-name site-name}))
+(def cms (new-cms-site {:webdir root-dir}))
 ;;(def file "landing-site-builder.html")
 (defroutes site-routes
   (GET "/home" [] (causal-marketing.views.host-dom/render token cms))

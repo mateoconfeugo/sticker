@@ -36,5 +36,62 @@ X move all configurable/customizable elements of the landing page into the cms
 ** Make newsletter bigger
 ** get images to publish to the resources/public/img - maybe use a symlink that will sort it out
 
+Reproducible release process
+get site to look right on dev laptop
+get site to release to QA
+get landing site software to release to QA
+get site to release to QA
+get landing site software to release to QA
+get landing site software to release to production
+get site to release to production
+get landing site software to release to production
+get introductory tab have optional tag
+
+write test for each feature that works on dev laptop
+* fill out side form
+* fill out dropdown
+* click through the panels
+* get different sites for different market vectors
+
+get tests to work on QA
+
+So the issue is selecting the right domain,  market vector, landing-site, 
+These pieces of data form the keys to create the correct cms object for use during 
+the request.
+
+The market vector id is determined by information encoded in the request:
+  uri params
+  uri path
+  the default vector from the market matrix data
+
+The landing site(s) can be found by examing the market-vector data
+
+Domain Host - finds the directory for the market vectors and landinging sites
+the domain may have many landing sites.  Each domain has a default market vector
+
+Market vectors need to be able to have multiple landing site
+each market vector has a default landing site
+if A/B landing site (different from A/B of ads) testing is enabled a algorithm chooses the landing site to display
+
+make sure the link is on the page
+
+check in
+try to release to qa
+test forms
+get javascript working
+make design changes
+make content changes
+add ability to manipulate style sheet from cms
+remove any hardcoded furnctionality and move it to cms
+
+
+
+
+
+
+
+
+
+
 
 

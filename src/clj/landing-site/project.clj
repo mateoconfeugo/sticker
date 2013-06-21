@@ -24,7 +24,7 @@
                  [org.clojure/tools.logging "0.2.3"]
                  [org.slf4j/slf4j-log4j12 "1.6.4"]
                  [com.palletops/pallet "0.8.0-beta.9"]                 
-                 [riemann-clojure-client "0.2.1"]                 
+                 [riemann-clojure-client "0.2.1"]
                  [ring/ring-jetty-adapter "1.1.6"]
                  [ring.middleware.logger "0.4.0"]
                  [clojurewerkz/urly "1.0.0"]		 

@@ -1,5 +1,5 @@
 (ns landing-site.views.static-page
-  (:use [net.cgrand.enlive-html :as html]
+  (:use [net.cgrand.enlive-html :only[content substitute html-snippet deftemplate]]
         [landing-site.views.snippets :only (nav-bar)]
         [cms.site :only [new-cms-site get-site-menu get-site-contents]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
@@ -7,16 +7,16 @@
 
 (deftemplate static-html-page "templates/index.html"
   [{:keys [site-name html menu-data]}]
-  [:div#navbar] (html/content (nav-bar {:title site-name :menu-data menu-data}))
-  [:#rootwizard] (html/substitute (html/html-snippet html))
-  [:footer] (html/content "")
-  [:#sidebar] (html/content ""))
+  [:div#navbar] (content (nav-bar {:title site-name :menu-data menu-data}))
+  [:#rootwizard] (substitute (html-snippet html))
+  [:footer] (content "")
+  [:#sidebar] (content ""))
 
 (defn render-static-page
-  ([file cms id]
-     (let [menu (:drop_down_menu (first (get-site-menu cms id)))
-           html (slurp file)]     
-       (render-to-response (static-html-page {:site-name "Market With Gusto" :html html :menu-data menu})))))
+  [file cms]
+  (render-to-response (static-html-page {:site-name "Market With Gusto"
+                                         :html (slurp file)
+                                         :menu-data (:drop_down_menu (first (get-site-menu cms)))})))
 
 (comment
 
@@ -40,8 +40,8 @@
 (defn render
   [id cms]
   "Take the sequence of pages in insert them into an unordered list"
-  (let [menu (:drop_down_menu (first (get-site-menu cms id)))
-        pages (get-site-contents cms id)
+  (let [menu (:drop_down_menu (first (get-site-menu cms)))
+        pages (get-site-contents cms)
         num_pages (count pages)
         page_num (range 0 num_pages)
         pages (reverse (map #(assoc %1 :order %2)  pages page_num))]
