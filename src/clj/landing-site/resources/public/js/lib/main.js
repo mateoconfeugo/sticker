@@ -82,7 +82,8 @@ require(['jquery', 'underscore', 'backbone', 'routers/desktop_router', 'views/le
 		var pager_cntls = $(".pager wizard");
 		$('.hero-unit').append($('#nav-controls'));
 		var support_lead  = new SupportLead({ el: '#support-group-form',  router: router});
-		setup_heatmapping(cfg);
+		var ham = 1;
+//		setup_heatmapping(cfg);
 	    };
 	    
 	    // Get configuration and tie to application

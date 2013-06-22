@@ -25,7 +25,7 @@ define(['jquery', 'underscore', 'backbone'],
 		       }
 		   }
 	       },
-	       urlRoot: 'supportlead/support_lead'
+	       urlRoot: '/lead'
 	   });
 	   return lead;
        });	  

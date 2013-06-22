@@ -29,19 +29,17 @@
                    :headers {}
                    :params {:adnetwork 1, :campaign 1, :adgroup 1, :listing "A" :market_vector 1
                            }})
-
+(comment
 (if-let [domain-name (-> test-request :params :ls-url)] domain-name (str (host-of (:server-name test-request)) "/"))
 (get-market-vector-x "patientcomfortreferral.com" website-dir 1)
-;;(get-market-vector-x "patientcomfortreferral.com" website-dir
-(def client (cms-client test-request website-dir 1))
-(get-site-contents client)
-(show-settings client)
+
 (get-site-id  (str  website-dir "/patientcomfortreferral.com/site") 1)
 (def x-client (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 1}))
 
 (show-settings x-client)
 (get-site-contents x-client)
-(render x-client)
+(landing-site.views.host-dom/render x-client)
+(type x-client)
 
 
 
@@ -51,3 +49,4 @@
 
 (def test-client-cfg (parse-string (slurp (:body (app (request :get "/clientconfig")))) true))
 (expect true (= (-> test-client-cfg :clientconfig :host_element) "stage"))
+)

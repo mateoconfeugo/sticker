@@ -5,7 +5,7 @@
    the lead gets stored in the database.  Then incorrect data is put into the system to see
    how it handles validation errors.  The same tests are then run against a support lead"
   (:use [ring.mock.request]
-        [landing-site.handler :only(app start)]
+        [landing-site.handler :only(app start-lsbs)]
         [landing-site.controllers.lead]
         [landing-site.models.lead]        
         [cheshire.core :only (parse-string generate-string)]
@@ -22,11 +22,20 @@
 (expect true (= (:status test-response) 200))
 (expect true (= (:full_name test-lead) (:full_name retreived-record)))
 
+(def post-data (parse-string test-lead true))
+
+(dissoc (assoc post-data
+                       :full-name (:full_name post-data)
+                       :phone-number (:phone post-data)
+                       :email-address (:email post-data))
+                       :full_name :phone :email)
+(handle-lead post-data)
+
 ;; ACCEPTANCE TESTS
 (def test-port 8087)
 (def test-uri "/adnetwork/1/campaign/1/adgroup/1/listing/A/market_vector/1/view")
 
-(def app-server (start 8087))
+(def app-server (start-lsbs 8087))
 ;; Start up a browser
 (scraper/set-driver! {:browser :firefox})
 ;; input lead info

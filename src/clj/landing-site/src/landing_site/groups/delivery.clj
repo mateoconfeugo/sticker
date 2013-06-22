@@ -60,18 +60,18 @@
                                                                                    :local-file "/Users/matthewburns/github/florish-online/src/clj/landing-site/resources/run") (catch Exception e))))})]))
 
 (def delivery-app-group (group-spec "flourish-ls"
-                                     :extends [(server-spec :phases
-                                    {:configure (plan-fn
-                                            (remote-file (str (:root-dir "/home/pcs/landing-site.jar"))
-                                                         :owner "pcs" :group "pcs"
-                                                         :action :create :force true
-                                                         :overwrite-changes true  :no-versioning true                                                        
-                                                         :local-file "/Users/matthewburns/github/florish-online/src/clj/landing-site/target/landing-site-0.1.0-standalone.jar"))})]))
+                                    :extends [(server-spec :phases
+                                                           {:configure (plan-fn
+                                                                        (remote-file "/home/pcs/landing-site.jar"
+                                                                                     :owner "pcs" :group "pcs"
+                                                                                     :action :create :force true
+                                                                                     :overwrite-changes true  :no-versioning true                                                        
+                                                                                     :local-file "/Users/matthewburns/github/florish-online/src/clj/landing-site/target/landing-site-0.1.0-standalone.jar"))})]))
 
 (def delivery-result (lift delivery-user-group :compute qa-release-target))
 (def delivery-result (lift delivery-cfg-group :compute qa-release-target))
 (def delivery-result (lift delivery-supervise-group :compute qa-release-target))
-;;(def delivery-result (lift delivery-app-group :compute qa-release-target))
+(def delivery-result (lift delivery-app-group :compute qa-release-target))
 
 (def cms-delivery-group-spec (group-spec "flourish-ls" :extends [cms-client-spec]))
 (def cms-delivery-result (lift cms-delivery-group-spec :compute qa-release-target))

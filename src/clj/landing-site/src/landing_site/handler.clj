@@ -8,25 +8,34 @@
         [landing-site.controllers.ad-network-traffic :only (landing-site-routes)]
         [landing-site.controllers.lead :only[lead-gen-routes]]
         [landing-site.controllers.conversion :only[conversion-routes]]
-;;        [landing-site.controllers.heatmap :only[heatmap-routes]]                
+        [landing-site.controllers.heatmap :only[heatmap-routes]]                
         [ring.adapter.jetty :as ring]
-        [ring.middleware.logger]
+        [ring.middleware.cookies        :only [wrap-cookies]]
+        [ring.middleware.logger :only [wrap-with-logger]]
+        [ring.middleware.session :only [wrap-session]]
+        [ring.middleware.keyword-params :only [wrap-keyword-params]]        
         [ring.middleware.params :only [wrap-params]])
   (:gen-class ))
 
-                               ;;                                      heatmap-routes
-(def app (handler/site (routes lead-gen-routes                 
-                               landing-site-routes
-                               conversion-routes
-                               (route/resources "/")
-                               (route/files "/" {:root "public"})
-                               (route/not-found "Not Found"))))
+(def web-app (handler/site (routes lead-gen-routes                 
+                                   landing-site-routes
+                                   conversion-routes
+                                   heatmap-routes                               
+                                   (route/resources "/")
+                                   (route/files "/" {:root "public"})
+                                   (route/not-found "Not Found"))))
 
-(def web-app (-> web-app  wrap-params wrap-with-logger))
+(def app (-> web-app
+             wrap-cookies
+             wrap-params             
+             wrap-keyword-params
+             wrap-session
+             wrap-with-logger))
 
 (defn start-lsbs [port]
-  (run-jetty web-app {:port port :join? false}))
+  (run-jetty app {:port port :join? false}))
 
 (defn -main []
   (let [port (Integer/parseInt (or (System/getenv "PORT") "8087"))]
     (start-lsbs port)))
+

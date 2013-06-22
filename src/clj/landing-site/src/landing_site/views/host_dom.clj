@@ -1,9 +1,10 @@
 (ns landing-site.views.host-dom
-  (:use [net.cgrand.enlive-html]
-        [landing-site.views.snippets :only[nav-bar offer]]        
-        [cms.site :only [new-cms-site get-site-menu get-site-contents get-market-vector str->int]]
+  (:use [cms.site :only [new-cms-site get-site-menu get-site-contents get-market-vector str->int]]
+        [clojurewerkz.urly.core :only[host-of]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
-                                               maybe-content maybe-substitute page-not-found]]))
+                                               maybe-content maybe-substitute page-not-found]]
+        [landing-site.views.snippets :only[nav-bar offer]]
+        [net.cgrand.enlive-html]))
 
 (deftemplate index-with-webapp-pages "templates/index.html"
    [{:keys [site-name pages menu-data] :as settings}]
@@ -24,13 +25,14 @@
    [[:li.leading] :> last-child] (content ""))
 ;;(offer {})
 
+;; TODO: use a cache via memoization for the creation of the cms, pages and menu should speed things up quite a bit
 (defn render
   [req & market-vector-id]
   "Take the sequence of pages in insert them into an unordered list"
   (let [dir landing-site.config/website-dir
         matrix-id 1
-        domain (if-let [d (-> req :params :ls-url)] d (str (:server-name req) "/"))
-        mv-id (or market-vector-id (or (str->int (-> req :params :market-vector)) (get-market-vector domain dir matrix-id)))
+        domain (if-let [d (-> req :params :ls-url)] d (host-of (:server-name req)))
+        mv-id (first (or market-vector-id (or (-> req :params :market-vector) (get-market-vector domain dir matrix-id))))
         cms (new-cms-site {:webdir dir :market-vector-id mv-id :domain-name domain})
         menu (:drop_down_menu (first (get-site-menu cms)))
         pages (get-site-contents cms)

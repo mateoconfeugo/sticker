@@ -10,8 +10,8 @@
   [{:keys [name] :as settings}]
   [:.modal-backdrop] (content "")
   [:aside#side-lead-form] (content "")
-  [:#rootwizard] (content (thank-you-snippet name))
-  )
+  [:#rootwizard] (content (thank-you-snippet name)))
+
 
 (defn render
   [name]

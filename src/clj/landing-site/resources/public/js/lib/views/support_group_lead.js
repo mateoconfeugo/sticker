@@ -3,7 +3,7 @@ define(
     function($, _, Backbone, SupportLead) {
 	var support_lead =  Backbone.View.extend({
 	    events: {
-		"click .support-group-lead-btn": "update_support_lead"
+		"click #support": "update_support_lead"
 	    },
 	    initialize: function(options) {
 		_.bindAll(this, "render",  "submit", "gather_data", "update_support_lead", "on_save_success", "on_save_error");

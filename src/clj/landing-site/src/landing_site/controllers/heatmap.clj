@@ -9,13 +9,12 @@
 (log-config/set-logger! :level :debug
                         :out (org.apache.log4j.FileAppender.
                               (org.apache.log4j.EnhancedPatternLayout. org.apache.log4j.EnhancedPatternLayout/TTCC_CONVERSION_PATTERN)
-                              "logs/heatmap.log"
-                              true))
+                              "logs/heatmap.log" true))
 
 (defn handle-coord
   [post-data]
   "format lead data, store it, send you email, redirect to conversion page"
-  (let [coord (dissoc (assoc post-data :x (:x post-data) :y (:x post-data)))
+  (let [coord (assoc post-data :x (:x post-data) :y (:x post-data))
         json (generate-string coord)]
     (if (:x coord)
       (do
@@ -23,4 +22,5 @@
         (-> (response json) (content-type "application/json")))
       {:status 500 :headers {} :body (generate-string coord)})))
   
-(defroutes heatmap-routes (POST "/heatmap" {body :body} (handle-coord (parse-string (slurp body) true))))
+(defroutes heatmap-routes
+  (POST "/heatmap" {body :body} (handle-coord (parse-string (slurp body) true))))

@@ -9,7 +9,7 @@
         [korma.core :only [defentity database insert values]]        
         [riemann.client :only [send-event tcp-client]]))        
 
-(defdb db (mysql {:db db-name :user db-user :password db-password :host db-address} ))
+(defdb db (mysql {:db db-name :user db-user :password db-password :host db-address}))
 (defentity lead_log (database db))
 
 (defn valid-phone-number? [digits]
@@ -35,6 +35,14 @@
   [:phone-number :phone]
   [:postal-code :length {:equal-to 5}])
 
+(comment
+        (if-let [monitoring-bus (try (tcp-client) (catch IOException e))]
+          (riemann.client/send-event monitoring-bus {:service "leads" :state "ok" :tags["landing-site"]
+                                                     :metric 1 :description "lead form filled out correctly"}
+                                     )))
+          
+
+
 (defn log-lead [lead]
   "Validate and attempt to store the lead in the database"
   (let [message (validate-lead lead)
@@ -45,9 +53,6 @@
                                 :full_name (:full-name lead)) :email-address :full-name :phone-number)]
     (if is-valid
       (do
-        (if-let [monitoring-bus (try (tcp-client) (catch IOException e))]
-          (riemann.client/send-event monitoring-bus {:service "leads" :state "ok" :tags["landing-site"]
-                                                     :metric 1 :description "lead form filled out correctly"}))
         {:id (:GENERATED_KEY (insert lead_log (values [storable-lead])))})
       message)))
   

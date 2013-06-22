@@ -75,13 +75,15 @@ if A/B landing site (different from A/B of ads) testing is enabled a algorithm c
 
 make sure the link is on the page
 
-check in
-try to release to qa
-test forms
-get javascript working
+X check in
+X try to release to qa
+X test forms
+X get javascript working
 make design changes
 make content changes
 add ability to manipulate style sheet from cms
+add ability to ad an offer
+
 remove any hardcoded furnctionality and move it to cms
 
 

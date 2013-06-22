@@ -94,22 +94,47 @@
 	  </section>
 	</div>
       </div>
-
-<footer id="server_message_channel"></footer>  
-<script src="/js/lib/modernizr-2.6.2.min.js"></script> 
-<script type="text/javascript" src="/js/JemplateRuntime.js"></script>
-<script type="text/javascript" src="/js/jemplates.js"></script>
-<script data-main="/js/lib/main" src="/js/lib/require.js"></script>
-<script data-main="/js/lib/main" src="/js/lib/socket.io.js"></script>
-<script data-main="/js/lib/main" src="/js/lib/heatmap.js"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-40578168-1', 'patientcomfortreferral.com');
-  ga('send', 'pageview');
-</script>
-</body>
+      <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+	  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	</div>
+	<div class="modal-body">
+	  <div class="alert alert-error" style="display:none">
+	    <strong>Ooops!</strong> Try again
+	  </div>
+	  <div class="alert alert-success" style="display:none">
+	    <strong>Success!</strong> You passed the validation.
+	  </div>
+	  <form id="support-group-form" autocomplete="on" method="POST">
+	    <fieldset>
+	      <legend>Part of a support group?<br/>
+		<h5>Register your support group today and introduce others to the Patient Comfort Way</h5>
+	      </legend>
+              <label>Name</label><input id="lead_full_name" type="text"  class="required"/>
+	      <label>Email</label><input id="lead_email" type="text"  class="required email"/>
+	      <label>Phone</label><input id="lead_phone" type="text"  class="required phoneUS"/>
+	      <label>Zip</label><input id="lead_postal_code" type="text"/>
+	      <input id="lead_newsletter" type="checkbox" checked=true> Get Our Free Newsletter<br/>
+	      <input type="submit" value="Go" id="support" class="support-group-lead-btn submit"><a href="#terms_and_conditions_modal" data-toggle="modal">&nbspTerms and Conditions</a>
+	    </fieldset>
+	  </form>
+	</div>
+      </div>
+      <footer id="server_message_channel"></footer>  
+      <script src="/js/lib/modernizr-2.6.2.min.js"></script> 
+      <script type="text/javascript" src="/js/JemplateRuntime.js"></script>
+      <script type="text/javascript" src="/js/jemplates.js"></script>
+      <script data-main="/js/lib/main" src="/js/lib/require.js"></script>
+      <script data-main="/js/lib/main" src="/js/lib/socket.io.js"></script>
+      <script data-main="/js/lib/main" src="/js/lib/heatmap.js"></script>
+      <script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	ga('create', 'UA-40578168-1', 'patientcomfortreferral.com');
+	ga('send', 'pageview');
+      </script>
+    </body>
 </html>
