@@ -3,6 +3,7 @@
   (:use [cms.site :only[str->int]]
         [compojure.core :only [defroutes GET ANY]]
         [compojure.route :as route :only [not-found files resources]]
+        [clojurewerkz.urly.core :only[host-of]]
         [landing-site.config]
         [landing-site.views.host-dom :as host-dom :only [render]]
         [landing-site.views.static-page :only [render-static-page]]
@@ -23,7 +24,12 @@
         req (assoc request :session new-session)]
     (->  (host-dom/render req market-vector))))
 
+(def domain )
+
+;;      (file-response file {:root (str website-dir  "/" (if-let [d (-> req :params :ls-url)] d (host-of (:server-name req))) "/img/")}))
 (defroutes landing-site-routes
+  (GET "/img/:file" [file :as req] 
+      (file-response (str  "/home/pcs/website/patientcomfortreferral.com/img/" file)))
   (GET "/static" [file :as req] (render-static-page (str static-html-dir file) (:cms req)))
   (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json"))
   (GET "/" req (host-dom/render req))

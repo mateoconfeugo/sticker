@@ -17,6 +17,17 @@
 (defn get-header [page]
   (:copy (first (-> page :inset ))))
 
+(defn- wildcard-filter
+  "Given a regex, return a FilenameFilter that matches."
+  [re]
+  (reify java.io.FilenameFilter
+    (accept [_ dir name] (not (nil? (re-find re name))))))
+
+(defn directory-list
+  "Given a directory and a regex, return a sorted seq of matching filenames."
+  [dir re]
+  (sort (.list (clojure.java.io/file dir) (wildcard-filter re))))
+
 (defn get-site-id
   [base-dir  market-vector-id]
   "Retreive the id of the site the market-vector-id is linked with"
@@ -25,8 +36,12 @@
 
 (defn assemble-site-files [base-dir landing-site-id]
   "Determines the files that make up a site"  
-  (let [directory (clojure.java.io/file (str base-dir "/landing_site/" landing-site-id))]
-    (regex-file-seq #".*\.html" directory)))
+  (let [dir-path (str base-dir "/landing_site/" landing-site-id)
+       directory (clojure.java.io/file dir-path)
+       sorted-files (directory-list directory #".*\.html")]
+         (map #(str base-dir "/landing_site/" landing-site-id "/" %) sorted-files)))
+;;        html-files (regex-file-seq #".*\.html" directory)
+
 
 (defn get-site-data
   [base-dir  market-vector-id]

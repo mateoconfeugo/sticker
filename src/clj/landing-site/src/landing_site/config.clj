@@ -18,7 +18,7 @@
 (def app-group "pallet-admin")
 (def home-dir (or (System/getenv "LSBS_HOME") (System/getProperty "user.home")))
 (def root-dir (or (System/getenv "LSBS_ROOT_DIR") home-dir))
-(def website-dir (or (System/getenv "LSBS_WEBSITE") (str root-dir "/website/site")))
+(def website-dir (or (System/getenv "LSBS_WEBSITE") (str root-dir "/website")))
 ;;(def website-dir (or (System/getenv "LSBS_WEBSITE") (str root-dir "/website/patientcomfortreferral.com/site")))
 (def cfg-dir (or (System/getenv "LSBS_CFG_DIR") (str root-dir "/website/config")))
 ;;(def cfg (parse-string (slurp(str cfg-dir "/site-config.json")) true))

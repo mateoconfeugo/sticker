@@ -8,9 +8,10 @@
         [landing-site.controllers.ad-network-traffic :only (landing-site-routes)]
         [landing-site.controllers.lead :only[lead-gen-routes]]
         [landing-site.controllers.conversion :only[conversion-routes]]
-        [landing-site.controllers.heatmap :only[heatmap-routes]]                
+;        [landing-site.controllers.heatmap :only[heatmap-routes]]                
         [ring.adapter.jetty :as ring]
         [ring.middleware.cookies        :only [wrap-cookies]]
+	[ring.middleware.content-type]
         [ring.middleware.logger :only [wrap-with-logger]]
         [ring.middleware.session :only [wrap-session]]
         [ring.middleware.keyword-params :only [wrap-keyword-params]]        
@@ -20,7 +21,7 @@
 (def web-app (handler/site (routes lead-gen-routes                 
                                    landing-site-routes
                                    conversion-routes
-                                   heatmap-routes                               
+;                                   heatmap-routes                               
                                    (route/resources "/")
                                    (route/files "/" {:root "public"})
                                    (route/not-found "Not Found"))))
@@ -30,7 +31,8 @@
              wrap-params             
              wrap-keyword-params
              wrap-session
-             wrap-with-logger))
+             wrap-with-logger
+	     ))
 
 (defn start-lsbs [port]
   (run-jetty app {:port port :join? false}))
