@@ -61,9 +61,16 @@
   [domain-name website-dir  matrix-id]
   (:market_vector_id (first (parse-string (slurp (str website-dir "/" domain-name "/site/market_matrix/" matrix-id "/" matrix-id ".json")) true))))
 
+(defn cms-css
+  [base-dir landing-site-id]
+  "Retrieve the landing site css generated in the cms"
+  (slurp (str base-dir "/landing_site/" landing-site-id "/" landing-site-id ".css")))
+
 ;; INTERFACE SPECIFICATION
 (defprotocol CMS-Site
   "Site content file lookup interface"
+  (get-css [this]
+    "Gets the css for the site")
   (get-site-contents [this]
     "Gets all the pages and prepares them for the view")
   (show-settings [this])
@@ -77,7 +84,14 @@
   [{:keys[domain-name market-vector-id webdir] :as settings}]
   (reify CMS-Site
 
-    (show-settings [this]
+    (get-css
+      [this]
+      (let [base-dir (str webdir "/" domain-name "/site")
+            landing-site-id (get-site-id base-dir market-vector-id)]
+        (cms-css base-dir landing-site-id)))
+
+    (show-settings
+      [this]
       settings)
 
     (get-site-contents

@@ -79,6 +79,7 @@ X check in
 X try to release to qa
 X test forms
 X get javascript working
+X fixed page order when released into cloud
 make design changes
 make content changes
 add ability to manipulate style sheet from cms

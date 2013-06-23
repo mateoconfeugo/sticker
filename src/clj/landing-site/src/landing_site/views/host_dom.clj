@@ -1,5 +1,5 @@
 (ns landing-site.views.host-dom
-  (:use [cms.site :only [new-cms-site get-site-menu get-site-contents get-market-vector str->int]]
+  (:use [cms.site :only [new-cms-site get-site-menu get-site-contents get-market-vector str->int get-css]]
         [clojurewerkz.urly.core :only[host-of]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
                                                maybe-content maybe-substitute page-not-found]]
@@ -7,8 +7,8 @@
         [net.cgrand.enlive-html]))
 
 (deftemplate index-with-webapp-pages "templates/index.html"
-   [{:keys [site-name pages menu-data] :as settings}]
-;;   [:div#navbar] (content (nav-bar {:title site-name :menu-data menu-data}))
+   [{:keys [site-name pages menu-data css] :as settings}]
+   ;;   [:div#navbar] (content (nav-bar {:title site-name :menu-data menu-data}))
    [:ul#nav-controls-destination :li] (clone-for [p pages]
                               [:a] (do->
                                    (add-class "btn")
@@ -22,7 +22,8 @@
                                                     (html-content (:contents p))))
    [[:ul.pages (nth-of-type 1)] :> first-child] (add-class "active")
    [[:.tab-pane first-child]] (add-class "active")
-   [[:li.leading] :> last-child] (content ""))
+   [[:li.leading] :> last-child] (content "")
+   [:style#cms-css] (content css))
 ;;(offer {})
 
 ;; TODO: use a cache via memoization for the creation of the cms, pages and menu should speed things up quite a bit
@@ -36,9 +37,11 @@
         cms (new-cms-site {:webdir dir :market-vector-id mv-id :domain-name domain})
         menu (:drop_down_menu (first (get-site-menu cms)))
         pages (get-site-contents cms)
+        css (get-css cms)        
         num_pages (count pages)
         page_num (range 0 num_pages)
         pages (reverse (map #(assoc %1 :order %2)  pages page_num))]
-    (render-to-response (index-with-webapp-pages {:site-name "MarketWithGusto.com" :pages pages :menu-data menu}))))
+    (render-to-response (index-with-webapp-pages {:site-name "MarketWithGusto.com" :pages pages :menu-data menu :css css}))))
+
 
 
