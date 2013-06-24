@@ -1,4 +1,5 @@
 (ns handler
+  (:require [clojure.java.io :as io])
   (:use [clojure.test :only (is testing deftest)]
         [clojurewerkz.urly.core :only [host-of]]                
         [ring.mock.request]
@@ -7,9 +8,20 @@
         [landing-site.config]
         [landing-site.controllers.ad-network-traffic]
         [landing-site.views.host-dom]
-        [cheshire.core :only (parse-string)]        
+        [cheshire.core :only (parse-string parse-stream)]        
         [expectations]))
 
+
+(def foo (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 1}))
+(get-fonts foo)
+(def path (str website-dir "/patientcomfortreferral.com/site/landing_site/1/1.json"))
+(def rdr (io/reader path))
+(println (.readLine rdr))
+(def ham (parse-stream (io/reader path) true))
+(map :font_href (:font_link(first (:fonts ham))))
+
+(def ham (slurp path))
+(slurp 
 (defn get-market-vector-x
   [domain-name website-dir  matrix-id]
   (:market_vector_id (first (parse-string (slurp (str website-dir "/" domain-name "/site/market_matrix/" matrix-id "/" matrix-id ".json")) true))))

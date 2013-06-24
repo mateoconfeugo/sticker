@@ -2,7 +2,8 @@
   "Interacting with cms consturcted site
    the site data is made up of being able to
    access html page files, market vector and matrix json file"
-  (:use [cheshire.core :only (parse-string)]
+  (:require [clojure.java.io :as io])  
+  (:use [cheshire.core :only (parse-string parse-stream)]
         [me.raynes.fs :only(directory?) :as fs]))
 
 ;; BACK-END HELPER FUNCTIONS
@@ -66,10 +67,19 @@
   "Retrieve the landing site css generated in the cms"
   (slurp (str base-dir "/landing_site/" landing-site-id "/" landing-site-id ".css")))
 
+(defn cms-fonts
+  "Get the html5 fonts"
+  [base-dir  landing-site-id]
+  (let [fonts (parse-stream (io/reader (str  base-dir  "/landing_site/" landing-site-id "/" landing-site-id ".json")) true)]
+    (map :font_href (:font_link (first (:fonts fonts))))))
+
+
 ;; INTERFACE SPECIFICATION
 (defprotocol CMS-Site
   "Site content file lookup interface"
   (get-css [this]
+    "Gets the css for the site")
+  (get-fonts [this]
     "Gets the css for the site")
   (get-site-contents [this]
     "Gets all the pages and prepares them for the view")
@@ -83,6 +93,12 @@
 (defn new-cms-site
   [{:keys[domain-name market-vector-id webdir] :as settings}]
   (reify CMS-Site
+
+    (get-fonts
+      [this]
+      (let [base-dir (str webdir "/" domain-name "/site")
+            landing-site-id (get-site-id base-dir market-vector-id)]
+        (cms-fonts base-dir landing-site-id)))
 
     (get-css
       [this]

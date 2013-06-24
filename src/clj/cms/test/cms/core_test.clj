@@ -61,4 +61,5 @@
 (def path (-> test-cfg :landing-site :cms-root-dir))
 (def cms (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 1}))
 (def menu (get-site-menu cms))
+(def fonts (get-fonts cms))
 
