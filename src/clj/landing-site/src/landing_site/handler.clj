@@ -3,6 +3,7 @@
    together and those routes form the response behaviour of the web app.  Also
    the  startup and shutdown commands"
   (:require [compojure.handler :only[site] :as handler]
+            [ringmon.monitor :as monitor]
             [compojure.route :as route])
   (:use [compojure.core :only (routes routing defroutes GET)]
         [landing-site.controllers.ad-network-traffic :only (landing-site-routes)]
@@ -32,6 +33,7 @@
              wrap-keyword-params
              wrap-session
              wrap-with-logger
+             monitor/wrap-ring-monitor
 	     ))
 
 (defn start-lsbs [port]

@@ -65,7 +65,7 @@
 (defn cms-css
   [base-dir landing-site-id]
   "Retrieve the landing site css generated in the cms"
-  (slurp (str base-dir "/landing_site/" landing-site-id "/" landing-site-id ".css")))
+  (slurp (str  base-dir  "/landing_site/" landing-site-id "/" landing-site-id ".css")))
 
 (defn cms-fonts
   "Get the html5 fonts"
@@ -73,12 +73,17 @@
   (let [fonts (parse-stream (io/reader (str  base-dir  "/landing_site/" landing-site-id "/" landing-site-id ".json")) true)]
     (map :font_href (:font_link (first (:fonts fonts))))))
 
+(defn cms-header-image
+  "Get the header-image"
+  [base-dir  landing-site-id]
+    (:header_image (parse-string (slurp (str  base-dir  "/landing_site/" landing-site-id "/" landing-site-id ".json")) true)))
 
 ;; INTERFACE SPECIFICATION
 (defprotocol CMS-Site
   "Site content file lookup interface"
   (get-css [this]
     "Gets the css for the site")
+  (get-header-image [this])
   (get-fonts [this]
     "Gets the css for the site")
   (get-site-contents [this]
@@ -99,6 +104,12 @@
       (let [base-dir (str webdir "/" domain-name "/site")
             landing-site-id (get-site-id base-dir market-vector-id)]
         (cms-fonts base-dir landing-site-id)))
+
+    (get-header-image
+      [this]
+      (let [base-dir (str webdir "/" domain-name "/site")
+            landing-site-id (get-site-id base-dir market-vector-id)]
+        (cms-header-image base-dir landing-site-id)))
 
     (get-css
       [this]

@@ -102,6 +102,36 @@ Each LANDING SITE can support multiple demographic and CAMPAGINS.
 
 The LANDING SITE BIZ SERVER hosts multiple LANDING SITES and thus MARKET VECTORS.
 
+What are the advantages of this approach
+1) search engines see the desired view of the site
+2) The site content and presentation can change dynamically depending on user behaviour.
+3) Can optimize a market-vector by A/B testing with landing sites. 
+
+The various Story Level Entities along with there set of templates, categories, output channels, destinations capture the structure of base dom and static semantic content and place with in a larger system of websites.  A system that is using the website as a data structure along with other data structructs to build marketing microsites specifically for the purpose of landing site optimization.
+
+What advantages do the following technologies contribute
+
+When looking at CMS it might be instructive to look at it as a mapping from one domain to another so as a mathimatical transform.
+We want to focus on what the target file hierarchy that will be used as the destination of the published resources.
+The cms publishes the active dataset the landing site server uses to services requests.  The data is a bunch of static files so the idea the server should be able to assemble the desiged site quickly
+
+* CMS
+** Input system for getting content data into system
+** Store the content
+** Documents of content organized in a hierarcy of elements and fields
+** Catagories that organize how wrappers around stories put in certian areas
+** Templates that are associated with different elements and operate on  the elements data into the proper manner for the domain
+
+* Compojure base web application server
+** Ease of building wrappers
+** Ease of adding new functionality with controller routes
+** Middleware
+*** Rate Limiting
+*** Ring anti-forgery token
+*** Monitoring
+*** request throttling
+
+
 
 TACTICAL
 

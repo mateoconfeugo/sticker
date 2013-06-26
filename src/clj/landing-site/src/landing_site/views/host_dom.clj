@@ -1,22 +1,15 @@
 (ns landing-site.views.host-dom
-  (:use [cms.site :only [new-cms-site get-site-menu get-site-contents get-market-vector str->int get-css get-fonts]]
+  (:use [cms.site :only [new-cms-site get-site-menu get-site-contents get-market-vector str->int get-css get-fonts get-header-image]]
 ;;        [clojurewerkz.urly.core :only[host-of]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
                                                maybe-content maybe-substitute page-not-found]]
         [landing-site.views.snippets :only[nav-bar offer]]
         [net.cgrand.enlive-html]))
 
-(defsnippet head-dom "templates/index.html" [:head]
-  [{:keys [fonts]}]
-  [root :> (attr-has :src "replace-me")] (clone-for [f fonts]
-                                                    (do->                                                     
-                                                     (set-attr :href f)
-                                                     (set-attr :rel "stylesheet")
-                                                     (set-attr :type "text/css"))))
-
 (deftemplate index-with-webapp-pages "templates/index.html"
-   [{:keys [site-name pages menu-data css fonts] :as settings}]
+   [{:keys [site-name pages menu-data css fonts header-image-path] :as settings}]
    ;;   [:div#navbar] (content (nav-bar {:title site-name :menu-data menu-data}))
+   [:img#header-image] (set-attr :src header-image-path)
    [:ul#nav-controls-destination :li] (clone-for [p pages]
                               [:a] (do->
                                    (add-class "btn")
@@ -50,16 +43,19 @@
         matrix-id 1
         ;;        domain (if-let [d (-> req :params :ls-url)] d (host-of (:server-name req)))
         domain (-> req :params :ls-url)
-        mv-id (first (or market-vector-id (or (-> req :params :market-vector) (get-market-vector domain dir matrix-id))))
+        mv-id (first (or market-vector-id (or (-> req :params :market_vector) (get-market-vector domain dir matrix-id))))
         cms (new-cms-site {:webdir dir :market-vector-id mv-id :domain-name domain})
         menu (:drop_down_menu (first (get-site-menu cms)))
         pages (get-site-contents cms)
         css (get-css cms)
+        image-path (get-header-image cms)
         fonts (get-fonts cms)
         num_pages (count pages)
         page_num (range 0 num_pages)
-        pages (reverse (map #(assoc %1 :order %2)  pages page_num))]
-    (render-to-response (index-with-webapp-pages {:site-name "MarketWithGusto.com" :pages pages :menu-data menu :css css :fonts fonts}))))
+        pages (reverse (map #(assoc %1 :order %2)  pages page_num))
+        opts {:site-name "MarketWithGusto.com" :pages pages :menu-data menu
+              :css css :fonts fonts :header-image-path image-path}]
+    (render-to-response (index-with-webapp-pages opts))))
 
 
 
