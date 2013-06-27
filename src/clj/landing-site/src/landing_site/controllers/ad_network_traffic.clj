@@ -25,25 +25,15 @@
         req (assoc request :session new-session)]
     (->  (host-dom/render req market-vector))))
 
-
-
-
 (defn serve-image
   [request file ext]
+  "Gets the image for the domain landing site"
   {:body (FileInputStream. (str (-> request :params :img-dir) "/" file "." ext))
    :status 200
    :headers {"Content-Type" (str "image/" ext)}})
-                         
-;;(def requesty {:params {:img-dir "/Users/matthewburns/github/florish-online/src/clj/landing-site/website/localhost/img"}}
-;;  (-> requesty :params :img-dir)
-;;(def resp (serve-image requesty "681247e3" "png"))
-;(str  "data:image/png;base64," + (org.apache.commons.codec.binary.Base64/encodeBase64 (:body resp)) false))
-;;(doseq [b (seq (:body resp))]
-;;  (println b))
 
 (defroutes landing-site-routes
-   (GET "/img/:file.:ext" [file ext :as req] (serve-image req file ext))
-;;  (GET "/img/*" [] )
+  (GET "/img/:file.:ext" [file ext :as req] (serve-image req file ext))
   (GET "/static" [file :as req] (render-static-page (str static-html-dir file) (-> req :params :cms)))
   (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json"))
   (GET "/" req (host-dom/render req))
