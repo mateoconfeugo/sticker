@@ -40,11 +40,11 @@
 
 ;;                   :uri "http://patientcomfortreferral.com/adnetwork/1/campaign/1/adgroup/1/listing/A/market_vector/1/view"
 (def test-request {:request-method :get
-                   :uri "/"
+                   :uri "/?ls-url=patientcomfortreferral.com&market_vector=1"
                    :server-name "http://patientcomfortreferral.com"
                    :headers {}
-                   :params {:adnetwork 1, :campaign 1, :adgroup 1, :listing "A" :market_vector 1
-                           }})
+                   :params {:adnetwork 1, :campaign 1, :adgroup 1, :listing "A" :market_vector 1 :ls-url "patientcomfortreferral.com"}})
+                           
 (comment
 (if-let [domain-name (-> test-request :params :ls-url)] domain-name (str (host-of (:server-name test-request)) "/"))
 (get-market-vector-x "patientcomfortreferral.com" website-dir 1)
@@ -58,6 +58,9 @@
 (type x-client)
 
 
+(def altered-req (testy test-request))
+(show-settings (:cms altered-req))
+(get-fonts (:cms altered-req))
 
 (expect true (= (:status (app (request :get (:uri test-request)))) 200))
 (expect true (= (:status (app (request :get "/invalid-bogus-fake"))) 404))

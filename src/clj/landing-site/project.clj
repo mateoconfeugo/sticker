@@ -19,6 +19,7 @@
                  [metis "0.3.0"]                 
                  [mysql/mysql-connector-java "5.1.6"]                 
                  [org.apache.httpcomponents/httpclient-osgi "4.2.5"]
+                 [commons-codec/commons-codec "1.8"]
                  [org.clojure/clojure "1.5.1"]                 
                  [org.clojure/java.jdbc "0.2.3"]
                  [org.clojure/tools.logging "0.2.3"]

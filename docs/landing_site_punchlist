@@ -82,10 +82,15 @@ X get javascript working
 X fixed page order when released into cloud
 make design changes
 make content changes
-add ability to manipulate style sheet from cms
-add ability to ad an offer
+X add ability to manipulate style sheet from cms
+X landing site server side
+X cms template side
 
+X add fonts to cms
 remove any hardcoded furnctionality and move it to cms
+add ability to ad an offer
+add email form
+add initial start of daemontools
 
 
 

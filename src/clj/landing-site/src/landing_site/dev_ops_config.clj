@@ -115,7 +115,7 @@
                                              {:user {:username "pallet-admin"
                                                      :private-key-path "/Users/matthewburns/.ssh/id_rsa"
                                                      :public-key-path "/Users/matthewburns/.ssh/id_rsa.pub"}}
-                                             :node-list [["web100" "flourish-ls" "166.78.153.58" :debian]]}}))
+                                             :node-list [["ops1" "flourish-ls" "166.78.153.58" :debian]]}}))
   
 (def production-cms (pallet.configure/compute-service-from-config cms-pallet :data-center {}))
 

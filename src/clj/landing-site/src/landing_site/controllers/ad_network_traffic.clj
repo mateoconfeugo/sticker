@@ -1,14 +1,15 @@
 (ns landing-site.controllers.ad-network-traffic
-  (:import [java.io IOException])
+  (:import [javax.imageioImageIO]
+           [java.io File ByteArrayOutputStream IOException ByteArrayInputStream FileInputStream]
+           [org.apache.commons.codec.binary.Base64])
   (:use [cms.site :only[str->int]]
-        [clojurewerkz.urly.core :as urly]
         [compojure.core :only [defroutes GET ANY]]
         [compojure.route :as route :only [not-found files resources]]
         [landing-site.config]
         [landing-site.views.host-dom :as host-dom :only [render]]
         [landing-site.views.static-page :only [render-static-page]]
         [riemann.client :only [send-event tcp-client]]
-        [ring.util.response :only [content-type file-response response]]))
+        [ring.util.response :only [content-type file-response response header]]))
 
 (comment
  (if-let [monitoring-bus (try (tcp-client) (catch IOException e))]
@@ -25,10 +26,25 @@
     (->  (host-dom/render req market-vector))))
 
 
-;;      (file-response file {:root (str website-dir  "/" (if-let [d (-> req :params :ls-url)] d (host-of (:server-name req))) "/img/")}))
+
+
+(defn serve-image
+  [request file ext]
+  {:body (FileInputStream. (str (-> request :params :img-dir) "/" file "." ext))
+   :status 200
+   :headers {"Content-Type" (str "image/" ext)}})
+                         
+;;(def requesty {:params {:img-dir "/Users/matthewburns/github/florish-online/src/clj/landing-site/website/localhost/img"}}
+;;  (-> requesty :params :img-dir)
+;;(def resp (serve-image requesty "681247e3" "png"))
+;(str  "data:image/png;base64," + (org.apache.commons.codec.binary.Base64/encodeBase64 (:body resp)) false))
+;;(doseq [b (seq (:body resp))]
+;;  (println b))
+
 (defroutes landing-site-routes
-  (GET "/img/:file" [file :as req]  (file-response (str website-dir "/" (urly/host-of (urly/url-like (:server-name req))) "/img" "/" file)))
-  (GET "/static" [file :as req] (render-static-page (str static-html-dir file) (:cms req)))
+   (GET "/img/:file.:ext" [file ext :as req] (serve-image req file ext))
+;;  (GET "/img/*" [] )
+  (GET "/static" [file :as req] (render-static-page (str static-html-dir file) (-> req :params :cms)))
   (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json"))
   (GET "/" req (host-dom/render req))
   (GET "/adnetwork/:adnetwork/campaign/:campaign/adgroup/:adgroup/listing/:listing/market_vector/:market_vector/view"

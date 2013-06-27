@@ -30,21 +30,13 @@
                                                      (set-attr :href f)
                                                      (set-attr :rel "stylesheet")
                                                      (set-attr :type "text/css"))))
-   
-                               
-
 ;;(offer {})
 
 ;; TODO: use a cache via memoization for the creation of the cms, pages and menu should speed things up quite a bit
 (defn render
   [req & market-vector-id]
   "Take the sequence of pages in insert them into an unordered list"
-  (let [dir landing-site.config/website-dir
-        matrix-id 1
-        ;;        domain (if-let [d (-> req :params :ls-url)] d (host-of (:server-name req)))
-        domain (-> req :params :ls-url)
-        mv-id (first (or market-vector-id (or (-> req :params :market_vector) (get-market-vector domain dir matrix-id))))
-        cms (new-cms-site {:webdir dir :market-vector-id mv-id :domain-name domain})
+  (let [cms (-> req :params :cms)
         menu (:drop_down_menu (first (get-site-menu cms)))
         pages (get-site-contents cms)
         css (get-css cms)
@@ -57,5 +49,5 @@
               :css css :fonts fonts :header-image-path image-path}]
     (render-to-response (index-with-webapp-pages opts))))
 
-
+    
 

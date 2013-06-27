@@ -10,11 +10,12 @@
         [pallet.action :only [with-action-options]]
         [pallet.actions :only [exec-script* remote-file user exec-script directory]]))
 
+;;(str "nohup java -jar " root-dir "/landing-site.jar")
 (defplan launch-lsbs
   "Start the landing site application from a jar under daemontools supervisor"
   [{:keys [db-host db-name db-username db-password owner group provider
            root-dir cfg-dir website-dir monitor-host] :as settings}]
-  (let [app-launch-cmd  "nohup java -jar /home/pallet-admin/landing-site.jar"
+  (let [app-launch-cmd  (str "svc -u " root-dir "/supervise/landing-site")
         launch-env {:script-env {:LSBS_CFG_DIR cfg-dir :LSBS_WEBSITE website-dir :LSBS_ROOT_DIR root-dir
                                  :LSBS_DB_ADDRESS db-host :LSBS_MONITORING_ADDRESS monitor-host :LSBS_DB_NAME db-name
                                  :LSBS_DB_USER db-username :LSBS_DB_PASSWORD db-password} }]

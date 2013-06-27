@@ -53,8 +53,9 @@
 (def opts    {:site-name "MarketWithGusto.com" :pages pages :menu-data menu
               :css css :fonts fonts :header-image header-image-path})
 (:header-image opts)
-
-(index-with-webapp-pages opts)
+(opts)
+(doall
+(index-with-webapp-pages opts))
 
 (-> test-request :params :market_vector)
 
