@@ -35,7 +35,7 @@
 (defroutes landing-site-routes
   (GET "/img/:file.:ext" [file ext :as req] (serve-image req file ext))
   (GET "/static" [file :as req] (render-static-page (str static-html-dir file) (-> req :params :cms)))
-  (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json"))
+  (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root cfg-dir})  "application/json"))
   (GET "/" req (host-dom/render req))
   (GET "/adnetwork/:adnetwork/campaign/:campaign/adgroup/:adgroup/listing/:listing/market_vector/:market_vector/view"
       [adnetwork campaign ad_group listing market_vector :as req]

@@ -12,7 +12,8 @@
                  [com.googlecode.libphonenumber/libphonenumber "5.4"]
                  [com.ibdknox.socket_io_netty/socket-io-netty "0.3.4"]
                  [compojure "1.1.5"]
-                 [de.ubercode.clostache/clostache "1.3.1"]                 
+                 [de.ubercode.clostache/clostache "1.3.1"]
+                 [enlive "1.1.1"]
                  [flourish-common "0.1.0-SNAPSHOT"]
                  [korma "0.3.0-RC5"]
                  [log4j/log4j "1.2.16" :exclusions [javax.mail/mail javax.jms/jms com.sun.jdmk/jmxtools com.sun.jmx/jmxri]]                 
@@ -40,6 +41,7 @@
             [lein-dpkg "0.1.0"]
 ;;            [lein-ritz "0.6.0"]            
             [lein-html5-docs "2.0.0"]
+            [ring.middleware.logger "0.4.0"]            
             [com.palletops/pallet-lein "0.6.0-beta.9"]
             [lein-cloverage "1.0.2"]]            
   :ring {:handler landing-site.handler/app}

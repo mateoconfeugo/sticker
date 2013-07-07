@@ -58,7 +58,7 @@
       response)))
 
 
-(def app  (wrap-params (wrap-keyword-params (wrap-cms (wrap-spy app-routes)))))
+(def app  (wrap-params (wrap-keyword-params (wrap-cms (wrap-with-logger app-routes)))))
 
 (defn start-lsbs [port]
   (run-jetty app {:port port :join? false}))

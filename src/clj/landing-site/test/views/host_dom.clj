@@ -9,7 +9,13 @@
         [korma.db :only [defdb mysql]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request render-snippet]]))
     
-(def cms (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 1}))
+(def cms (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 2}))
+(keys (get-modal-form cms))
+(keys (get-side-form cms))
+(get-site-menu cms)
+(get-site-title cms)
+(get-conversion-scripts cms)
+(get-site-banner cms)
 (get-fonts cms)
 (get-site-contents cms)
 (get-header-image cms)

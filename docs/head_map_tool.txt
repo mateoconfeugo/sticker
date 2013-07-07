@@ -1,0 +1,21 @@
+* Landing Site Client Part
+Socket.io sends mouse data from the client to the server
+
+* Landing Site Server Part
+Server saves the the session heat map data for each page and 
+creates an aggregate
+
+* Management Client Part
+Asks server to retreive the desiged site page and inserts the page into a piece of dom in the tool
+Asks the server for that sites heat map
+creates an overlay 
+Actives the heatmap by feeding the data into the heatmap object and turning on the overlay
+
+* Management Server Part
+Provides the heat map data
+
+Stats to collect
+* Vistors who landed on page
+* Vistors who interacted with the form
+* Vistors who tried to submit the form
+* Vistors who successfully submitted

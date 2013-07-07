@@ -1,5 +1,5 @@
 (ns landing-site.views.host-dom
-  (:use [cms.site :only [new-cms-site get-site-menu get-site-contents get-market-vector str->int get-css get-fonts get-header-image]]
+  (:use [cms.site]
 ;;        [clojurewerkz.urly.core :only[host-of]]
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
                                                maybe-content maybe-substitute page-not-found]]
@@ -7,10 +7,16 @@
         [net.cgrand.enlive-html]))
 
 (deftemplate index-with-webapp-pages "templates/index.html"
-   [{:keys [site-name pages menu-data css fonts header-image-path] :as settings}]
-   ;;   [:div#navbar] (content (nav-bar {:title site-name :menu-data menu-data}))
-   [:img#header-image] (set-attr :src header-image-path)
-   [:ul#nav-controls-destination :li] (clone-for [p pages]
+  [{:keys [site-name pages menu-data css fonts header-image-path
+           modal-form side-form conversion-scripts site-title site-banner] :as settings}]
+  ;;   [:div#navbar] (content (nav-bar {:title site-name :menu-data menu-data}))
+  [:title#site-title] (content site-title)
+  [:h3.site-banner] (content site-banner)
+  [:script.conversion-script] (content conversion-scripts)
+  [:img#header-image] (set-attr :src header-image-path)
+  [:div#myModal](substitute (html-snippet (:form_builder_html modal-form)))
+  [:aside#side-lead-form] (substitute (html-snippet (:form_builder_html side-form)))
+  [:ul#nav-controls-destination :li] (clone-for [p pages]
                               [:a] (do->
                                    (add-class "btn")
                                    (add-class "btn-success")
@@ -23,6 +29,7 @@
                                                     (html-content (:contents p))))
    [[:ul.pages (nth-of-type 1)] :> first-child] (add-class "active")
    [[:.tab-pane first-child]] (add-class "active")
+   [:.tab-pane :li.leading] (append "yummy")
    [[:li.leading] :> last-child] (content "")
    [:style#cms-css] (content css)
    [:head :> (attr-has :src "replace-me")] (clone-for [f fonts]
@@ -42,11 +49,18 @@
         css (get-css cms)
         image-path (get-header-image cms)
         fonts (get-fonts cms)
+        modal (get-modal-form cms)
+        side-form (get-side-form cms)
+        scripts (get-conversion-scripts cms)
+        site-title (get-site-title cms)
+        site-banner (get-site-banner cms)
         num_pages (count pages)
         page_num (range 0 num_pages)
         pages (reverse (map #(assoc %1 :order %2)  pages page_num))
         opts {:site-name "MarketWithGusto.com" :pages pages :menu-data menu
-              :css css :fonts fonts :header-image-path image-path}]
+              :css css :fonts fonts :header-image-path image-path
+              :modal-form modal :side-form side-form :conversion-scripts scripts
+              :site-title site-title :site-banner site-banner}]
     (render-to-response (index-with-webapp-pages opts))))
 
     

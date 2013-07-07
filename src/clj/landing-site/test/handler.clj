@@ -62,7 +62,7 @@
 (show-settings (:cms altered-req))
 (get-fonts (:cms altered-req))
 
-(expect true (= (:status (app (request :get (:uri test-request)))) 200))
+(expect true (= (:status (app (request :get "/?ls-url=patientcomfortreferral&market_vector=1"))) 200))
 (expect true (= (:status (app (request :get "/invalid-bogus-fake"))) 404))
 (expect true (= (:status (app (request :get "/clientconfig"))) 200))
 

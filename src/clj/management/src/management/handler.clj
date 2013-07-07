@@ -43,10 +43,10 @@
 (derive ::feed-provider ::user)
 
   
-  (def app (handler/site (wrap-params (routes public-routes
+(def app (handler/site (wrap-params (routes public-routes
                                             (authenticate user-mgmt-routes {:credential-fn (partial bcrypt-credential-fn users)
                                                                             :workflows [(interactive-form)]})
                                             (authenticate admin-mgmt-routes {:credential-fn (partial bcrypt-credential-fn admin)
                                                                              :workflows [(interactive-form)]})
                                             (logout (ANY "/logout" request (redirect "/")))))))
-  )
+)

@@ -85,9 +85,20 @@ make content changes
 X add ability to manipulate style sheet from cms
 X landing site server side
 X cms template side
-
+  
 X add fonts to cms
 remove any hardcoded furnctionality and move it to cms
+X  page title
+X  header
+X  logo
+X  side form header
+X  all the form
+X  model form
+  conversion script
+  javascript libraries
+  tag visible for navigation tabs
+Fix config download 
+Fix moving buttons
 add ability to ad an offer
 add email form
 add initial start of daemontools
@@ -103,3 +114,4 @@ add initial start of daemontools
 
 
 
+(:form_builder_html :form_footer :form_builder_is_modal)

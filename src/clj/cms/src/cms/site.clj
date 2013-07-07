@@ -38,9 +38,9 @@
 (defn assemble-site-files [base-dir landing-site-id]
   "Determines the files that make up a site"  
   (let [dir-path (str base-dir "/landing_site/" landing-site-id)
-       directory (clojure.java.io/file dir-path)
-       sorted-files (directory-list directory #".*\.html")]
-         (map #(str base-dir "/landing_site/" landing-site-id "/" %) sorted-files)))
+        directory (clojure.java.io/file dir-path)
+        sorted-files (directory-list directory #".*\.html")]
+    (map #(str base-dir "/landing_site/" landing-site-id "/" %) sorted-files)))
 ;;        html-files (regex-file-seq #".*\.html" directory)
 
 
@@ -76,11 +76,61 @@
 (defn cms-header-image
   "Get the header-image"
   [base-dir  landing-site-id]
-    (:header_image (parse-string (slurp (str  base-dir  "/landing_site/" landing-site-id "/" landing-site-id ".json")) true)))
+  (:header_image (parse-string (slurp (str  base-dir  "/landing_site/" landing-site-id "/" landing-site-id ".json")) true)))
+
+(defn landing-site-json
+  [base-dir  landing-site-id]
+  (let [path (str  base-dir  "/landing_site/" landing-site-id "/" landing-site-id ".json")
+        data (slurp path)]
+    (parse-string data true)))
+
+(defn get-form-data
+  [site-json]
+  (if (contains? site-json :lead_collection_form)
+    (:lead_collection_form site-json)
+    nil))
+
+(defn cms-side-form
+  "Get the header-image"
+  [base-dir  landing-site-id]
+  (let  [json (landing-site-json base-dir landing-site-id)
+         form-json (get-form-data json)
+         side-form-json (first (remove :form_builder_is_modal form-json))]
+    (if (contains?  side-form-json :form_builder_html)
+      side-form-json
+      nil)))
+
+(defn cms-modal-form
+  "Get the header-image"
+  [base-dir  landing-site-id]
+  (let  [json (landing-site-json base-dir landing-site-id)
+         form-json (get-form-data json)
+         modal-form-json (first (filter :form_builder_is_modal form-json))]
+    (if (contains?  modal-form-json :form_builder_is_modal)
+      modal-form-json
+      nil)))
+
+
+
+(defn cms-site-banner
+  [base-dir  landing-site-id]
+  (let  [json (landing-site-json base-dir landing-site-id)]
+    ))
+
 
 ;; INTERFACE SPECIFICATION
 (defprotocol CMS-Site
   "Site content file lookup interface"
+  (get-conversion-scripts [this]
+    "adnetwork tracking scripts")
+  (get-site-title [this]
+    "title of the site goes in browser app bar")
+  (get-site-banner [this]
+    "Top header banner")
+  (get-side-form [this]
+    "Get the lead form that is always visible on the page usually on the side")
+  (get-modal-form [this]
+    "Get the lead form that drops down upon the click of the button or other action")
   (get-css [this]
     "Gets the css for the site")
   (get-header-image [this])
@@ -93,44 +143,63 @@
     "Retrieves the menu configuration for the site"))
 
 ;; IMPLEMENTATION CONSTRUCTOR
-
-
 (defn new-cms-site
   [{:keys[domain-name market-vector-id webdir] :as settings}]
-  (reify CMS-Site
 
-    (get-fonts
-      [this]
-      (let [base-dir (str webdir "/" domain-name "/site")
-            landing-site-id (get-site-id base-dir market-vector-id)]
-        (cms-fonts base-dir landing-site-id)))
+  (let [base-dir (str webdir "/" domain-name "/site")
+        landing-site-id (get-site-id base-dir market-vector-id)
+        site-json (landing-site-json base-dir landing-site-id)]
+    
+    (reify CMS-Site
+      
+      (get-conversion-scripts [this] (:conversion_script site-json))
 
-    (get-header-image
-      [this]
-      (let [base-dir (str webdir "/" domain-name "/site")
-            landing-site-id (get-site-id base-dir market-vector-id)]
-        (cms-header-image base-dir landing-site-id)))
+      (get-site-title [this] (:site_title site-json))
+      
+      (get-site-banner [this] (:landingsite_name site-json))
 
-    (get-css
-      [this]
-      (let [base-dir (str webdir "/" domain-name "/site")
-            landing-site-id (get-site-id base-dir market-vector-id)]
-        (cms-css base-dir landing-site-id)))
+      (get-side-form [this]
+        (let [base-dir (str webdir "/" domain-name "/site")
+              landing-site-id (get-site-id base-dir market-vector-id)]
+          (cms-side-form base-dir landing-site-id)))
 
-    (show-settings
-      [this]
-      settings)
+      (get-modal-form [this]
+        (let [base-dir (str webdir "/" domain-name "/site")
+              landing-site-id (get-site-id base-dir market-vector-id)]
+          (cms-modal-form base-dir landing-site-id)))
 
-    (get-site-contents
-      [this]
-      (let [base-dir (str webdir "/" domain-name "/site")
-            landing-site-id (get-site-id base-dir market-vector-id)
-            page-files (assemble-site-files base-dir landing-site-id)]
-        (populate-contents base-dir page-files market-vector-id)))
+      (get-fonts
+        [this]
+        (let [base-dir (str webdir "/" domain-name "/site")
+              landing-site-id (get-site-id base-dir market-vector-id)]
+          (cms-fonts base-dir landing-site-id)))
 
-    (get-site-menu
-      [this]
-      (let [base-dir (str webdir "/" domain-name "/site")]
-        (:site_nav_header (first (:single_page_webapp (get-site-data base-dir  market-vector-id))))))))
+      (get-header-image
+        [this]
+        (let [base-dir (str webdir "/" domain-name "/site")
+              landing-site-id (get-site-id base-dir market-vector-id)]
+          (cms-header-image base-dir landing-site-id)))
+
+      (get-css
+        [this]
+        (let [base-dir (str webdir "/" domain-name "/site")
+              landing-site-id (get-site-id base-dir market-vector-id)]
+          (cms-css base-dir landing-site-id)))
+
+      (show-settings
+        [this]
+        settings)
+
+      (get-site-contents
+        [this]
+        (let [base-dir (str webdir "/" domain-name "/site")
+              landing-site-id (get-site-id base-dir market-vector-id)
+              page-files (assemble-site-files base-dir landing-site-id)]
+          (populate-contents base-dir page-files market-vector-id)))
+
+      (get-site-menu
+        [this]
+        (let [base-dir (str webdir "/" domain-name "/site")]
+          (:site_nav_header (first (:single_page_webapp (get-site-data base-dir  market-vector-id)))))))))
 
 

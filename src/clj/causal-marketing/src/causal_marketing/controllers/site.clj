@@ -17,10 +17,10 @@
 (def site-tag (-> cfg :website :site-tag))
 (def site-name (-> cfg :website :site-name))
 
-(def cms (new-cms-site {:webdir root-dir}))
+(def cms (new-cms-site {:webdir root-dir :market-vector-id token}))
 ;;(def file "landing-site-builder.html")
 (defroutes site-routes
-  (GET "/home" [] (causal-marketing.views.host-dom/render token cms))
+  (GET "/home" [] (causal-marketing.views.host-dom/render cms))
   (GET "/site/articles/:file" [file] (render-static-page (str static-html-dir file) cms token))
   ;;  (route/files "/" {:root (str root-dir "/site/articles")})
 ;;    (route/files "/" {:root "public"})

@@ -25,7 +25,9 @@
 
 (defn all-users []
   (view/users-list (model/all (get-db-conn))))
+
 (derive ::admin ::user)
+
 
 (defn create [user]
   (when-not (str/blank? (:first-name user))

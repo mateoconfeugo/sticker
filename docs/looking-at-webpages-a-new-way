@@ -1,0 +1,336 @@
+The Site Builder is an authoring tool that users easily create responsive optimized landing marketing microsites.
+The purpose of these microsites maximize the conversions possible with the traffic it receives.
+
+Consists of a set of tools that allows the user to:
+* Graphically create their website.
+* Integrated Content Management System.
+* Create custom CMS Documents.
+* Easily bind CMS content and static content together.
+* Work on sites collaboratively
+* Publish both the site and the content that populates the site independently
+
+So what makes this flexible authoring system a unique  product is that it combines together:
+* Content Management System that allows the creation of arbitraly complex documents.
+* Drag and Drop HTML Layout builder that makes the creation of the structural parts of the site simple. 
+* CSS Editor that allows for the site to be styled however the designer wants.
+* The HTML, CSS, Javascript code that is generated is very human readable and tries to follow the best practices
+* The straight forward way of binding document content into the various parts of the site.
+* Quickly switch views from editing, css, designer, preview, content allows smooth user workflow.
+
+The challanges to providing a flexible authoring system for generating the semantic content that is tolerable for other humans to look at:
+* creating content host dom components, 
+* organizing layout
+* applying style to the populated dom
+* creating meta data about the semantic content for automated agents
+* connecting javascript applications up to the DOM.
+* storing the semantic content
+
+WHY IS THIS IMPORTANT:
+The modern website of which these  responsive optimized landing marketing microsites (ROLMM's) are a subset are made from several differnt types of content.
+
+Types of content
+* Semantic content
+* semantic content hosting dom
+* Meta data content
+* Structure
+** The elements that create the boiler plate for any well thought out page
+** The framework that creates the  layout of a site and some of these layout nodes will be the parents of the content hosting dom nodes
+* Style
+** Style for the layout
+** Style for the device
+** Style for the presentation
+* Resources
+** Javascript
+** Images/Videos
+** static files
+
+BUT WHY IS IT IMPORTANT
+In combination with the ad generation online campaign tools the site builder completes the toolset of the online marketer giving them
+a tool that allows them to carry the scent forward from the keyword, ad, site, offer conversion, reporting and monitoring.  
+
+The tool creates a coherent unit of marketing effort organization.  
+This makes creating, maintaining, monitoring and improving marketing campaigns easier.
+
+Further this tool allows for all the myrid of devices to consume the end publised content.
+
+* BACKGROUND
+
+The thing that makes it a challenge is there needs to be multiple ways the content tree is going to be viewed.
+From the point of view as an authoring tool and for how it is to looked when rendered DOM and running in a browser.
+These accompaning data structures together start to form an more accurate image of the total lifecycle of a webpage.
+DOM stands for document object model and serves as the top of the data structure; however, HTML provides the ability to inject other
+complete pages into one another.
+
+This composistion ability is what allows the incredibly flexiblity in how the content is organinzed and how it is presented to the user
+
+The cms semantic content data structure is also the document.  As the page DOM provides interface the web browser can process this semantic content document
+forms the top level object that nosql document stores use.
+
+As a web page is a instance of a pattern seen in software.
+Tree data being manipulated by an asynchronous process hosted by a operating system.
+The tree being the rendered DOM the processes being javascript apps and the os being the the browser.
+What is the purpose of the DOM? To provide the structural framework to host meaningful content.
+
+HTML hypertext markup language:
+Human Translated Meaning Linked
+HTML is for people.  It purpose is to present content in such a way that they can digest it and it is meaningful to them.
+Because its for people there are some aspects of the data that need to be there that aren't necessary for non-human consumers of the content data
+
+Organizing the Semantic content and storing it is the job of a content management system. 
+The organizing content construct needs to be similary flexible as the DOM is so arbitrary complex content trees can be created.
+
+Documents are just elements that can have fields or other elements.  Some of the fields are manditory so as to provide meta data that will be used by the semantic editor 
+data as well as the published DOM.
+
+Other program data object that will be necessary are some relations that tie the various data structures in a cohertant manner so that the content can be published into 
+the desired dataformat
+
+Transform functions provide the mechanism of mapping the CMS data structures into web page DOM.
+The transformation function is generated by a macro that brings together selector functions, html dom snippets, and the content data.
+The macro allows for the create of functions that allow this mapping from the CMS domain to the HTML DOM in an arbitrary manner.
+
+* Want
+The sitebuilder authoring tool should be very simple to use, maintain and add features to.
+
+** Given
+In this sitebuilder system business workflows are series of data transformations applied against arbitrary deep hierarchtical trees
+
+** Know
+Seperating the program control from the manipulation of the business data simplifies program design, coding and maintenance.
+These transforms are represented as pipes and the maps flow in and out.  .  
+Business data in the form of maps are passed between pipe which transform them.
+Connecting these pipes in series forms pipelines.
+These pipelines are what accomplish the business functionality of the system.
+
+** Solution
+The business logic on the server side of the sitebuilder is to be built in the streaming data pipeline style.
+
+** Client Side Description of the Tool
+User can switch between the following modes of operation which allows for the authering of the different data structures 
+that together make up the whole custom application being created.
+* Site Map View
+* Site Layout Edit
+* Site Style Edit 
+* Content Editing - working with the pure content
+* Document Design - building custom documents
+* Document Browsing - Search documents to be able to associate with the site and page.
+* Site View - whole stylesheet
+* Mixed Mode - Content and Site Layout Mode
+* Workflow Desk View
+* Dashboard
+
+Tools allows the user to select components (HTML, CMS) from a list of existing components 
+either to insert into the page dom or create a new component.  Using javascript drag and drop
+events the information about the dom to insert and the dom where the insertion is to take place
+is sent to the sever.
+
+The repeating pattern used through this application is to create a feedback loop:
+from the user -> browser -> webapp -> browser
+
+(defpipeline add-component 
+  validate-insertion
+  create-snippet-template
+  build-snippet-function
+  update-deftemplate
+  update-html-template
+  push-to-editor)
+
+Underneath the covers the user is causing some clojure macros to be written to a file.
+These macros will be evaluated and the resulting functions they produce will be used in
+two places.  First to provide the response to the request that caused the edit so as to provide the 
+use with visual feedback.  Second, when the microsite is being servered by the  landing site delivery
+engine it is these same functions that will transform and integrate the snippets, contents and resources
+together into the index page that is served to the end consumer of the site.
+
+here is the cms map structure 
+Schema:
+{:fields [{:keys [name type value]}]
+ :elements [{:keys [name fields]}]}
+
+Maps will be produced by constructor functions for the various business data structures that will
+include the required fields and elements thus defining the structure.
+
+Relations
+
+Semantic Content <-> Content Editor  these two thing make up a content component
+Semantic Content <-> Meta data
+Semantic Content <-> The Location in the website resource hierachy hosted and served by the web application server
+Semantic Content <-> The transformtion function 
+Meta Data <-> The transformation function
+Transformation function <-> Publishing Channel
+HTML DOM <-> Publishing Destination
+Site <-> Semantic Content 
+User/Group <-> Semantic Content
+User/Group <-> Site
+Semantic Content <-> Resource
+CMS Document Status - workflow desk
+
+The data that the CMS stores seems to be broken down in to several differnt parts
+* The Document 
+* The Site 
+* Users/Groups
+* Snippets
+* HTML Templates
+* Channels
+* Contributors
+* Work Desks
+
+Differnt types of data might do better in different types of data stores
+* Document Database
+Document Content
+Site Layout
+Content Meta data
+* Filesystem
+HTML Templates
+snippets
+* Database
+Relation Data
+
+Reuse administrative relational resources from bricolage
+Use key value document store like Cassandra or MongoDB
+
+Types of content
+* Semantic content
+* semantic content hosting dom
+* Meta data content
+* Structure
+** The elements that create the boiler plate for any well thought out page
+** The framework that creates the  layout of a site and some of these layout nodes will be the parents of the content hosting dom nodes
+* Style
+** Style for the layout
+** Style for the device
+** Style for the presentation
+* Resources
+** Javascript
+** Images/Videos
+** static files
+
+The node tree allows for all of these types of content.  Being such a flexible data structure it is possible to create whatever type of tree, subtrees you need.
+
+This is an authoring tool and it cause the following artifacts to be produced for the user
+
+Filesystem resources and directory structure:  These will get deployed
+/domain
+  /site
+     /cms-resources
+        /templates
+	  base.html
+          elements.html
+        /snippets
+        /views
+          host_dom.clj
+   /landing-site
+      /name
+         name.json
+         page.html
+   /market-vector
+   /market-matrix
+
+Document Database Resources and Hierachy used only when using authoring tool
+
+user-|
+     |- domain
+     	     |- documents
+	     |- content-bindings  snippet <-> deconstrutor map
+	     |- meta-data
+	
+Here is where clojure being a lisp and lisp being homoiconic is very key to simplifiy things when creating the
+mechanisim for the site builder
+
+For existing component
+{:component-name "foo"
+ :target-dom "bar"}
+
+New Component
+{:component-name "ham"
+ :html "<div>Ham</div>"}
+
+The elements inside the editor dom that the user drags the components into is what the page will look like rendered.
+This piece of dom is being updated via a post callback success event or socketio is the page html as it is on the server.
+There is an actual file in the templates directory that is being changed as well as a compojure style view and if a new component
+a new snippet is being added to the snippets directory.  With these resource updated with the posted data the request is piped through
+these resources and the output sent to the browser to be put editor dom.  This also provides for some validation and business rules to be applied
+
+Inserting the content into the hosting dom is the job of the element editor.
+Mapping the element field values to right place in the component dom is the job of the snippet functions.
+
+These snippets take a selector which the target dom data from the post provided and a map of the
+element with all the fields and subelements populated.
+
+The transform function the deftemplate macro produces will take as arguments:
+ the cms content document
+ the snippet-deconstructor binding map.
+
+Each rule will consist of the selector, the snippet function.
+The snippet function will take as its argument  the relevant part of the content document 
+The deconstructur tied to the snippet to will be used to extract the data from the content
+
+This application is going to produce clojure code files and the code in those files will be run to accomplish the sitebuilder.
+
+The most complicated part of this the snippet function itself as the html, location in the dom and model data is already being provided.
+For the short term there can just be a input box where one can write the clojure code until a way to automate the process is written.
+
+The trick is mapping the content from potentially many document elements to the framework page's components that present the content
+Probably could use uri into the document store that can be bundled to a single viewable url.
+When binding document content to hosting container the user can select amonst the documents to apply the deconstruction selector.
+
+Both the base structure and functionality  the site includes as well as the content can be independantly release/published.
+
+A -> B
+* Write the html sent from editor to the base.index.html file in the correct place in the directory
+* Write the css sent from editor to the base.index.html file in the correct place in the directory
+* Update/create the clojure file that contains the deftemplate - Remember code is data. you can read the clj file as a list using read-string modify it and write it back.
+use *print-dup* to serialize and deserialize the code.
+* Figure out how to edit the code that has been serialized into a data structure. How do macros figure into this.
+* Once the code has been deserialized back into the file when and how is it evaluated so that the function created by the deftemplate becomes operative
+
+Combine the parts of the management application together
+Get document store going going to use couch db
+
+A Site map control could help organize the seperate html document of the site.
+A Web app might present these all in a single download or dom 
+http://boagworld.com/demos/sitemap/#
+
+Want to reuse the work for the layoutit engine
+
+The site builder editor creates the base website and template that is then used by the landing-site delivery engine along with 
+the cms documents.
+
+One of the main features is that actual content from the cms is able to be viewed as the designer or content editor changes the site framework html, 
+container components.
+
+Things to take from Vix
+Exception handler
+Lucene Document Search - Site Search
+Support for multiple languages
+Attachment Support
+CouchDB related code
+
+Things to take from Bricolage
+Some of the schema
+Design concepts - Documents, Elements fields, channels, destintations, Sites, Groups, Contributors, Workflows
+Instance of Landing Site and elements that make it up
+
+combining cms management into main tool
+This will allow for the base html dom page, the main css, and perhaps assemble the javascript in a sensible fashion
+
+
+
+Since its all elements built upon elements some of the basic first components to be made are:
+<div>
+<nav>
+<section>
+<ul>
+<ol>
+<aside>
+<canvas>
+<article>
+<style>
+<script>
+<header>
+<head>
+<body>
+<html>
+<link>
+<table>
+
