@@ -5,10 +5,10 @@
         [ring.middleware.reload :only [wrap-reload]]
         [ring.middleware.file :only [wrap-file]]
         [ring.middleware.stacktrace :only [wrap-stacktrace]]
-        [clojure.contrib.duck-streams :only [pwd]])
+        [clojure.contrib.io :only [pwd]])
   (:gen-class))
 
-(def *webdir* (str (pwd) "/resources/templates/"))
+(def ^:dynamic *webdir* (str (pwd) "/resources/templates/"))
 
 (defn render [t]
   (apply str t))

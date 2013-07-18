@@ -12,9 +12,11 @@
         [expectations]))
 
 
-(def foo (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 1}))
+(def foo (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 2}))
 (def base-dir (str website-dir "/patientcomfortreferral.com/site"))
-(:header_image (parse-string (slurp (str  base-dir  "/landing_site/1/1.json")) true))
+(get-site-contents foo)
+
+(:header_image (parse-string (slurp (str  base-dir  "/landing_site/2/2.json")) true))
 (get-header-image foo)
 (cms-header-image base-dir 1)
 (get-fonts foo)

@@ -17,6 +17,80 @@ So what makes this flexible authoring system a unique  product is that it combin
 * The straight forward way of binding document content into the various parts of the site.
 * Quickly switch views from editing, css, designer, preview, content allows smooth user workflow.
 
+The web content management system  (WCMS) aspect of the site builder supports things like 
+
+* Automated templates
+Create standard output templates (usually HTML and XML) that can be automatically applied to new and existing content, allowing the appearance of all content to be changed from one central place.
+
+* Access control
+Some WCMS systems support user groups. User groups allow you to control how registered users interact with the site. A page on the site can be restricted to one or more groups. This means an anonymous user (someone not logged on), or a logged on user who is not a member of the group a page is restricted to, will be denied access to the page.
+
+* Scalable expansion
+Available in most modern WCMSs is the ability to expand a single implementation (one installation on one server) across multiple domains, depending on the server's settings. WCMS sites may be able to create microsites/web portals within a main site as well.
+
+* Easily editable content
+Once content is separated from the visual presentation of a site, it usually becomes much easier and quicker to edit and manipulate. Most WCMS software includes WYSIWYG editing tools allowing non-technical users to create and edit content.
+
+*Scalable feature sets
+Most WCMS software includes plug-ins or modules that can be easily installed to extend an existing site's functionality.
+
+* Web standards upgrades
+Active WCMS software usually receives regular updates that include new feature sets and keep the system up to current web standards.
+
+* Workflow management
+workflow is the process of creating cycles of sequential and parallel tasks that must be accomplished in the CMS. For example, one or many content creators can submit a story, but it is not published until the copy editor cleans it up and the editor-in-chief approves it.
+
+* Collaboration
+CMS software may act as a collaboration platform allowing content to be retrieved and worked on by one or many authorized users. Changes can be tracked and authorized for publication or ignored reverting to old versions. Other advanced forms of collaboration allow multiple users to modify (or comment) a page at the same time in a collaboration session.
+
+* Delegation
+Some CMS software allows for various user groups to have limited privileges over specific content on the website, spreading out the responsibility of content management.[6]
+Document management
+
+* CMS software may provide a means of collaboratively managing the life cycle of a document from initial creation time, through revisions, publication, archive, and document destruction.
+
+* Content virtualization
+CMS software may provide a means of allowing each user to work within a virtual copy of the entire web site, document set, and/or code base. This enables changes to multiple interdependent resources to be viewed and/or executed in-context prior to submission.
+
+* Content syndication
+CMS software often assists in content distribution by generating RSS and Atom data feeds to other systems. They may also e-mail users when updates are available as part of the workflow process.
+
+* Multilingual
+Ability to display content in multiple languages.
+
+* Versioning
+Like document management systems, CMS software may allow the process of versioning by which pages are checked in or out of the WCMS, allowing authorized editors to retrieve previous versions and to continue work from a selected point. Versioning is useful for content that changes over time and requires updating, but it may be necessary to go back to or reference a previous copy.
+
+Advantages
+* Low cost
+Others may be affordable based on size subscriptions. Although subscriptions can be expensive, overall the cost of not having to hire full-time developers can lower the total costs.
+
+* Easy customization
+A universal layout is created, making pages have a similar theme and design without much code. Drag and drop AJAX system for design modes. It makes it easy for beginner users to create custom front-ends.
+
+*Easy to use
+Designed with non-technical marketing people in mind. Simplicity in design of the admin UI allows website content managers and other users to update content without much training in coding or technical aspects of system maintenance.
+
+* Workflow management
+Facility to control how content is published, when it is published, and who publishes it. Some WCMSs allow administrators to set up rules for workflow management, guiding content managers through a series of steps required for each of their tasks.
+
+* Good For SEO
+CMS websites are also good for SEO. Freshness of content is one factor that helps, as it is believed that some search engines give preference to website with new and updated content than websites with stale and outdated content. Usage of social media plugins help in weaving a community around your blog. RSS feeds which are automatically generated by blogs or CMS websites can increase the number of subscribers and readers to your site. Url rewriting can be implemented easily which produces clean urls without parameters which further help in seo. There are plugins available that specifically help with website seo.
+
+Disadvantages our approach solves
+
+* Cost of implementation
+Larger scale implementations may require training, planning, and certifications. Certain CMSs may require hardware installations. Commitment to the software is required on bigger investments. Commitment to training, developing, and upkeep are all costs that will be incurred for enterprise systems.[10]
+
+* Cost of maintenance
+Maintaining CMSs may require license updates, upgrades, and hardware maintenance.
+
+* Latency issues
+Larger CMSs can experience latency if hardware infrastructure is not up to date, if databases are not being utilized correctly, and if web cache files that have to be reloaded every time data is updated grow large. Load balancing issues may also impair caching files.
+
+* Tool mixing
+Because the URLs of many CMSs are dynamically generated with internal parameters and reference information, they are often not stable enough for static pages and other web tools, particularly search engines, to rely on them.
+
 The challanges to providing a flexible authoring system for generating the semantic content that is tolerable for other humans to look at:
 * creating content host dom components, 
 * organizing layout
@@ -233,6 +307,10 @@ user-|
      	     |- documents
 	     |- content-bindings  snippet <-> deconstrutor map
 	     |- meta-data
+
+combine existing landing-site json doc into couch db
+integrate dynamically generated html templates and clojure code into the existing directory structure
+create content editing panel 
 	
 Here is where clojure being a lisp and lisp being homoiconic is very key to simplifiy things when creating the
 mechanisim for the site builder
@@ -306,15 +384,143 @@ Support for multiple languages
 Attachment Support
 CouchDB related code
 
+Things to take from FCMS
+Entity Item - Collection
+Linking Stragtgy 
+Resource strategy
+
+* How the content data is organized
+
+Using the everything is maps strategy
+Map Entity Collection Document 
+Mapping into Couch
+
+How do Entitys Map to WCMS level concepts
+Elements - Fields  <-> Collections and Items
+An Element is made up of a Field Item and a Elements Collection
+
+Items can be access via a uri.
+Binding Item data to the model passed to a particalur snippet function can be a function that takes a uri and returns the data
+So an Element field values can be accessed in a single reguest and a collection of sub elments links can also be retreived.
+This will all snippets to have sub snippets that take an element link and handle the dom creation for that element.
+
+(defmacro defbinding  [name selector snippet uri]
+   `(defn name [selector snippet uri]
+       [selector] '(snippet (get-cms-data uri))))
+
+
+
+Want to leverage all that the liberator REST framework offers
+
+* Represent our top level concepts as resources.
+Landing Site
+WebPage
+Documents
+Market Vectors
+Market Matrix
+Campaigns
+Ad Groups
+Ads
+Offers
+ClientSideWebApp
+Publishers
+Sources
+SubID
+Feeds
+Feed Provider
+White Box Network Resellers
+Ad Tiers
+Ad Channels
+
+Define what operations can occur on 
+
+
+What Groups Exist
+Admin
+Operations
+Network Operations
+Landing Site Operations
+Content Editing
+HTML Editing
+Marketing Operations
+Syndication Operations
+
+Intergration with Liberator
+
 Things to take from Bricolage
 Some of the schema
 Design concepts - Documents, Elements fields, channels, destintations, Sites, Groups, Contributors, Workflows
 Instance of Landing Site and elements that make it up
 
+What the entity store using links allows us is to step even one layer up and build a tool that allows itself
+to be manipulated as it is used.
+
+the webclient part of the web application has a bootloader so to speak.
+The main function asks the server for a configuration json file.  The application 
+then uses those settings to connect the views to their models and templates, models and collections to their
+rest uri.
+
+Since we can get the location of the drag and drop and using the inserted dom create a new base template from which to work with.
+the clientconfig document gets transformed thusly
+inserted dom and future contents serve as the template html for the display object, the host_element is the xpath statement.
+Depending on whether the display object is a list or item type a collection or model can be added to the model collection part of the config document.  To go a step further lets add several more fields
+for the router  view model and collections common top level elements add a code field that allows us to put javascript code directly into the database.
+
+Things todo:
+
+* Get project compiling
+* Get expectation working
+* Get autoexpect to work
+* Get clutch working
+* Insert client config into database
+* Create basic display object editor javascript
+backbone view, model, collection
+HTML template shared for both enlive and underscore template
+enlive template view
+controller
+liberator resource
+model
+* Build simple component and have it show up in the editor
+wrap the layoutit editor
+* Organize management application
+
+* Insert the following buttons into the HTML structure editor that will trigger:
+When you drag and drop elements with the layout manager these buttons allow you to combine cms, style, editing, behaviour as you create
+while organizing all this effort in a very human readable way
+
+CMS - start editing cms content right away allows user to select document and data from document and bind it to the display object
+CSS - The style sheet edtior will activate and one can manipulate the style elements and see the result
+BB -  Backbone user can create inline backbone views models and collections these components will be added to list of exiting components
+JS - Add an existing resource to the project
+
+Anticipated workflow
+
+* Switch to application builder mode
+This mode takes the default managent base html template and renders it in the Item part of the editor
+* User drags a container type div into the the management app view within the tool
+* User adds more content displaying dom elements into the container
+* User clicks the css button and manipulates the style this style is feed back to the server that updates the css stylesheet document/file
+* This new style is used as the management base html is rendered again and sent back to the tools app view.
+* click add media brings in image video audio file
+* User clicks the BB button and a tabbed overlay allowing the user to create inline backbone model, views, collections
+this all gets sent back to the server updates the javascript tag and renders the enlive template and once again sends it
+back to the tools app view where now the dom is connected to javascript.
+* Also this combination of javascript backbone code, the contained html, as well as the uris that feed the backbone models and 
+collections are now a display object and are added to the tools list in the Collection part of the editor.
+* Organize the display objects into tool level dashboards
+* Save tool level resources
+* Add tool to overall application
+* Organize the default application level dashboards
+* Publish the resources that make up the management application into the correct locations of the project directory.
+* Deploy new version of management application code as well as configuration data.
+* Deploy new version of management application administration data.
+
+
+Display objects can be added inline or as a javascript library.
+The base editor should allow for a libraries to be added satifiying the dependencies and bootloader
+
 combining cms management into main tool
 This will allow for the base html dom page, the main css, and perhaps assemble the javascript in a sensible fashion
-
-
 
 Since its all elements built upon elements some of the basic first components to be made are:
 <div>
@@ -333,4 +539,7 @@ Since its all elements built upon elements some of the basic first components to
 <html>
 <link>
 <table>
+
+on drop the xpath statement and
+
 

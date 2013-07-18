@@ -11,14 +11,14 @@
   (:require [clojure.core]))
 
 ;; TODO: replace this with config
-(def db-name "test_mgmt")
+;;(def db-name "test_mgmt")
 (def db-user "root")
 (def db-host  "127.0.0.1")
 (def admin-db "test")
 (def db-name "mgmt")
 (def db-port 3306)
 (def db-user  "root")
-(def db-password "")
+(def db-password "test123")
 
 (defdb mgmt-db (mysql {:db db-name :user db-user :password db-password :host db-host}))
 

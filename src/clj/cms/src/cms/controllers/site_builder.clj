@@ -1,14 +1,20 @@
 (ns cms.controllers.site-builder
-  "Web accible front-end for the site builder editor"
-  (:use [cms.site-builder]
+  (:use [cheshire.core :only [parse-string generate-string]]
+        [cms.site-builder]
         [cms.views.builder :only [render]]
-        [compojure.core :only [defroutes GET DELETE POST PUT]]))
+        [compojure.core :only [defroutes GET DELETE POST PUT]]        
+        [ring.util.response :only [response content-type]]))
+
+
+(defn json-response [data & [status]]
+  {:status (or status 200)
+   :headers {"Content-Type" "application/json"}
+   :body (generate-string data)})
 
 (defroutes editor-routes
-  (GET "/cms/sitebuilder"  req (render req))
-  (GET "/cms/sitebuilder/:ls-id" [ls-id :as req] (preview-landing-site {:landing-site-id ls-id}))    
-  (DELETE "/cms/sitebuilder/:ls-id" [ls-id :as req] (delete-landing-site {:landing-site-id ls-id}))
-  (POST "/cms/sitebuilder/:ls-id" [ls-id :as req](save-landing-site {:landing-site-id ls-id :model (-> req :parms :model)}))
-  (PUT "/cms/sitebuilder/:ls-id" [ls-id :as req] (save-landing-site {:landing-site-id ls-id :model (-> req :parms :model)}))
-  (GET "/cms/sitebuilder/edit:ls-id" [ls-id :as req] (edit-landing-site {:landing-site-id ls-id}))
-  (POST "/cms/sitebuilder/publish/:ls-id" [ls-id :as req] (edit-landing-site {:landing-site-id ls-id :model (-> req :params :publish-spec)})))
+  (GET "/cms/sitebuilder"  req (render req)))
+
+;;  (PUT "/cms/sitebuilder/:ls-id" [ls-id :as req]
+;;    (content-type (response (save-landing-site-test (-> req :params))) "application/json"))
+;;  (POST "/cms/sitebuilder/ls-id/:ls-id/uuid/:uuid" [ls-id uuid :as req]
+;;    (content-type (response (update-landing-site (assoc (-> req :params) :ls-id ls-id))) "application/json")))

@@ -1,8 +1,15 @@
 (ns handler
+  (:require [aws.sdk.s3 :as s3])
   (:use [expectations]
         [management.handler :only[app]]
         [management.views.snippets]
         [ring.mock.request]))
+
+(def cred {:access-key "AKIAJ5RLKVIVMK2VBA6A", :secret-key "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"})
+(s3/create-bucket cred "marketwithgusto.repo")
+(s3/put-object cred "marketwithgusto.repo" "some-key" "some-value")
+(println (slurp (:content (s3/get-object cred "marketwithgusto.repo" "some-key"))))
+
 
 (def test-user-request {:request-method :get
                         :uri "/mgmt/user/1"

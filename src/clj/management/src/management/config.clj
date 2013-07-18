@@ -45,6 +45,6 @@
       cfg))))
 
 (def db-name "mgnt")
-(def db-user "test1")
+(def db-user "root")
 (def db-password "test123")
 (def db-address "localhost")

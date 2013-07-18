@@ -9,7 +9,8 @@
             [compojure.route :as route])
   (:use [compojure.core :only (routes routing defroutes GET)]
         [clojurewerkz.urly.core]
-        [cms.site :only[str->int get-market-vector new-cms-site]]        
+        [cms.site :only[str->int get-market-vector new-cms-site]]
+        [landing-site.config]
         [landing-site.controllers.ad-network-traffic :only (landing-site-routes)]
         [landing-site.controllers.lead :only[lead-gen-routes]]
         [landing-site.controllers.conversion :only[conversion-routes]]
@@ -35,12 +36,16 @@
 (defn wrap-cms [app]
   (fn [req]
     (let [dir landing-site.config/website-dir
-          domain (or (-> req :params :ls-url) (host-of (:server-name req)))
+          ;;          domain (or (-> req :params :ls-url) (host-of (:server-name req)))
+          domain "patientcomfortreferral.com"
           img-dir (str dir "/" domain "/img")]
           (if (or (-> req :params :ls-url)(-> req :params :market_vector))
             (let [matrix-id 1
-                  mv-id  (or (-> req :params :market_vector) (get-market-vector domain dir matrix-id))
-                  cms (new-cms-site {:webdir dir :market-vector-id mv-id :domain-name domain})
+                  ;;                  mv-id  (or (-> req :params :market_vector) (get-market-vector domain dir matrix-id))
+                  mv-id  1
+                  ;;                  cms (new-cms-site {:webdir dir :market-vector-id mv-id :domain-name domain})
+                  cms (new-cms-site {:webdir  website-dir :domain-name "patientcomfortreferral.com" :market-vector-id 2})
+;;                  cms (new-cms-site {:webdir dir :market-vector-id 2 :domain-name "patientcomfortreferral.com"})                  
                   new-params (assoc (:params req) :cms cms :img-dir img-dir)]
               (app (assoc req :params new-params)))
             (let [new-params (assoc (:params req) :img-dir img-dir)]

@@ -1,6 +1,8 @@
 (ns management.handler
   (:use [cemerick.friend :only[authorize logout authenticate]]
         [cemerick.friend.workflows :only[interactive-form]]
+        [cms.controllers.document-manager]
+        [cms.controllers.site-builder]        
         [compojure.core :only [defroutes GET routes ANY]]
         [net.cgrand.enlive-html :only[emit*]]
         [compojure.route]
@@ -20,12 +22,14 @@
 (defroutes config-route (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json")))
 
 (def app (handler/site (wrap-params (routes
-                        user-mgmt-routes
-                        public-routes
-                        config-route
-                        (resources "/")
-                        (files "/" {:root "public"})
-                        (not-found "Not Found")))))
+                                     user-mgmt-routes
+                                     document-routes
+                                     editor-routes                                     
+                                     public-routes
+                                     config-route
+                                     (resources "/")
+                                     (files "/" {:root "public"})
+                                     (not-found "Not Found")))))
 
 ;;(def app (handler/site  (routes public-routes user-mgmt-routes authenticate admin-mgmt-routes)))
 

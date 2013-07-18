@@ -10,6 +10,7 @@
                  [enlive "1.1.1"]
                  [flourish-common "0.1.0-SNAPSHOT"]
                  [de.ubercode.clostache/clostache "1.3.1"]
+                 [ring-middleware-format "0.3.0"]                 
                  [ring/ring-jetty-adapter "1.1.6"]
                  [ring.middleware.logger "0.4.0"]
                  [ring-mock "0.1.3"]]

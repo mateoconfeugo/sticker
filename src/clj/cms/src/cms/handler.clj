@@ -1,28 +1,43 @@
 (ns cms.handler
-  (:use [cms.controllers.document-manager :as dm]
-        [cms.controllers.site-builder :as sb]
+  (:use [cms.controllers.document-manager]
+        [cms.controllers.site-builder]
         [compojure.core :only [routes]]
-        [compojure.route :as route]
+        [compojure.route :as route]        
         [ring.adapter.jetty :as ring]        
         [ring.middleware.keyword-params :only [wrap-keyword-params]]        
         [ring.middleware.params :only [wrap-params]]        
-        [ring.middleware.logger :only [wrap-with-logger]]))
+        [ring.middleware.logger :only [wrap-with-logger]]
+        [ring.middleware.format]))
 
-
-(def app-routes (routes dm/document-routes
-                        sb/editor-routes
+(def cms-routes (routes document-routes
+                        editor-routes
                         (route/resources "/")
                         (route/files "/" {:root "public"})
                         (route/not-found "Not Found")))
 
-(def app (-> app-routes
-             wrap-params
-             wrap-keyword-params
-             wrap-with-logger))
+(defn wrap-spy [handler]
+  (fn [request]
+    (println "-------------------------------")
+    (println "Incoming Request:")
+    (clojure.pprint/pprint request)
+    (let [response (handler request)]
+      (println "Outgoing Response Map:")
+      (clojure.pprint/pprint response)
+      (println "-------------------------------")
+      response)))
 
-(defn start-lsbs [port]
+;;(def app (-> cms-routes
+;;             wrap-params
+;;             wrap-keyword-params
+;;             wrap-with-logger
+;;             wrap-spy))
+
+(def app  (wrap-params (wrap-keyword-params  (wrap-spy (wrap-with-logger cms-routes)))))
+
+(defn start-cms-mgmt [port]
   (run-jetty app {:port port :join? false}))
 
 (defn -main []
   (let [port (Integer/parseInt (or (System/getenv "PORT") "8088"))]
-    (start-lsbs port)))
+    (start-cms-mgmt port)))
+

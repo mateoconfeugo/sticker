@@ -1,15 +1,18 @@
 (defproject management "0.1.0"
   :description "management gui for the overall system to administer users, accounts and relevant operations"
   :url "http://marketwithgusto.com/mgnt/about/development.html"
-  :resource-paths ["resources"]  
+  :resource-paths ["resources"]
+  :uberjar-name ["management-standalone"]
+  :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.5.1"]
+                 [clj-aws-s3 "0.3.6"]                 
                  [compojure "1.1.5"]
                  [clojurewerkz/scrypt "1.0.0"]                 
                  [ring/ring-jetty-adapter "1.1.6"]                 
                  [com.cemerick/friend "0.1.4"]
                  [org.apache.httpcomponents/httpclient-osgi "4.2.5"]
                  [me.raynes/fs "1.4.0"]
-                 [flourish-common "0.1.0-SNAPSHOT"]
+                 [flourish-common "0.1.0"]
                  [org.clojure/java.jdbc "0.2.3"]                 
                  [mysql/mysql-connector-java "5.1.6"]                 
                  [korma "0.3.0-RC5"]                 
@@ -27,7 +30,8 @@
   :hooks [configleaf.hooks]
   :app-configs {:foo "ham" :bar "sausage"}
   :plugins [[lein-ring "0.8.2"]
-            [lein-pprint "1.1.1"]            
+            [lein-pprint "1.1.1"]
+            [s3-wagon-private "1.1.2"]
             [com.palletops/pallet-lein "0.6.0-beta.9"]
             [lein-expectations "0.0.7"]
             [lein-autoexpect "0.2.5"]
@@ -37,6 +41,9 @@
 ;         :init management.handler/init
 ;         :destroy management.handler/destroy}
          }
+  :repositories [["releases" {:url "s3p://marketwithgusto.repo/releases"
+                             :username :env
+                             :passphrase :env}]]
   :main management.handler
   :profiles  {:dev {:dependencies [[ring-mock "0.1.3"]
                                    [ring/ring-devel "1.1.8"]]}

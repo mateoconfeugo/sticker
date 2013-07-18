@@ -29,7 +29,7 @@
                                                     (html-content (:contents p))))
    [[:ul.pages (nth-of-type 1)] :> first-child] (add-class "active")
    [[:.tab-pane first-child]] (add-class "active")
-   [:.tab-pane :li.leading] (append "yummy")
+;;   [:.tab-pane :li.leading] (append "yummy")
    [[:li.leading] :> last-child] (content "")
    [:style#cms-css] (content css)
    [:head :> (attr-has :src "replace-me")] (clone-for [f fonts]
@@ -44,7 +44,7 @@
   [req & market-vector-id]
   "Take the sequence of pages in insert them into an unordered list"
   (let [cms (-> req :params :cms)
-        menu (:drop_down_menu (first (get-site-menu cms)))
+;;        menu (:drop_down_menu (first (get-site-menu cms)))
         pages (get-site-contents cms)
         css (get-css cms)
         image-path (get-header-image cms)
@@ -57,11 +57,13 @@
         num_pages (count pages)
         page_num (range 0 num_pages)
         pages (reverse (map #(assoc %1 :order %2)  pages page_num))
-        opts {:site-name "MarketWithGusto.com" :pages pages :menu-data menu
+        opts {:site-name "MarketWithGusto.com" :pages pages 
               :css css :fonts fonts :header-image-path image-path
               :modal-form modal :side-form side-form :conversion-scripts scripts
               :site-title site-title :site-banner site-banner}]
     (render-to-response (index-with-webapp-pages opts))))
 
+
+;; :menu-data menu
     
 

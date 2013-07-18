@@ -14,15 +14,15 @@
 ;; value from the configuration
 (deftemplate user-dashboard "templates/user_dashboard.html"
   [{:keys [display-map] :as settings}]
-;;  [:div#navbar] (content (nav-bar {:title site-name :menu-data (:menu-data display-map)}))
-  [:ul#nav-controls-destination :li] (clone-for [display-object display-map]
+  [:nav.navbar] (content (nav-bar {:title "management" :menu-data (:menu-data display-map)}))
+  [:ul#nav-controls-destination :li] (clone-for [display-object (:display-objects display-map)]
                                                 [:a] (do->
                                                       (add-class "btn")
                                                       (add-class "btn-success")
                                                       (set-attr :href (str "#tab" (:order display-object)))
                                                       (set-attr :data-toggle "tab")
                                                       (html-content (:display-name display-object))))
-  [:section.tab-content :div.tab-pane](clone-for [display-object display-map]
+  [:section.tab-content :div.tab-pane](clone-for [display-object (:display-objects display-map)]
                                                  (do->                                                       
                                                   (set-attr :id (str "tab" (:order display-object)))
                                                   (html-content (render-snippet ((eval (:view display-object)) (:model display-object))))))

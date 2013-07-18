@@ -2,6 +2,10 @@
 
 (def ^:private pipe-arg (gensym "pipeline-argument"))
 
+(defmacro branch [pred & body]
+  `(fn [x#]
+     (if (~pred x#) (-> x# ~@body) x#)))
+
 (defn- req
   "Required argument"
   [pred spec message]

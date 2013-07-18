@@ -299,6 +299,31 @@ $(document).ready(function () {
             handleJsIds()
         }
     });
+    $('.drop-zone').droppable( {
+	drop: function ( event, ui ) {
+	    event.preventDefault();
+	    var demo = $('.demo').html;
+	    var dom = ui.draggable[0];
+	    var dom_xpath  = xpath.getElementXPath(dom);
+	    var model = {};
+//	    var tuple = {"xpath": dom_xpath, "dom": dom.innerHTML, "layout": demo };
+	    var uuid;
+	    $.ajax({  
+		type: "POST",  
+		url: "/cms/sitebuilder",  
+		data: dom_xpath,
+		success: function(data) {
+		    model = data;
+		    uuid = data.uuid;
+		    $(dom).addClass("uuid_" + uuid);
+		},
+		complete: function(xhr, status) {
+		    var uri = '/cms/sitebuilder/uuid/' + uuid;
+		    model = {"xpath": dom_xpath, "dom": dom.innerHTML,  "uuid": uuid, "layout": $(".demo")[0].innerHTML};
+		    $.post(uri, model, function(data) { model = data; });
+		}
+	    });
+	}});
     $("[data-target=#downloadModal]").click(function (e) {
         e.preventDefault();
         downloadLayoutSrc()
@@ -371,15 +396,17 @@ $(document).ready(function () {
     removeElm();
     configurationElm();
     gridSystemGenerator();
+/*
     setInterval(function () {
         handleSaveLayout()
     }, timerSave)
+*/
 })
 
 function handleSaveLayout() {
     var e = $(".demo").html();
     if (e != window.demoHtml) {
-        saveLayout($(".demo"));
+//        saveLayout($(".demo"));
         window.demoHtml = e
     }
 }
