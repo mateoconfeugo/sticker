@@ -6,7 +6,7 @@
         [management.config :only[db-name db-password db-address db-user]]
         [management.models.orm-spec :as orm :only [user profile]]
         [management.views.snippets]
-        [riemann.client :only [send-event tcp-client]]        
+;;        [riemann.client :only [send-event tcp-client]]        
         [korma.db :only [defdb mysql]]
         [korma.core :only[select where with]]))
 
@@ -64,7 +64,7 @@
     Each display object represents the top of chain of function calls through an mvc stack.
     Create a list of snippets to call all with the data to needed populate them"
    (let [user-data (first (select user (with profile) (where {:id user-id})))
-         fake-menu-data (:drop_down_menu (parse-string (slurp (str (System/getProperty "/user.dir") "resources/fake_menu_data.json")) true))
+         fake-menu-data (:drop_down_menu (parse-string (slurp (str (System/getProperty "user.dir") "resources/fake_menu_data.json")) true))
          active-profile (get-profile-settings user-data) 
          snippet-functions (map :display-with (-> active-profile :tools :dashboard :display-tuple))
          gather-functions (map :gather-with (-> active-profile :tools :dashboard :display-tuple))

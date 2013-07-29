@@ -9,7 +9,7 @@
                  [me.raynes/fs "1.4.0"]                 
                  [ring/ring-jetty-adapter "1.1.6"]]
   :plugins [[s3-wagon-private "1.1.2"]]
-  :repositories [["releases" {:url "s3p://marketwithgusto.repo/releases"
+  :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/"
                              :username :env
                              :passphrase :env}]])
 

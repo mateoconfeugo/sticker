@@ -2,9 +2,9 @@
   "Interacting with cms consturcted site
    the site data is made up of being able to
    access html page files, market vector and matrix json file"
-  (:require [clojure.java.io :as io])  
-  (:use [cheshire.core :only (parse-string parse-stream)]
-        [me.raynes.fs :only(directory?) :as fs]))
+  (:require [clojure.java.io :as io :only [file reader] ])  
+  (:use [cheshire.core :only [parse-string parse-stream]]
+        [me.raynes.fs  :as fs :only [directory?]]))
 
 ;; BACK-END HELPER FUNCTIONS
 (defn str->int [str]
@@ -110,13 +110,10 @@
       modal-form-json
       nil)))
 
-
-
 (defn cms-site-banner
   [base-dir  landing-site-id]
   (let  [json (landing-site-json base-dir landing-site-id)]
     ))
-
 
 ;; INTERFACE SPECIFICATION
 (defprotocol CMS-Site
