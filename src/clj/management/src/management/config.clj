@@ -44,7 +44,8 @@
     (read-config [this ]
       cfg))))
 
-(def db-name "mgnt")
-(def db-user "root")
-(def db-password "test123")
-(def db-address "localhost")
+(def db-address (or (System/getenv "MGMT_DATABASE_HOST") "127.0.0.1"))
+(def db-port (or (System/getenv "MGMT_DATABASE_PORT") 3306))
+(def db-name (or (System/getenv "MGMT_DATABASE_NAME") "mgnt"))
+(def db-user (or (System/getenv "MGMT_DATABASE_USERNAME") "root"))
+(def db-password (or (System/getenv "MGMT_DATABASE_PASSWORD") "test123"))

@@ -7,11 +7,10 @@
         [ring.middleware.keyword-params :only [wrap-keyword-params]]        
         [ring.middleware.params :only [wrap-params]]        
         [ring.middleware.logger :only [wrap-with-logger]]
-;        [cms.controllers.document-manager :only [document-routes]]
-;        [cms.controllers.site-builder  :only [editor-routes]]
-;        [cms.api.collections :only [collection-routes]]
-                                        ;        [cms.api.items :only [item-routes]])
-        )
+        [cms.controllers.document-manager :only [document-routes]]
+        [cms.controllers.site-builder  :only [editor-routes]]
+        [cms.api.collections :only [collection-routes]]
+        [cms.api.items :only [item-routes]])
     (:gen-class))
 
 (def env 
@@ -19,7 +18,7 @@
   (or (System/getenv "ENV") "dev"))
 
 (def cms-routes (routes
-;                 editor-routes
+                 editor-routes
 ;                        document-routes                 
 ;                        collection-routes
 ;                        item-routes

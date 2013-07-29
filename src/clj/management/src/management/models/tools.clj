@@ -10,8 +10,8 @@
         [korma.db :only [defdb mysql]]
         [korma.core :only[select where with]]))
 
-;;(defdb db (mysql {:db db-name :user db-user :password db-password :host db-address} ))
-(defdb db (mysql {:db "mgmt" :user "root" :password "test123" :host "127.0.0.1"}))
+(defdb db (mysql {:db db-name :user db-user :password db-password :host db-address} ))
+;;(defdb db (mysql {:db "mgmt" :user "root" :password "test123" :host "127.0.0.1"}))
 
 (defn default-stats []
   {:clicks 31 :visits 20 :conversions 2})

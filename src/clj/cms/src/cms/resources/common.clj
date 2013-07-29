@@ -12,7 +12,17 @@
   [username]
   (clutch/create! (clutch/couch  (str "gusto-cms-" username))))
 
-(def db-resource (assoc (cemerick.url/url "http://localhost:5984/" "gusto-cms") :username nil :password nil))
+
+
+(def db-host (or (System/getenv "CMS_DATABASE_HOST") "http://localhost"))
+(def db-port (or (System/getenv "CMS_DATABASE_PORT") 5984))
+(def db-name (or (System/getenv "CMS_DATABASE_NAME") "gusto-cms"))
+(def db-username (or (System/getenv "CMS_DATABASE_API_KEY") nil))
+(def db-password (or (System/getenv "CMS_DATABASE_API_PASSWORD") nil))
+
+(def db-resource (assoc (cemerick.url/url db-host db-name)
+          :username db-username
+          :password db-password))
 
 (defn db [] (clutch/get-database db-resource))
 

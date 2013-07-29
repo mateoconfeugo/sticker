@@ -3,6 +3,7 @@
 ;;  (:import [com.google.i18n.phonenumbers PhoneNumberUtil NumberParseException]
   ;;           [java.util.zip  DataFormatException])
   (:use [metis.core]
+        [management.config :only[db-name db-password db-address db-user]]        
         [korma.core :only [defentity database insert values has-many many-to-many
                            transform belongs-to has-one fields table prepare pk
                            subselect where belongs-to limit aggregate order]]
@@ -12,15 +13,15 @@
 
 ;; TODO: replace this with config
 ;;(def db-name "test_mgmt")
-(def db-user "root")
-(def db-host  "127.0.0.1")
+;(def db-user "root")
+;(def db-host  "127.0.0.1")
 (def admin-db "test")
-(def db-name "mgmt")
-(def db-port 3306)
-(def db-user  "root")
-(def db-password "test123")
+;(def db-name "mgmt")
+;(def db-port 3306)
+;(def db-user  "root")
+;(def db-password "test123")
 
-(defdb mgmt-db (mysql {:db db-name :user db-user :password db-password :host db-host}))
+(defdb mgmt-db (mysql {:db db-name :user db-user :password db-password :host db-address}))
 
 
 (declare  profile feed-partner version release supported-release user population community enterprise

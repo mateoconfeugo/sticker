@@ -90,14 +90,9 @@
     :post! (fn [ctx] (create-item coll-slug (:data ctx)))
     :handle-created (fn [ctx] (item-location-response coll-slug (:item ctx))))
 
-;; (render-item (get-item "test" "bar"))
-;;(render-item (get-collection "test"))
-(render-items (get-collection "test"))
-(cms.resources.collection/get-collection-items "test2" (resources/db))
-(cms.resources.collection/get-collection-items-by-id "b2af465016ab5dcba6fe2f22c100a51d"  (resources/db))
+
 
 ;; Routes
-
 (defroutes item-routes
   (ANY "/:coll-slug/:item-slug" [coll-slug item-slug] (item coll-slug item-slug))
   (ANY "/:coll-slug/" [coll-slug] (items-list coll-slug)))
