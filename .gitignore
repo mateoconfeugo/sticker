@@ -5,6 +5,7 @@
 /.configleaf
 src/cfg/current.clj
 pom.xml
+pom.xml.asc
 *.jar
 *.class
 .lein-deps-sum
@@ -12,3 +13,10 @@ pom.xml
 .lein-plugins
 .lein-env
 *~
+.DS_Store
+*logs*
+.lein-repl-history
+.#*
+*.bkp
+*website*
+*src/clj/causal-marketing/resources/public/site/*
