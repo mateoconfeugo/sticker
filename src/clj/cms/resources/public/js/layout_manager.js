@@ -328,6 +328,8 @@ $(document).ready(function () {
         e.preventDefault();
         downloadLayoutSrc()
     });
+
+/* Here also wire up the clojurescript code and call it in a javascript manner */
     $("#download").click(function () {
         downloadLayout();
         return false
@@ -534,6 +536,10 @@ function removeElm() {
     })
 }
 
+/* 
+Possibly replace this with a javascript call to  clojurescript function
+
+*/
 function saveLayout(e){
     $.ajax({  
 	type: "POST",  

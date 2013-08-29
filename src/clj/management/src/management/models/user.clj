@@ -1,5 +1,5 @@
 (ns management.models.user
-  (:require [clojure.java.jdbc :as sql]))
+  (:require [clojure.java.jdbc :as sql :refer[with-connection with-query-results insert-values]]))
 
 (defn all [db-conn]
   (sql/with-connection db-conn

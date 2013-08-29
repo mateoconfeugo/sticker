@@ -37,6 +37,7 @@
   :html5-docs-source-path "src/landing_site"
   :plugins [[lein-ring "0.8.5"]
             [lein-expectations "0.0.7"]
+            [lein-marginalia "0.7.1"]
             [lein-autoexpect "0.2.5"]
             [lein-dpkg "0.1.0"]
 ;;            [lein-ritz "0.6.0"]            

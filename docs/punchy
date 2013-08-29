@@ -1,0 +1,20 @@
+* lead form business component
+* heat mapping business component
+* site-builder business component
+* cms business component
+* ad campaign business component
+* combine all the business component in the management
+* deploy all the components
+* release via the mgmt and heroku
+* fixing landing site delivery dispatch engine
+* take the menu naviagation ability using cms based functionality from causal-marketing project
+* take palletops provisioning from landing site
+* move site_builder functionality in cms site to site builder
+* move nrepl client/server publishing system into site-builder business component
+* get css editor into enlive form
+* get html editor into enlive form
+* get login system working
+* user sign up
+* liberator for crud
+* incorporate something like the himera project into the management app
+* Get 

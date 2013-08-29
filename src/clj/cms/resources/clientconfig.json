@@ -1,38 +1,22 @@
 {
  "clientConfig" : {
       "models" : {
-         "dispenser" : {
-            "url" : "http://localhost:3000/dispenser/volume"
+         "landing-site" : {
+            "url" : "http://localhost:3000/api/rest/landing-site"
          },
-         "mixer" : {
-            "url" : "http://localhost:3000/mixer"
-         },
-         "recipe" : {
-            "url" : "http://localhost:3000/api/rest/recipe"
-         },
-         "plant" : {
-            "url" : "http://localhost:3000/api/rest/plant"
-         },
-         "plant_type" : {
-            "url" : "http://localhost:3000/api/rest/plant_type"
+         "domain" : {
+            "url" : "http://localhost:3000/api/rest/domain"
          }
       },
       "views" : {
-         "RecipeBuilder" : {
-            "host_element" : "#hero-unit",
-            "template" : "recipe_builder.tt",
-            "url" : "http://localhost:3000/api/rest/recipe"
+         "HTMLEditor" : {
+            "host_element" : "#html-editor-host",
+            "template" : "html_editor_host.json"
          },
-         "PlantCatalog" : {
-            "host_element" : "#stage",
-            "template" : "plant_catalog.tt",
+         "LandingSiteCatalog" : {
+            "host_element" : "#landing-site-catalog",
+            "template" : "landing_site_catalog.json"
          },
-         "Plant" : {
-            "host_element" : "#stage",
-         },
-	 "GrowBrowser": {
-            "host_element" : "#stage",
-         }
       },
       "host_element" : "stage"
    }

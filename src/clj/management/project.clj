@@ -31,6 +31,7 @@
                  [ring/ring-jetty-adapter "1.2.0"] ; Web Server https://github.com/ring-clojure/ring
                  [zookeeper-clj "0.9.1"]] ; Zookeeper configuration client                
   :plugins [[lein-ring "0.8.2"]
+            [lein-marginalia "0.7.1"]            
             [lein-pprint "1.1.1"]
             [s3-wagon-private "1.1.2"]
             [com.palletops/pallet-lein "0.6.0-beta.9"]

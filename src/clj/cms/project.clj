@@ -26,6 +26,7 @@
             [lein-localrepo "0.4.1"]            
             [s3-wagon-private "1.1.2"]            
             [lein-expectations "0.0.7"]
+            [lein-marginalia "0.7.1"]
             [lein-cljsbuild "0.3.2"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild            
             [lein-autoexpect "0.2.5"]]
   :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/"
@@ -39,5 +40,38 @@
                                    [lein-autodoc "0.9.0"]                              
                                    [expectations "1.4.33"]
                                    [org.clojure/tools.trace "0.7.5"]
-                                   [vmfest "0.3.0-alpha.5"]]}})
+                                   [vmfest "0.3.0-alpha.5"]]}}
+  :cljsbuild {
+              :repl-listen-port 9000
+              :repl-launch-commands
+              {"firefox" ["firefox"]
+               "firefox-naked" ["firefox" "resources/public/html/naked.html"]
+               "phantom" ["phantomjs" "phantom/page-repl.js"]
+               "phantom-naked" ["phantomjs"
+                                "phantom/page-repl.js"
+                                "resources/public/html/naked.html"
+                                :stdout ".repl-phantom-naked-out"
+                                :stderr ".repl-phantom-naked-err"]}
+              :test-commands
+              {"unit" ["phantomjs" "phantom/unit-test.js" "resources/private/html/unit-test.html"]}
+              :crossovers [example.crossover]
+              :crossover-path "target/my-crossovers"
+              :crossover-jar true
+              :builds {:main {:source-paths ["src-cljs"]
+                              :jar true
+                              :notify-command ["growlnotify" "-m"]
+                              :incremental true
+                              :assert true
+                              :compiler {:output-to "resources/public/js/main.js"
+                                         :warnings true
+                                         :optimizations :whitespace
+                                         :pretty-print true
+                                         :print-input-delimiter false
+                                         :output-dir "target/my-compiler-output-"
+                                         :output-wrapper false
+                                         :externs ["jquery-externs.js"]
+                                         :libs ["closure/library/third_party/closure"]
+                                         :foreign-libs [{:file "http://.com/remote.js"
+                                                         :provides  ["my.example"]}]}}}})
+
 

@@ -1,7 +1,8 @@
-(defproject delivery-engine "1.0.0-SNAPSHOT"
+(defproject delivery-engine "1.0.0"
   :description "delivery engine component that retreives listings when given query along with some other data"
   :aot :all
   :main delivery-engine.search
+  :plugins [[lein-marginalia "0.7.1"]]
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [org.clojure/java.jdbc "0.2.3"]
                  [com.sleepycat/je "4.0.92"]
