@@ -1,3 +1,8 @@
+* clientconfig still used for delivery side: use  heatmapping as an example
+* move anti-forgery-cookie functionation
+* move  get-handler  into florish-common
+* move server.clj into florish-common
+* make it so business components can use a centralized configuration file for the whole business system made from those components
 * lead form business component
 * heat mapping business component
 * site-builder business component

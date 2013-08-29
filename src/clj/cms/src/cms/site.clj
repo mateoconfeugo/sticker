@@ -2,9 +2,9 @@
   "Interacting with cms consturcted site
    the site data is made up of being able to
    access html page files, market vector and matrix json file"
-  (:require [clojure.java.io :as io :only [file reader] ])  
-  (:use [cheshire.core :only [parse-string parse-stream]]
-        [me.raynes.fs  :as fs :only [directory?]]))
+  (:require [clojure.java.io :as io :refer [file reader]]
+            [cheshire.core :refer [parse-string parse-stream]]
+            [me.raynes.fs  :as fs :refer [directory?]]))
 
 ;; BACK-END HELPER FUNCTIONS
 (defn str->int [str]
