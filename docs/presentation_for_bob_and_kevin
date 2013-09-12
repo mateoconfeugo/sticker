@@ -84,18 +84,28 @@ https://github.com/emezeske/lein-cljsbuild
 * Innovations
 ** CMS Entity Builder
 https://github.com/mateoconfeugo/florish-online/tree/master/src/clj/cms/src/cms
+https://github.com/mateoconfeugo/florish-online/blob/develop/src/clj/cms/src/cms/document.clj
+https://github.com/mateoconfeugo/florish-online/blob/develop/src/clj/cms/src/cms/resources/item.clj
 ** SiteBuilder
+https://github.com/mateoconfeugo/florish-online/blob/develop/src/clj/cms/src/cms/site_builder.clj
+https://github.com/mateoconfeugo/florish-online/blob/develop/src/clj/cms/src/cms/authoring_utils.clj
 ** Publishing
+https://github.com/mateoconfeugo/florish-online/blob/develop/src/clj/cms/src/cms/site.clj
 ** Ad Builder
 
 * Idioms
-Pipes / Pipelines
-Display Objects
+**Pipes / Pipelines
+https://github.com/mateoconfeugo/florish-online/blob/develop/src/clj/flourish-common/src-clj/flourish_common/pipeline.clj
+**Display Objects
+https://github.com/mateoconfeugo/florish-online/blob/develop/src/clj/flourish-common/src-cljs/flourish_common/display_object.cljs
+** Channels
+websockets server push: http://blog.goodstuff.im/clojure_http_channels
 
 * Testing Strategy
 ** Expect
 ** clj-driver
 ** pallet vmfest
+https://github.com/pallet/pallet-vmfest
 
 * Framework is in Place
 
