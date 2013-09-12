@@ -1,13 +1,38 @@
 {
 	"drop_down_menu":[
-	    {"drop_down_menu_name":"Products",
+	    {"drop_down_menu_name":"Landing Sites",
 	     "menu_item":[
-		 {"menu_item_url":"/site/articles/landing-site-builder.html","menu_item_text":"Landing Site Builder"},
-		 {"menu_item_url":"/site/articles/vertical-builder.html","menu_item_text":"Vertical Site Builder"}]},
-	    {"drop_down_menu_name":"Services",
+		 {"menu_item_url":"/site-builder","menu_item_text":"List"},
+		 {"menu_item_url":"/site-builder","menu_item_text":"Site Builder"},
+		 {"menu_item_url":"/site-builder/","menu_item_text":"Site Publisher"}]},
+	    {"drop_down_menu_name":"CMS",
 	     "menu_item":[
-		 {"menu_item_url":"/site/articles/flourish-online.html","menu_item_text":"Flourish Online"},
-		 {"menu_item_text":"Online Advertising Training"}]
-	    }
-	]
-}
+		 {"menu_item_url":"/cms/","menu_item_text":"New Document"},
+		 {"menu_item_url":"/cms/","menu_item_text":"Story Builder"},
+		 {"menu_item_url":"/cms/", "menu_item_text":"Search Archive"}]},
+	    {"drop_down_menu_name":"Lead Generation",
+	     "menu_item":[
+		 {"menu_item_url":"/lead-generation/","menu_item_text":"Active Leads"},
+		 {"menu_item_url":"/lead-generation/", "menu_item_text":"Search"}]},
+	    {"drop_down_menu_name":"Heat Mapping",
+	     "menu_item":[
+		 {"menu_item_url":"/heat-mapping/","menu_item_text":"Active Maps"},
+		 {"menu_item_url":"/site-builder/", "menu_item_text":"Search"}]},
+	    {"drop_down_menu_name":"SEO",
+	     "menu_item":[
+		 {"menu_item_url":"/seo/","menu_item_text":"Optimize Landing Site"},
+		 {"menu_item_url":"/seo/", "menu_item_text":"Editor"}]},
+	    {"drop_down_menu_name":"Publisher",
+	     "menu_item":[
+		 {"menu_item_url":"/publisher/","menu_item_text": "New Vertical Site"},
+		 {"menu_item_url":"/publisher/","menu_item_text": "Convert Existing Site"},
+		 {"menu_item_url":"/Publisher/", "menu_item_text":"Editor"}]},
+	    {"drop_down_menu_name":"Advertiser",
+	     "menu_item":[
+		 {"menu_item_url":"/advertiser/","menu_item_text":"Campaign Manager"},
+		 {"menu_item_url":"/advertiser/","menu_item_text":"Ad Builder"},
+		 {"menu_item_url":"/advertiser/","menu_item_text":"Keyword Manager"},
+		 {"menu_item_url":"/advertiser/","menu_item_text":"Reporting"},
+		 {"menu_item_url":"/advertiser/","menu_item_text":"Import Bing  Campaign"},
+		 {"menu_item_url":"/advertiser/", "menu_item_text":"Import Google Ad words Campaign"}]}
+]}

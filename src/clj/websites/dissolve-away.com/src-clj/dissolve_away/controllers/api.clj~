@@ -1,0 +1,14 @@
+(ns dissolve-away.controllers.api
+  "API controller for dissolve-away client")
+
+(defn regional-phone-number [region-id]
+  "Determine which regional distributor's phone number to use"
+  {:phone "5555555555"})
+
+(defn mouse-position
+  [x y]
+  {:x x :y y :z 0})
+
+(defn insert-lead
+  [lead_full_name lead_email lead_phone]
+  {:name lead_full_name :email lead_email :phone lead_phone})

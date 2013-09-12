@@ -10,7 +10,7 @@
   "used for starting the server in development mode from REPL"
   [& [port]]
   (let [port (or (and port (Integer/parseInt port))
-                 (Integer. (get (System/getenv) "PORT" (config :site-builder-port)))
+                 (Integer. (get (System/getenv) "PORT" (config :lead-generation-port)))
                  8080)
         server (ring-server/serve (handler/get-handler #'handler/app) 
                                  {:port port 

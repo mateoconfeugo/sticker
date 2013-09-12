@@ -4,14 +4,20 @@
   :source-paths ["src-clj"]
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [compojure "1.1.5"] ; Web routing https://github.com/weavejester/compojure
+                 [cheshire "5.0.2"]                 
                  [enlive "1.1.1"] ; DOM manipulating
                  [enfocus "2.0.0-SNAPSHOT"] ; client side enlive
+                 [expectations "1.4.53"]                 
+                 [flourish-common "0.1.0"]                 
                  [domina "1.0.1"]
                  [org.clojure/google-closure-library-third-party "0.0-2029"]
-                 [lib-noir "0.4.7" :exclusions [[org.clojure/clojure]
-                                                [compojure]
-                                                [hiccup]
-                                                [ring]]]
+                 [com.googlecode.libphonenumber/libphonenumber "5.4"]                 
+                 [lib-noir "0.4.7" :exclusions [[org.clojure/clojure] [compojure] [hiccup] [ring]]]
+                 [mysql/mysql-connector-java "5.1.6"]
+                 [korma "0.3.0-RC5"]
+                 [org.clojure/java.jdbc "0.2.3"]                 
+                 [metis "0.3.0"]
+                 [log4j "1.2.15" :exclusions [javax.mail/mail javax.jms/jms com.sun.jdmk/jmxtools com.sun.jmx/jmxri]]
                  [ring "1.2.0"]                 
                  [ring-anti-forgery "0.2.1"]
                  [ring-server "0.2.8" :exclusions [[org.clojure/clojure] [ring]]]
@@ -34,12 +40,9 @@
             [lein-expectations "0.0.7"]
             [lein-autoexpect "0.2.5"]]
   :hooks [leiningen.cljsbuild]
-  :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/"
-                             :username :env
-                             :passphrase :env}]]  
+  :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/" :username :env :passphrase :env}]]  
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
-  :cljsbuild {
-              :repl-listen-port 9000
+  :cljsbuild {:repl-listen-port 9000
               :repl-launch-commands
                                         ;$ lein trampoline cljsbuild repl-launch firefox <URL>
               {"firefox" ["/Applications/Firefox.app/Contents/MacOS/firefox-bin" :stdout ".repl-firefox-out" :stderr ".repl-firefox-err"]

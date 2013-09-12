@@ -7,7 +7,7 @@
             [lead-generation.controllers.site :as cont-site]
             [lead-generation.controllers.api]))
 ;; Remote APIs exposed
-(remote-ns 'lead-generation.controllers.api :as "api")
+(remote-ns 'lead-generation.controllers.api :as "api/lead-generation")
 ;; Move this to a view
 (html/deftemplate lead-generation  "templates/lead_generation.html" [])
 ;; Controller routes, ROA oriented

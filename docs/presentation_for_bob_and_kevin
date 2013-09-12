@@ -1,0 +1,118 @@
+* Philosphy
+** Landing Sites
+** Market Vectors
+** Market Matrix
+
+* Review the Manifesto  https://github.com/mateoconfeugo/florish-online/blob/master/docs/manifesto
+** Goals
+*** Easy to Add Features
+*** Easy to Deploy
+*** Easy to Maintain
+*** As little code as possible
+*** Component based
+*** Deployable to the cloud
+
+* The Functional Business Model
+* Business Component Factory
+** User Distributed Components
+** Workspace Distributed Components
+** Enterprise Distributed Components
+** Resource Distributed Components
+** Auxialry Components
+** Testing Components
+
+* Physical Components
+** Github https://github.com/mateoconfeugo/florish-online
+
+* Deployment
+** Palletops 
+http://palletops.com/
+https://github.com/mateoconfeugo/florish-online/blob/master/src/clj/landing-site/src/landing_site/groups/delivery.clj
+** Heroku 
+https://dashboard.heroku.com/apps
+** S3 Private Repository
+https://console.aws.amazon.com/s3/home?region=us-west-2
+** Rackspace
+https://mycloud.rackspace.com/a/mateoconfeugo/
+** App Wrappers
+https://github.com/mateoconfeugo/flourish-management
+
+* Project Organization
+http://ops1.causalmarketing.com/bugzilla/index.cgi
+
+* Technologies
+** clojurescript 
+https://github.com/clojure/clojurescript
+** enlive
+https://github.com/cgrand/enlive
+** riemann
+http://riemann.io/
+** ring
+https://github.com/ring-clojure/ring
+** core async
+http://clojure.com/blog/2013/06/28/clojure-core-async-channels.html
+** compojure
+https://github.com/weavejester/compojure
+** Liberator
+https://github.com/clojure-liberator
+** Korma 
+http://sqlkorma.com/
+** repl client/server
+** couchdb
+** pallet 
+http://palletops.com/
+** shoreleave
+** mysql
+** redis
+** zookeeper
+** email 
+** merchant
+
+* Tools
+** REPL
+** clj-driver
+https://github.com/semperos/clj-webdriver
+** expectations
+https://github.com/jakemcc/lein-autoexpect
+https://github.com/jaycfields/expectations
+** lien
+http://leiningen.org/
+** lien-cljs
+https://github.com/emezeske/lein-cljsbuild
+** lien plugins
+
+* Innovations
+** CMS Entity Builder
+https://github.com/mateoconfeugo/florish-online/tree/master/src/clj/cms/src/cms
+** SiteBuilder
+** Publishing
+** Ad Builder
+
+* Idioms
+Pipes / Pipelines
+Display Objects
+
+* Testing Strategy
+** Expect
+** clj-driver
+** pallet vmfest
+
+* Framework is in Place
+
+* Major components for release
+** User Sign up and sign in
+** Site Builder
+** Story Builder/CMS
+** Market Builder
+** SEO Builder
+** Lead Generation
+** Heat Mapping
+** Managment hosting app
+** Landing Site Delivery Engine
+** User Accouts Budgets, credit card
+** Ad Delivery Engine
+** Click Server
+** Storm Throttle
+** Reporting
+
+
