@@ -7,6 +7,7 @@
   :dependencies [[cheshire "5.0.2"]
                  [enlive "1.1.1"]
                  [jayq "2.4.0"]
+                 [enfocus "2.0.0-beta1"] ; client side enlive                 
                  [me.raynes/fs "1.4.0"]                                  
                  [org.clojure/tools.reader "0.7.6"]
                  [org.clojure/clojure "1.5.1"]
@@ -15,7 +16,14 @@
                  [org.clojure/core.match "0.2.0-rc5"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [ring "1.1.8"]
-                 [ring/ring-jetty-adapter "1.1.6"]]
+                 [ring/ring-jetty-adapter "1.1.6"]
+                 [domina "1.0.1"]
+                 [org.clojure/google-closure-library-third-party "0.0-2029"]                 
+                 [amalloy/ring-gzip-middleware "0.1.2" :exclusions [org.clojure/clojure]]                 
+                 [com.cemerick/piggieback "0.1.0"]                                  
+                 [shoreleave/shoreleave-remote "0.3.0"]
+                 [shoreleave/shoreleave-remote-ring "0.3.0"]
+                 [shoreleave "0.3.0"]]
   :plugins [[lein-cljsbuild "0.3.2"]
             [s3-wagon-private "1.1.2"]
             [lein-expectations "0.0.7"]
@@ -41,7 +49,11 @@
                                 :stdout ".repl-phantom-naked-out"  :stderr ".repl-phantom-naked-err"]}
               :test-commands  ;$ lein cljsbuild test
               {"unit" ["phantomjs" "phantom/unit-test.js" "resources/private/html/unit-test.html"]}
+              :crossovers [flourish-common.crossover]
+              :crossover-path "src-cljs/crossover-cljs"
+              :crossover-jar true
               :builds {
+
                        :dev
                        {:source-paths ["src-cljs"]
                         :compiler {:output-to "resources/public/js/flourish_common_debug.js"

@@ -1,5 +1,5 @@
 ;*CLJSBUILD-REMOVE*;
-(ns flourish-common.utils.macros)
+(ns flourish-common.crossover.macros)
 
 (defmacro go-loop [& body]
   `(cljs.core.async.macros/go

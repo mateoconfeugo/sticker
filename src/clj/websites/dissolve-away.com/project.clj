@@ -2,30 +2,34 @@
   :description "Dissolve Away Landing Site"
   :min-lein-version "2.0.0"  
   :source-paths ["src-clj"]
-  :dependencies [[org.clojure/clojure "1.5.1"]
+  :dependencies [[amalloy/ring-gzip-middleware "0.1.2" :exclusions [org.clojure/clojure]]                 
+                 [com.cemerick/piggieback "0.1.0"]
                  [compojure "1.1.5"] ; Web routing https://github.com/weavejester/compojure
-                 [enlive "1.1.1"] ; DOM manipulating
-                 [enfocus "2.0.0-SNAPSHOT"] ; client side enlive
+                 [crypto-random "1.1.0"]                 
+                 [domina "1.0.1"] ; DOM manipulation
+                 [enlive "1.1.1"] ; direct DOM manipulating publishing
+                 [enfocus "2.0.0-beta1"] ; client side enlive
                  [flourish-common "0.1.0"]
-                 [heat-mapping "0.1.0"]
-                 [lead-generation "0.1.0"]
-                 [jayq "2.4.0"]
-                 [domina "1.0.1"]
-                 [org.clojure/google-closure-library-third-party "0.0-2029"]
+                 [heat-mapping "0.1.0"] ; Real Time User Gesture Tracking
+                 [jayq "2.4.0"] ; jQuery
+                 [korma "0.3.0-RC5"] ; ORM 
+                 [lead-generation "0.1.0"]; Lead generation                
                  [lib-noir "0.4.7" :exclusions [[org.clojure/clojure] [compojure] [hiccup] [ring]]]
-                 [org.clojure/java.jdbc "0.2.3"]                                  
-                 [mysql/mysql-connector-java "5.1.6"]
-                 [korma "0.3.0-RC5"]
-                 [metis "0.3.0"]
                  [log4j "1.2.15" :exclusions [javax.mail/mail javax.jms/jms com.sun.jdmk/jmxtools com.sun.jmx/jmxri]]
-                 [ring "1.2.0"]                 
-                 [ring-anti-forgery "0.2.1"]
+                 [metis "0.3.0"] ; Validation                
+                 [mysql/mysql-connector-java "5.1.6"]
+                 [org.clojure/java.jdbc "0.2.3"]
+                 [org.clojure/clojure "1.5.1"] ; Lisp on the JVM 
+                 [org.clojure/clojurescript "0.0-1853"] ; Lisp on the Browser Javascript interpreter
+                 [org.clojure/core.async "0.1.0-SNAPSHOT"] ; CSP 
+                 [org.clojure/core.match "0.2.0-rc5"] ; Dispatcher
+                 [org.clojure/tools.nrepl "0.2.3"]                 
+                 [org.clojure/google-closure-library-third-party "0.0-2029"] 
+                 [ring "1.2.0"] ; HTTP Web app server framework                
+                 [ring-anti-forgery "0.2.1"] ; 
                  [ring-server "0.2.8" :exclusions [[org.clojure/clojure] [ring]]]
                  [ring-refresh "0.1.2" :exclusions [[org.clojure/clojure] [compojure]]]
-                 [crypto-random "1.1.0"]
-                 [amalloy/ring-gzip-middleware "0.1.2" :exclusions [org.clojure/clojure]]                 
-                 [com.cemerick/piggieback "0.1.0"]                 
-                 [shoreleave/shoreleave-remote "0.3.0"]
+                 [shoreleave/shoreleave-remote "0.3.0"] ; seemless remote procedure called
                  [shoreleave/shoreleave-remote-ring "0.3.0"]
                  [shoreleave "0.3.0"]]
   :ring {:handler dissolve-away.handler/war-handler}
@@ -38,7 +42,8 @@
             [lein-expectations "0.0.7"]
             [lein-autoexpect "0.2.5"]]
   :hooks [leiningen.cljsbuild]
-  :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/" :username :env :passphrase :env}]]  
+  :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/" :username :env :passphrase :env}]
+                 ["sonatype-staging"  {:url "https://oss.sonatype.org/content/groups/staging/"}]]  
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :cljsbuild {:repl-listen-port 9000
               :repl-launch-commands

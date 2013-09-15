@@ -1,5 +1,5 @@
 (ns flourish-common.utils.helpers
-  (:require [cljs.core.async :as async :refer [<! >! chan close! sliding-buffer dropping-buffer put! timeout]]
+  (:require [cljs.core.async :refer [<! >! chan close! sliding-buffer dropping-buffer put! timeout]]
             [cljs.core.async.impl.protocols :as proto]
             [goog.net.Jsonp]
             [goog.events :as events]
@@ -7,11 +7,25 @@
             [goog.Uri]
             [jayq.core :as jq :refer [$ text val on prevent]])
   (:require-macros
-    [cljs.core.async.macros :as m :refer [go alt!]]
-    [flourish-common.utils.macros :refer [go-loop]]))
+    [cljs.core.async.macros  :refer [go alt!]]
+    [flourish-common.crossover.macros :refer [go-loop]]))
 
-(defn data-from-event [event]
-  (-> event .-currentTarget jq/$ .data (js->clj :keywordize-keys true)))
+(def keyword->event-type
+  {:keyup goog.events.EventType.KEYUP
+   :keydown goog.events.EventType.KEYDOWN
+   :keypress goog.events.EventType.KEYPRESS
+   :click goog.events.EventType.CLICK
+   :dblclick goog.events.EventType.DBLCLICK
+   :mousedown goog.events.EventType.MOUSEDOWN
+   :mouseup goog.events.EventType.MOUSEUP
+   :mouseover goog.events.EventType.MOUSEOVER
+   :mouseout goog.events.EventType.MOUSEOUT
+   :mousemove goog.events.EventType.MOUSEMOVE
+   :focus goog.events.EventType.FOCUS
+   :blur goog.events.EventType.BLUR})
+
+
+(defn data-from-event [event]  (-> event .-currentTarget jq/$ .data (js->clj :keywordize-keys true)))
 
 (defn click-chan [selector msg-name]
   (let [rc (chan)]
@@ -21,14 +35,14 @@
           (put! rc [msg-name (data-from-event e)])))
     rc))
 
-(comment
+
 (defn listen
   ([el type] (listen el type nil))
   ([el type f] (listen el type f (chan)))
   ([el type f out]
     (events/listen el (keyword->event-type type)
       (fn [e] (when f (f e)) (put! out e)))
-    out)))
+    out))
 
 ;; =============================================================================
 ;; Printing
@@ -132,14 +146,14 @@
 (defn map-chan
   ([f source] (map-chan (chan) f source))
   ([c f source]
-    (go-loop
+    (fcm/go-loop
       (>! c (f (<! source))))
     c))
 
 (defn filter-chan
   ([f source] (filter-chan (chan) f source))
   ([c f source]
-    (go-loop
+    (fcm/go-loop
       (let [v (<! source)]
         (when (f v)
           (>! c v))))
@@ -159,10 +173,10 @@
     (interval-chan (chan (dropping-buffer 1)) msecs type))
   ([c msecs type]
     (condp = type
-      :leading (go-loop
+      :leading (fcm/go-loop
                  (>! c (now))
                  (<! (timeout msecs)))
-      :falling (go-loop
+      :falling (fcm/go-loop
                  (<! (timeout msecs))
                  (>! c (now))))
     c))
@@ -250,7 +264,7 @@
 
 (defn observable [c]
   (let [listeners (atom #{})]
-    (go-loop
+    (fcm/go-loop
       (put-all! @listeners (<! c)))
     (reify
       proto/ReadPort
