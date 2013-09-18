@@ -27,6 +27,8 @@
 ;;(def app (handler/site (wrap-params (routes  user-mgmt-routes))))
 (defroutes config-route (GET "/clientconfig" [] (content-type (file-response "clientconfig.json" {:root "resources"})  "application/json")))
 
+
+
 ;;(def app (handler/site (wrap-params (routes))))
 (def app (handler/site (routes
                         user-mgmt-routes
@@ -37,7 +39,7 @@
                         sb/war-handler
 ;;                        collection-routes
 ;;                        item-routes
-                        (resources "/")
+                        (resources "/")                        
                         (files "/" {:root "public"})
                         (not-found "Not Found"))))
 

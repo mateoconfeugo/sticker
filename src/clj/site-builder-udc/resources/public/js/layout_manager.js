@@ -126,8 +126,8 @@ function initialize_legacy_editor() {
 //	    var model = site_builder_udc.main_upload.gather_tuple(dom);
 	    var dom_xpath  = xpath.getElementXPath(dom);
 	    var old_model = {"dom": dom.innerHTML,
-			 "xpath": dom_xpath,
-			 "layout": $(".demo")[0].innerHTML};
+			     "xpath": dom_xpath,
+			     "layout": $(".demo")[0].innerHTML};
 	    var uuid;
 /*
 	    var tuple  = {"layout": function () {$(".demo")[0].innerHTML},

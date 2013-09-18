@@ -14,7 +14,7 @@
 ;; value from the configuration
 (deftemplate user-dashboard "templates/user_dashboard.html"
   [{:keys [display-map] :as settings}]
-  [:nav.navbar] (content (nav-bar {:title "management" :menu-data (:menu-data display-map)}))
+  [:nav.navbar] (content (nav-bar {:title "Market Manager" :menu-data (:menu-data display-map)}))
   [:ul#nav-controls-destination :li] (clone-for [display-object (:display-objects display-map)]
                                                 [:a] (do->
                                                       (add-class "btn")

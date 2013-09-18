@@ -34,5 +34,12 @@
 		 {"menu_item_url":"/advertiser/","menu_item_text":"Keyword Manager"},
 		 {"menu_item_url":"/advertiser/","menu_item_text":"Reporting"},
 		 {"menu_item_url":"/advertiser/","menu_item_text":"Import Bing  Campaign"},
-		 {"menu_item_url":"/advertiser/", "menu_item_text":"Import Google Ad words Campaign"}]}
+		 {"menu_item_url":"/advertiser/", "menu_item_text":"Import Google Ad words Campaign"}]},
+	    {"drop_down_menu_name":"Crowd Builder",
+	     "menu_item":[
+		 {"menu_item_url":"/social-media/blog","menu_item_text": "Blog"},
+		 {"menu_item_url":"/social-media/facebook","menu_item_text": "Facebook"},
+		 {"menu_item_url":"/social-media/twitter","menu_item_text": "Twitter"},
+		 {"menu_item_url":"/social-media/linked-in", "menu_item_text":"Linked-In"}]}
+
 ]}

@@ -4,6 +4,7 @@
             [compojure.handler :as handler :refer [site]]
             [ring.middleware.gzip :refer [wrap-gzip]]
             [ring.middleware.file-info :refer [wrap-file-info]]
+            [ring.middleware.resource :refer [wrap-resource]]                        
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.session.cookie :refer [cookie-store]]
             [shoreleave.middleware.rpc :refer [wrap-rpc]]
@@ -27,11 +28,13 @@
       wrap-add-anti-forgery-cookie      
       wrap-anti-forgery
       wrap-gzip
+      (wrap-resource "templates")
+      wrap-file-info
       (handler/site {:session {:cookie-name (config :cookie-name)
                                :store (cookie-store {:key (config :session-secret)})
                                :cookie-attrs {:max-age (config :session-max-age-seconds)
-                                              :http-only true}}})
-      wrap-file-info))
+                                              :http-only true}}})))
+      
 
 (def app all-routes)
 (def war-handler (get-handler app)) 

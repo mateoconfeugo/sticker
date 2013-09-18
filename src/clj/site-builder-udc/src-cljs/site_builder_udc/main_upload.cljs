@@ -13,6 +13,7 @@
   "Hook up the handler functions for those selected element events"
   (ef/at "#shareModal" (ev/listen :click #(ef/at ".demo" (ef/content (save-landing-site (gather-tuple %)))))))
 )
+
 (defn start []
   "Application driver that initializes, hooks up event handlers to elements  and starts the application going"           
   (do

@@ -58,17 +58,20 @@
                        {:source-paths ["src-cljs"]
                         :compiler {:output-to "resources/public/js/flourish_common_debug.js"
                                    :optimizations :whitespace
+                                   :externs ["resources/public/externs"]
                                    :pretty-print true}}
                        :prod
                        {:source-paths ["src-cljs"]
                         :jar true
                         :compiler {:output-to "resources/public/js/flourish_common.js"
                                    :optimizations :advanced
+                                   :externs ["resources/public/externs"]                                   
                                    :pretty-print false}}
                        :test
                        {:source-paths ["test-cljs"]
                         :compiler {:output-to "resources/private/js/unit-test.js"
                                    :optimizations :whitespace
+                                   :externs ["resources/externs.js"]                                   
                                    :pretty-print true}}}})
 
 

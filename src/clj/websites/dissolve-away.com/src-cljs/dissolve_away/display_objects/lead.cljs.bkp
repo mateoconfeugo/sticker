@@ -1,10 +1,20 @@
-(ns disolve-away.display-object.lead)
+(ns dissolve-away.display-objects.lead)
 (comment
-  (defn handle-error
+  (:require-macros [cljs.core.match.macros :refer [match]]
+                   [cljs.core.async.macros  :refer [go]])
+  (:require [flourish-common.utils.helpers :refer [event-chan by-id click-chan]]
+            [lead-generation.client :refer [send-lead]]
+            [cljs.core.async :refer [<! >! chan put! alts!]]
+            [jayq.core  :as jq :refer [$ text val on prevent remove-class add-class remove]]))
+
+
+(defn handle-error
   [error])
 
+(defn valid-submission? [lead] true)
+  
 (defn handle-lead-submit
-  [lead-channel]
+  [lead-channel error-channel]
   (let [e (<! lead-channel)
         name (jq/val (jq/$ :#lead_full_name))
         email (jq/val (jq/$ :#lead_email))
@@ -15,6 +25,7 @@
       results
       (put! error-channel results))))
 
+
 (defn add-dispatch-channel-rule
   [rule handler]
   (let [dispatcher (fn  [{:keys [event channel error-channel] :args}]
@@ -22,9 +33,8 @@
                             [rule] (handler args)))]
     (dispatcher)))
 
-(defn init
-  [{:keys [error-channel] :as args}]
+(defn init [error-channel]
   (let  [lead-channel (click-chan "#lead-form-submit" :new-lead)
-        media-query-channel (init-media-query)])
+         media-query-channel (init-media-query)])
   [lead-channel media-query-channel error-channel])
 )

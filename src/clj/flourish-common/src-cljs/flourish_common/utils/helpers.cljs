@@ -10,6 +10,30 @@
     [cljs.core.async.macros  :refer [go alt!]]
     [flourish-common.crossover.macros :refer [go-loop]]))
 
+;===============================================================================
+; cljs utils
+;===============================================================================
+(defn log [m]
+  (.log js/console m))
+
+(defn clj->js
+  [x]
+  (cond
+   (string? x) x
+   (keyword? x) (name x)
+   (map? x) (.-strobj (reduce (fn [m [k v]]
+                                (assoc m (clj->js k) (clj->js v))) {} x))
+   (coll? x) (apply array (map clj->js x))
+   :else x))
+
+(defn toJSON [o]
+  (let [o (if (map? o) (clj->js o) o)]
+    (.stringify (.-JSON js/window) o)))
+
+(defn parseJSON [x]
+  (.parse (.-JSON js/window) x))
+
+
 (def keyword->event-type
   {:keyup goog.events.EventType.KEYUP
    :keydown goog.events.EventType.KEYDOWN
@@ -24,6 +48,17 @@
    :focus goog.events.EventType.FOCUS
    :blur goog.events.EventType.BLUR})
 
+(defn uuid
+  "returns a type 4 random UUID: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+  []
+  (let [r (repeatedly 30 (fn [] (.toString (rand-int 16) 16)))]
+    (apply str (concat (take 8 r) ["-"]
+                       (take 4 (drop 8 r)) ["-4"]
+                       (take 3 (drop 12 r)) ["-"]
+                       [(.toString  (bit-or 0x8 (bit-and 0x3 (rand-int 15))) 16)]
+                       (take 3 (drop 15 r)) ["-"]
+                                              (take 12 (drop 18 r))))))
+
 
 (defn data-from-event [event]  (-> event .-currentTarget jq/$ .data (js->clj :keywordize-keys true)))
 
@@ -35,6 +70,13 @@
           (put! rc [msg-name (data-from-event e)])))
     rc))
 
+(defn listen-message
+  ([msg-name el type] (listen  msg-name el type nil))
+  ([msg-name el type f] (listen msg-name el type f (chan)))
+  ([msg-name el type f out]
+    (events/listen el (keyword->event-type type)
+      (fn [e] (when f (f e)) (put! out [msg-name (data-from-event e)])))
+    out))
 
 (defn listen
   ([el type] (listen el type nil))
