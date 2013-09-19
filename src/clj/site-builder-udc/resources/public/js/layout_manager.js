@@ -244,9 +244,6 @@ function initialize_legacy_editor() {
 $(document).ready(function () {
     goog.require('site_builder_udc.editor');
     goog.require('site_builder_udc.main_upload');
-    goog.require('site_builder_udc.client.flows');
-//    goog.require('site_builder_udc.repl');
-//    site_builder_udc.repl.connect_app();
     site_builder_udc.main_upload.start();
 });
 

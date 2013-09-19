@@ -21,4 +21,4 @@
 ;;    (wire-up-events)
     (js/initialize_legacy_editor)))
 
-;;(set! (.-onload js/window) start)
+(set! (.-onload js/window) start)
