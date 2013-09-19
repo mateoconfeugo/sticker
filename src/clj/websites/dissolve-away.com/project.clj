@@ -24,7 +24,8 @@
                  [org.clojure/core.async "0.1.0-SNAPSHOT"] ; CSP 
                  [org.clojure/core.match "0.2.0-rc5"] ; Dispatcher
                  [org.clojure/tools.nrepl "0.2.3"]                 
-                 [org.clojure/google-closure-library-third-party "0.0-2029"] 
+                 [org.clojure/google-closure-library-third-party "0.0-2029"]
+                 [com.googlecode.libphonenumber/libphonenumber "5.4"]             
                  [ring "1.2.0"] ; HTTP Web app server framework                
                  [ring-anti-forgery "0.2.1"] ; 
                  [ring-server "0.2.8" :exclusions [[org.clojure/clojure] [ring]]]

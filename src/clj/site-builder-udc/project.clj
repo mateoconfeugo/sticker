@@ -56,12 +56,14 @@
               :builds {
                        :dev
                        {:source-paths ["src-cljs"]
+                        :externs ["public/js/layout_manager.js"]
                         :jar true
                         :compiler {:output-to "resources/public/js/main-debug.js"
                                    :optimizations :whitespace
                                    :pretty-print true}}
                        :prod
                        {:source-paths ["src-cljs"]
+                        :externs ["public/js/layout_manager.js"]                       
                         :compiler {:output-to "resources/public/js/main.js"
                                    :optimizations :advanced
                                    :pretty-print false}}

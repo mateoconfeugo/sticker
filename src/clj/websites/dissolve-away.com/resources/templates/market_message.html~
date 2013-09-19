@@ -1,4 +1,4 @@
-<div class="container marketing">
+<div id="market-message"  class="container marketing">
   <div class="row">
     <div class="col-lg-4">
       <!-- Three columns of text below the carousel -->
