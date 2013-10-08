@@ -34,6 +34,22 @@
 (defn  create-event-channels [dply-obj-cfg]
   (map #(listen (:el %) (:type %) (:handler-fn %)) (-> dply-obj-cfg :event-channel-handler)))
 
+(comment
+(defprotocol DisplayObject
+  (render this)
+  (get-channels this))
+
+(defn new-display-object
+  [{:keys [el] :as args}]
+
+  (refiy DisplayObject
+
+         (render [this])
+
+         (get-channels this)))
+)
+
+
 (defn ^:export build-display-object
   [{:keys [name type html handler-fn template css menu-html menu-item-html el initial-model-data] :as cfgs}]
   {:name name

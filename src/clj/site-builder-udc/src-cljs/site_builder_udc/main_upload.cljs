@@ -1,24 +1,15 @@
 (ns site-builder-udc.main-upload
-;;  (:require-macros [enfocus.macros :as em])
-  (:require
-   ;;[enfocus.core :as ef :refer [at content get-text from]]
-;;            [enfocus.events :as ev :refer [listen]]
-            [site-builder-udc.editor :refer [save-landing-site]]
-            [site-builder-udc.repl :as repl :refer [connect-app]]))
-(comment
-(defn gather-tuple [node]
-    {:xpath (js/getXPath node) :dom node :layout (ef/from node (ef/get-text))})
-
-(defn wire-up-events []
-  "Hook up the handler functions for those selected element events"
-  (ef/at "#shareModal" (ev/listen :click #(ef/at ".demo" (ef/content (save-landing-site (gather-tuple %)))))))
-)
+  (:require [jayq.core :refer [$ text val on prevent remove-class add-class remove empty html children append]]
+            [site-builder-udc.editor :refer [new-editor update-landing-site]]
+))
 
 (defn start []
-  "Application driver that initializes, hooks up event handlers to elements  and starts the application going"           
+  "Application driver that initializes, hooks up event handlers to elements  and starts the application going"
   (do
-;;    (repl/connect-app )
-;;    (wire-up-events)
+    (new-editor)
     (js/initialize_legacy_editor)))
 
-(set! (.-onload js/window) start)
+
+;
+;            [site-builder-udc.layout-manager :refer [wire-up]]
+;           [site-builder-udc.repl :as repl :refer [connect-app]]

@@ -1,9 +1,19 @@
 (ns management.database
   (:require [clojure.java.jdbc :only[with-connection create-table
                                      with-server with-connection with-open]:as sql])
-  (:use [korma.core :only [defentity database insert values select where]]        
+  (:use [korma.core :only [defentity database insert values select where]]
         [korma.db :only [defdb mysql]]))
 
+(defn get-db-conn []
+  "TODO: Replace this with a more generic function"
+  (let [root-dir (str "/Users/matthewburns/github/florish-online")
+        cfg (new-config {:cfg-file-path (str root-dir "/conf/system_config.json")})
+        {:keys [host port db-user db-password db-name]} (-> (read-config cfg) :management-gui :account-database)]
+    {:classname "com.mysql.jdbc.Driver"
+     :subprotocol "mysql"
+     :subname (str "//" host ":" port "/" db-name)
+     :user db-user
+     :password db-password}))
 
 (defmacro table-builder
   [dsn table-name & statements]
@@ -40,7 +50,7 @@
                  [:user_id "INTEGER(11) NOT NULL"]
                  [:tag_name "VARCHAR(32) NOT NULL"]
                  [:query_uri "VARCHAR(255) NOT NULL"])
-    
+
     (table-builder dsn :user
                   [:id :integer "PRIMARY KEY" "AUTO_INCREMENT"]
                   [:username "VARCHAR(50) NOT NULL"]
@@ -61,17 +71,17 @@
     (table-builder dsn :feed
                   [:id :integer "PRIMARY KEY" "AUTO_INCREMENT"]
                   [:id_partner "varchar(25)"]
-                  [:tag_name "varchar(32)"]       
+                  [:tag_name "varchar(32)"]
                   [:query_uri "varchar(255)"])
     (table-builder dsn :population
                    [:id :integer "PRIMARY KEY" "AUTO_INCREMENT"]
                    [:admin_account_id :integer "NOT NULL"]
                    [:name "VARCHAR(32)"]
-                   [:description "VARCHAR(255)"])                   
+                   [:description "VARCHAR(255)"])
 
     (table-builder dsn :version
                    [:id :integer "PRIMARY KEY" "AUTO_INCREMENT"])
-    
+
     (table-builder dsn :app_release
                    [:id :integer "PRIMARY KEY" "AUTO_INCREMENT"])
     (table-builder dsn :supported_release
@@ -158,7 +168,7 @@
 
 
 (defn drop-table [table dsn]
-  (sql/with-connection dsn  
+  (sql/with-connection dsn
     (try
       (sql/drop-table (keyword table))
       (catch Exception _))))
@@ -179,7 +189,7 @@
        :feed
        [:id :integer "PRIMARY KEY" "AUTO_INCREMENT"]
        [:partner_id "varchar(25)"]
-       [:tag_name "varchar(32)"]       
+       [:tag_name "varchar(32)"]
        [:query_uri "varchar(255)"])
       (catch Exception _))))
 

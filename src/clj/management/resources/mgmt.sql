@@ -4,16 +4,28 @@ USE management;
 
 DROP TABLE IF EXISTS version;
 CREATE TABLE version (
-id          INTEGER AUTO_INCREMENT PRIMARY KEY,	
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
 deployed_on DATETIME  NOT NULL DEFAULT '0000-00-00 00:00:00',
-version     INTERGER(10) NOT NULL
-);	    
+version     INTEGER(10)
+);
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+created DATETIME  NOT NULL DEFAULT '0000-00-00 00:00:00',
+first_name VARCHAR(20),
+last_name  VARCHAR(30),
+email_username     VARCHAR(120) NOT NULL,
+status ENUM('new', 'active', 'inactive', 'suspended', 'expired', 'banded', 'banished')
+);
+
+/*
 
 DROP TABLE IF EXISTS release;
 CREATE TABLE release (
 id          INTEGER AUTO_INCREMENT PRIMARY KEY,
 released_on DATETIME  NOT NULL DEFAULT '0000-00-00 00:00:00',
-tag     VARCHAR(50) NOT NULL
+tag     VARCHAR(50)
 );
 
 DROP TABLE IF EXISTS supported_release;
@@ -24,15 +36,8 @@ released_on DATETIME  NOT NULL DEFAULT '0000-00-00 00:00:00',
 version_id INTEGER(10)
 );
 
-DROP TABLE IF EXISTS user;
-CREATE TABLE user (
-id          INTEGER AUTO_INCREMENT PRIMARY KEY,
-created DATETIME  NOT NULL DEFAULT '0000-00-00 00:00:00',
-first_name VARCHAR(20),
-last_name  VARCHAR(30),
-moniker     VARCHAR(50) NOT NULL,
-status ENUM('active', 'inactive', 'suspended', 'expired', 'banded', 'banished'),
-);
+
+
 
 DROP TABLE IF EXISTS user_email;
 CREATE TABLE user_email (
@@ -86,7 +91,7 @@ name VARCHAR(25)
 DROP TABLE IF EXISTS lead_log;
 CREATE TABLE lead_log (
 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-event_time  DATETIME, 
+event_time  DATETIME,
 email TEXT,
 full_name  VARCHAR(50),
 first_name VARCHAR(20),
@@ -118,4 +123,5 @@ CREATE TABLE `log` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 ALTER TABLE lead_log AUTO_INCREMENT = 1;
-ALTER TABLE log AUTO_INCREMENT = 1;        
+ALTER TABLE log AUTO_INCREMENT = 1;
+*/

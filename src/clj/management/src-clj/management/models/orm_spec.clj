@@ -3,13 +3,13 @@
 ;;  (:import [com.google.i18n.phonenumbers PhoneNumberUtil NumberParseException]
   ;;           [java.util.zip  DataFormatException])
   (:use [metis.core]
-        [management.config :only[db-name db-password db-address db-user]]        
         [korma.core :only [defentity database insert values has-many many-to-many
                            transform belongs-to has-one fields table prepare pk
                            subselect where belongs-to limit aggregate order]]
-;;        [riemann.client :only [send-event tcp-client]]        
+;;        [riemann.client :only [send-event tcp-client]]
         [korma.db :only [defdb mysql]])
-  (:require [clojure.core]))
+  (:require [clojure.core]
+            [management.config :refer [configure-mgmt-application]]) )
 
 ;; TODO: replace this with config
 ;;(def db-name "test_mgmt")
@@ -19,9 +19,12 @@
 ;(def db-name "mgmt")
 ;(def db-port 3306)
 ;(def db-user  "root")
-;(def db-password "test123")
+                                        ;(def db-password "test123")
 
-(defdb mgmt-db (mysql {:db db-name :user db-user :password db-password :host db-address}))
+(def cfg (configure-mgmt-application))
+
+(defdb mgmt-db (mysql {:db (:db-name cfg )  :user (:db-user cfg) :password (:db-password cfg) :host (:db-address cfg) } ))
+
 
 
 (declare  profile feed-partner version release supported-release user population community enterprise
@@ -40,17 +43,17 @@
   (table :profile)
   (database mgmt-db)
   (fields :id :id_user :tag_name :query_uri)
-  (belongs-to user))  
+  (belongs-to user))
 
 (defentity admin-account
   (pk :id)
-  (table :admin_account)  
+  (table :admin_account)
   (database mgmt-db))
 
 (defentity email
   (pk :id)
   (table :email)
-  (database mgmt-db)     
+  (database mgmt-db)
   (fields :id :id_user :address)
   (belongs-to user {:fk :id_user}))
 
@@ -59,9 +62,9 @@
   (table :group)
   (database mgmt-db)
   (fields {:id :name})
-  (many-to-many user :user_grouping)  
+  (many-to-many user :user_grouping)
   (many-to-many community :community_grouping)
-  (many-to-many population :population_grouping)  
+  (many-to-many population :population_grouping)
   (belongs-to admin-account)
   (has-many clique)
   (has-many business-entity))
@@ -86,7 +89,7 @@
 (defentity user
   (pk :id)
   (table :user)
-  (database mgmt-db) 
+  (database mgmt-db)
   (fields  :signed_up_on :status :username :last_sign_in :password :username :id :title)
   (prepare (fn [{last :last :as v}]
              (if last
@@ -95,15 +98,15 @@
   (transform (fn [{first :first :as v}]
                (if first
                  (assoc v :first (clojure.string/capitalize first)) v)))
-  (has-one profile)  
+  (has-one profile)
   (has-one address)
-  (has-one user-account)  
+  (has-one user-account)
   (has-many email)
   (belongs-to admin-account)
   (has-many grouping)
   (has-many authorization-role)
-  (many-to-many business-role :user_business_role)    
-  (many-to-many business-account :user_business_account)    
+  (many-to-many business-role :user_business_role)
+  (many-to-many business-account :user_business_account)
   (many-to-many landing-site :user_landing-site))
 
 ;;(defentity active-users (table (subselect user (where {:active true})) :activeUsers))
@@ -112,26 +115,26 @@
 (defentity population
   (pk :id)
   (table :population)
-  (database mgmt-db) 
+  (database mgmt-db)
   (fields :name :description)
-  (belongs-to admin-account)  
-  (has-many business-entity)  
+  (belongs-to admin-account)
+  (has-many business-entity)
   (has-many grouping)
   (has-many community))
 
 (defentity community
   (pk :id)
   (table :community)
-  (database mgmt-db) 
+  (database mgmt-db)
   (fields :name :description)
   (belongs-to admin-account)
-  (has-many business-entity)  
+  (has-many business-entity)
   (has-many grouping))
 
 (defentity enterprise
   (pk :id)
   (table :enterprise)
-  (database mgmt-db) 
+  (database mgmt-db)
   (fields :name :description)
   (belongs-to company)
   (has-many organization)
@@ -153,16 +156,16 @@
   (has-many address)
   (fields :name :description)
   (belongs-to admin-account)
-  (has-many grouping))  
+  (has-many grouping))
 
 (defentity clique
   (pk :id)
   (table :clique)
   (database mgmt-db)
-  (fields :name :description)  
+  (fields :name :description)
   (belongs-to admin-account)
-  (has-many user-account)  
-  (has-many business-role)    
+  (has-many user-account)
+  (has-many business-role)
   (has-many authorization-role)
   (has-many business-account)
   (has-many business-entity)
@@ -173,53 +176,53 @@
 (defentity business-entity
   (pk :id)
   (table :business_entity)
-  (database mgmt-db) 
+  (database mgmt-db)
   (fields :group-id :uri :type :name))
 
 (defentity address
   (pk :id)
   (table :address)
-  (database mgmt-db)     
+  (database mgmt-db)
   (belongs-to user)
   (belongs-to state {:fk :id_state}))
 
 (defentity state
   (pk :id)
-  (table :state_st) ;; sets the table to "state_st"  
-  (database mgmt-db)     
+  (table :state_st) ;; sets the table to "state_st"
+  (database mgmt-db)
   (has-many address))
 
 (defentity business-account
   (pk :id)
-  (table :business_account) ;; sets the table to "state_st"  
-  (database mgmt-db)     
+  (table :business_account) ;; sets the table to "state_st"
+  (database mgmt-db)
   (has-many user))
 
 (defentity user-account
   (pk :id)
-  (table :business_account) ;; sets the table to "state_st"      
+  (table :business_account) ;; sets the table to "state_st"
   (has-one user))
 
 (defentity landing-site
   (pk :id)
-  (table :landing_site)  
+  (table :landing_site)
   (many-to-many user :users_landing_site))
 
 
 (defentity partner
   (pk :id)
-  (table :partner)  
+  (table :partner)
   (database mgmt-db)
   (has-one account))
 
 (defentity feed
   (pk :id)
-  (table :feed)  
+  (table :feed)
   (database mgmt-db))
 
 (defentity feed-revenue-share
   (pk :id)
-  (table :feed_revenue_share)  
+  (table :feed_revenue_share)
   (database mgmt-db)
   (belongs-to feed))
 
@@ -254,36 +257,36 @@
 
 (defentity contact
   (pk :id)
-  (table :contact)  
+  (table :contact)
   (database mgmt-db)
   (has-one address))
 
 (defentity account-user
   (pk :id)
-  (table :account_user)  
+  (table :account_user)
   (database mgmt-db)
   (has-one user)
   (has-one account))
 
 (defentity account-standing
   (pk :id)
-  (table :account_standing)  
-  (database mgmt-db)  
+  (table :account_standing)
+  (database mgmt-db)
   (has-one account))
 
 (defentity credit-card
   (pk :id)
-  (table :credit_card)  
+  (table :credit_card)
   (database mgmt-db))
 
 (defentity advertiser-payment
   (pk :id)
-  (table :advertiser_payment)    
+  (table :advertiser_payment)
   (database mgmt-db))
 
 (defentity spend-limit
   (pk :id)
-  (table :spend_limit)      
+  (table :spend_limit)
   (database mgmt-db))
 
 (defentity keyword-phrase
@@ -347,15 +350,15 @@
   (database mgmt-db)
   (has-one owner)
   (has-one column-order)
-  (has-many column-group)  
+  (has-many column-group)
   (has-many user)
-  (has-many dimension)  
+  (has-many dimension)
   (belongs-to account)
   (has-many email))
 
 (defentity column
   (pk :id)
-  (table :column)  
+  (table :column)
   (database mgmt-db))
 
 (defn winnowing-fn [] {})

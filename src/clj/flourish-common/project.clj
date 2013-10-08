@@ -5,6 +5,7 @@
   :min-lein-version "2.0.0"
   :hooks [leiningen.cljsbuild]  
   :dependencies [[cheshire "5.0.2"]
+                 [com.ashafa/clutch "0.4.0-RC1"] ; CouchDB client https://github.com/clojure-clutch/clutch                 
                  [enlive "1.1.1"]
                  [jayq "2.4.0"]
                  [enfocus "2.0.0-beta1"] ; client side enlive                 
@@ -15,6 +16,8 @@
                  [org.clojure/core.async "0.1.0-SNAPSHOT"]
                  [org.clojure/core.match "0.2.0-rc5"]
                  [org.clojure/clojure-contrib "1.2.0"]
+                 [korma "0.3.0-RC5"] ; ORM                                                 
+                 [metis "0.3.0"] ; Form validation                                 
                  [ring "1.1.8"]
                  [ring/ring-jetty-adapter "1.1.6"]
                  [domina "1.0.1"]

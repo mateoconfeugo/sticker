@@ -60,7 +60,7 @@
                                :uri  (:landing-site links)}
         authoring-profile-model (create-item db "business-models" "authoring-profile" {})
         authoring-profile-coll (collection/create-collection db "authoring-profile")
-        authoring-profile (create-item db "authoring-profile"(:username user) {:entity-links [user-link user-domain-link domain-landing-site-link]})]
+        authoring-profile (create-item db "authoring-profile" (:username user) {:entity-links [user-link user-domain-link domain-landing-site-link]})]
     authoring-profile))
 
 (comment

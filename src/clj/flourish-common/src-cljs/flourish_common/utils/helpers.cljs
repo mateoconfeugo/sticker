@@ -3,7 +3,7 @@
             [cljs.core.async.impl.protocols :as proto]
             [goog.net.Jsonp]
             [goog.events :as events]
-            [goog.events.EventType]    
+            [goog.events.EventType]
             [goog.Uri]
             [jayq.core :as jq :refer [$ text val on prevent]])
   (:require-macros
@@ -16,18 +16,8 @@
 (defn log [m]
   (.log js/console m))
 
-(defn clj->js
-  [x]
-  (cond
-   (string? x) x
-   (keyword? x) (name x)
-   (map? x) (.-strobj (reduce (fn [m [k v]]
-                                (assoc m (clj->js k) (clj->js v))) {} x))
-   (coll? x) (apply array (map clj->js x))
-   :else x))
-
 (defn toJSON [o]
-  (let [o (if (map? o) (clj->js o) o)]
+  (let [o (if (map? o) (cljs.core/clj->js o) o)]
     (.stringify (.-JSON js/window) o)))
 
 (defn parseJSON [x]
@@ -70,13 +60,6 @@
           (put! rc [msg-name (data-from-event e)])))
     rc))
 
-(defn listen-message
-  ([msg-name el type] (listen  msg-name el type nil))
-  ([msg-name el type f] (listen msg-name el type f (chan)))
-  ([msg-name el type f out]
-    (events/listen el (keyword->event-type type)
-      (fn [e] (when f (f e)) (put! out [msg-name (data-from-event e)])))
-    out))
 
 (defn listen
   ([el type] (listen el type nil))
@@ -85,6 +68,15 @@
     (events/listen el (keyword->event-type type)
       (fn [e] (when f (f e)) (put! out e)))
     out))
+
+(defn listen-message
+  ([msg-name el type] (listen-message  msg-name el type nil))
+  ([msg-name el type f] (listen-message msg-name el type f (chan)))
+  ([msg-name el type f out]
+    (events/listen el (keyword->event-type type)
+      (fn [e] (when f (f e)) (put! out [msg-name (data-from-event e)])))
+    out))
+
 
 ;; =============================================================================
 ;; Printing
@@ -239,7 +231,7 @@
                                 (recur ::throttling last
                                   (conj cs (timeout msecs))))
                        ::throttling (recur state v cs))
-              sync (if last 
+              sync (if last
                      (do (>! c last)
                        (recur state nil
                          (conj (pop cs) (timeout msecs))))

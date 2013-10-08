@@ -1,51 +1,25 @@
 (ns management.config
-  "Configuration component that reads a json file when created"
-  (:use [cheshire.core]
-        [cemerick.friend.workflows :only[interactive-form]]
-        [cemerick.friend.credentials :only[hash-bcrypt]]))
+  ^{:author "Matthew Burns"
+    :doc "Configuration settings for the managment aspects of the application"}
+  (:require [clojure.edn :as edn :refer [read-string]]
+            [site-builder-udc.config :refer [apply-site-builder-configurations]]))
 
-(def users {"root" {:username "root"
-                    :password (hash-bcrypt "sa")
-                    :roles #{::admin}}
-            "paul" {:username "paul"
-                    :password (hash-bcrypt "sa")
-                    :roles #{::publisher}}
-            "ann" {:username "ann"
-                    :password (hash-bcrypt "sa")
-                   :roles #{::advertiser}}
-            "carl" {:username "carl"
-                    :password (hash-bcrypt "sa")
-                    :roles #{::content-provider}}
-            "freddy" {:username "freddy"
-                    :password (hash-bcrypt "sa")
-                    :roles #{::feed-provider}}
-            "jane" {:username "jane"
-                    :password (hash-bcrypt "sa")
-                    :roles #{::user}}})
+(defn apply-mgmt-configurations [cfg]
+  (let [{:keys [mgmt-webapp-port mgmt-db-address mgmt-db-port mgmt-db-name mgmt-db-user
+                mgmt-db-password mgmt-home-dir mgmt-cloud-provider mgmt-app-root-dir]} cfg]
+    (-> cfg
+        (assoc :mgmt-webapp-port  (or (System/getenv "MGMT_PORT") (:mgmt-webapp-port cfg)))
+        (assoc :mgmt-db-address (or (System/getenv "MGMT_DATABASE_HOST") (:mgmt-db-host cfg)))
+        (assoc :mgmt-db-port (or (System/getenv "MGMT_DATABASE_PORT") (:mgmt-db-port cfg)))
+        (assoc :mgmt-db-name (or (System/getenv "MGMT_DATABASE_NAME") (:mgmt-db-name cfg)))
+        (assoc :mgmt-db-user (or (System/getenv "MGMT_DATABASE_USERNAME") (:mgmt-db-user cfg)))
+        (assoc :mgmt-db-password (or (System/getenv "MGMT_DATABASE_PASSWORD") (:mgmt-db-password cfg)))
+        (assoc :mgmt-home-dir (or (System/getenv "MGMT_HOME") (System/getProperty "user.home")))
+        (assoc :mgmt-cloud-provider (or (System/getenv "LSBS_PALLET_PROVIDER") :qa-cloud))
+        (assoc :mgmt-app-root-dir (or (System/getenv "MGMT_HOME") (System/getProperty "user.home"))))))
 
-;; INTERFACE SPECIFICATION
-(defprotocol Config
-  "Configuration interface"
-  (read-config [this]
-      "Read and transform  json data into a nested map"))
-
-;; BACK-END IMPLEMENTATION 
-(defn read-custom-config
-  "Read and transform  json data into a nested map"
-  [file]
-  (parse-string (slurp file) true))
-
-;; IMPLEMENTATION CONSTRUCTOR
-(defn new-config
-  [{:keys[cfg-env-variable cfg-file-path] :as settings}]
-(let [path (if cfg-file-path  cfg-file-path (System/getenv cfg-env-variable))
-      cfg (read-custom-config path)]
-  (reify Config
-    (read-config [this ]
-      cfg))))
-
-(def db-address (or (System/getenv "MGMT_DATABASE_HOST") "127.0.0.1"))
-(def db-port (or (System/getenv "MGMT_DATABASE_PORT") 3306))
-(def db-name (or (System/getenv "MGMT_DATABASE_NAME") "test_mgmt"))
-(def db-user (or (System/getenv "MGMT_DATABASE_USERNAME") "root"))
-(def db-password (or (System/getenv "MGMT_DATABASE_PASSWORD") "test123"))
+(defn configure-mgmt-application []
+  (let [cfg (edn/read-string (slurp  "resources/config.edn")) ]
+    (-> cfg
+        apply-site-builder-configurations
+        apply-mgmt-configurations)))

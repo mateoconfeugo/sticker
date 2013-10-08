@@ -5,7 +5,7 @@
 (defsnippet top-navbar "templates/top_nav_bar.html" *top-navbar-sel*
   [{:keys[] :as settings}])
 
-(def ^:dynamic *workspace-sel* [:.drop-zone])
+(def ^:dynamic *workspace-sel* [:#drop-zone])
 (defsnippet workspace "templates/workspace.html" *workspace-sel*
   [{:keys[] :as settings}])
 

@@ -4,14 +4,7 @@
         [management.views.snippets]        
         [flourish-common.web-page-utils :only [run-server render-to-response render-request
                                                maybe-content maybe-substitute page-not-found render-snippet]]))
-(comment
-(defmacro profile-builder
-  [snippet-name & model]
-  `(snippet-name  model)))
 
-;; TODO: disconnect the template from the html file by adding
-;; extra layer of indirection passing the template name as an
-;; value from the configuration
 (deftemplate user-dashboard "templates/user_dashboard.html"
   [{:keys [display-map] :as settings}]
   [:nav.navbar] (content (nav-bar {:title "Market Manager" :menu-data (:menu-data display-map)}))
@@ -28,5 +21,3 @@
                                                   (html-content (render-snippet ((eval (:view display-object)) (:model display-object))))))
   [[:ul.pages (nth-of-type 1)] :> first-child] (add-class "active")
   [[:.tab-pane first-child]] (add-class "active"))
-
-

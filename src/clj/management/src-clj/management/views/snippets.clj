@@ -5,7 +5,7 @@
 (defsnippet default-stats-summary "templates/default_stats_summary.html" *default-stats-sel*
   [model]
   [:tr :td] (content "foo"))
-  
+
 (def ^:dynamic *landing-site-sel* [:section#default-stats])
 (defsnippet  landing-site-stats-summary "templates/landing_site_stats_summary.html" *landing-site-sel*
   [model])
@@ -14,7 +14,6 @@
 (defsnippet site-nav-header "templates/site-nav-header.html" [:nav.container-fluid]
   [site-name]
   [:a.brand] (content site-name))
-
 
 ;;menu items
 (def ^:dynamic  *menu-item-sel* [[:ul.dropdown-menu (nth-of-type 1)] :> first-child])
@@ -35,4 +34,3 @@
   [{:keys [title menu-data]}]
   [:a.brand] (content title)
   [:ul#nav-bar-dropdown-menu] (html/content (map #(menu-model % menu-item-model)  menu-data)))
-

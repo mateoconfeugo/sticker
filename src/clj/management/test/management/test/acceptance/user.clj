@@ -2,7 +2,7 @@
   (:use [pallet.action :only[with-action-options]]
         [pallet.configure :only[compute-service]]
         [pallet.api :only[converge]]
-        [landing-site.handler]
+        [management.handler]
         [landing-site.config :only [db-settings delivery-settings]]
         [landing-site.groups.database :only[database-group]]
         [landing-site.groups.delivery :only[delivery-group]]        
@@ -24,7 +24,7 @@
 
 (defn wait-sec [n] (Thread/sleep (* 1000 n)))
 (def test-port 8087)
-(def signup-uri "/")
+(def signup-uri "/signup")
 ;;(def app-server (landing-site.handler/start test-port))
 (def test-user {:email "matthewburns@gmail.com" :full_name "bob smit" :phone "8182546028"})
 

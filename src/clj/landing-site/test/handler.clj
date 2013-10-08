@@ -70,4 +70,6 @@
 
 (def test-client-cfg (parse-string (slurp (:body (app (request :get "/clientconfig")))) true))
 (expect true (= (-> test-client-cfg :clientconfig :host_element) "stage"))
-)
+
+  
+  
