@@ -4,21 +4,21 @@
  :session-key "s0mes3cret"
  :session-max-age-seconds 1209600
  :db-port  3306
- :db-name  "test_mgmt"
+ :db-name  "management"
  :db-user  "root"
  :db-password "test123"
  :schema-file "resources/mgmt.sql"
  :mgmt-webapp-port 3000
  :mgmt-db-user "root"
  :mgmt-db-password "test123"
- :mgmt-db-name "test_mgmt"
+ :mgmt-db-name "management"
  :mgmt-db-port 3000
  :db-group-name "mgmt-db"
  :db-settings {:group-spec-name  "mgmt-db"
                :schema-file "resources/mgmt.sql"
                :db-username "root"
                :db-password "test1234"
-               :db-name "test_mgmt"
+               :db-name "management"
                :owner "pallet-admin"
                :provider :vmfest
                :node-count 1}
@@ -44,7 +44,7 @@
  :app-launch-cmd  "java -jar /home/pallet-admin/management.jar"
  :delivery-label "mgmt-delivery"
 
- :management-settings {:db-name "test_mgmt"
+ :management-settings {:db-name "management"
                        :db-username "root"
                        :db-password "test123"
                        :owner "pallet-admin"

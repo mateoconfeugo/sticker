@@ -14,10 +14,19 @@ CREATE TABLE user (
 id          INTEGER AUTO_INCREMENT PRIMARY KEY,
 created DATETIME  NOT NULL DEFAULT '0000-00-00 00:00:00',
 first_name VARCHAR(20),
+password TEXT,
+roles TEXT,
 last_name  VARCHAR(30),
-email_username     VARCHAR(120) NOT NULL,
+moniker     VARCHAR(120) NOT NULL,
 status ENUM('new', 'active', 'inactive', 'suspended', 'expired', 'banded', 'banished')
 );
+
+DROP TABLE IF EXISTS profile;
+CREATE TABLE profile (
+id          INTEGER AUTO_INCREMENT PRIMARY KEY,
+id_user INTEGER NULL,
+tag_name VARCHAR(30),
+query_uri TEXT);
 
 /*
 

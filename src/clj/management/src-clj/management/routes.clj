@@ -19,6 +19,11 @@
    ;; Client API
    [management.controllers.api]
    ;; Prevent cross domainn access of api resources
+   [ring.middleware.file :refer [wrap-file] ]
+   [ring.middleware.file-info :refer [wrap-file-info] ]
+   [ring.middleware.stacktrace :refer [wrap-stacktrace]]
+   [ring.middleware.reload :refer [wrap-reload]]
+   [ring.middleware.logger :only [wrap-with-logger]]
    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
    [ring.middleware.logger :refer [wrap-with-logger]]
    [ring.util.response :refer [response status]]
@@ -33,6 +38,7 @@
 ;;(derive ::admin ::publisher) ; give all the privileges available to publisher to the admin
 ;;(derive ::admin ::advertiser) ; give all the privileges available to advertiser to the admin
 
+
 (defn wrap-add-anti-forgery-cookie [handler & [opts]]
   "Mimics code in Shoreleave-baseline's customized ring-anti-forgery middleware."
   (fn [request]
@@ -42,12 +48,13 @@
         response))))
 
 (def user-routes (routes site-builder-editor/all-routes  user-mgmt-routes))
-;;(defroutes authorized-user-routes (context "/user/" request (wrap-authorize user-routes #{::user})))
-(defroutes authorized-user-routes (wrap-authorize user-routes #{::user}))
+(defroutes authorized-user-routes (context "/" request (wrap-authorize user-routes #{::user})))
+;;(defroutes authorized-user-routes (wrap-authorize user-routes #{::user}))
 (def admin-routes (routes site-builder-editor/all-routes  admin-mgmt-routes))
-;; (defroutes authorized-admin-routes (context "/admin/" request (wrap-authorize admin-routes #{::admin})))
-(defroutes authorized-admin-routes (wrap-authorize admin-routes #{::admin}))
-(def authorized-routes (routes authorized-user-routes authorized-admin-Routes))
+ (defroutes authorized-admin-routes (context "/" request (wrap-authorize admin-routes #{::admin})))
+;;(defroutes authorized-admin-routes (wrap-authorize admin-routes #{::admin}))
+
+(def authorized-routes (routes authorized-user-routes authorized-admin-routes))
 
 (defroutes static-routes
   (resources "/")
@@ -56,19 +63,24 @@
   (not-found "Not Found"))
 
 ;;(def webapp (site (routes public-resources-routes authorized-routes)))
-(def webapp (site  (routes public-routes
-                           static-routes
-                           (authenticate authorized-routes
-                                         {:allow-anon? true?
-                                          :login-uri "/login"
-                                          :default-landing-uri "/mgmt/user/1"
-                                          :credential-fn #(bcrypt-credential-fn @users %)
-                                          :workflows [(interactive-form)]
-                                          :unauthorized-handler #(-> (html5 [:h2 "You do not have sufficient privileges to access " (:uri %)])
-                                                                     response
-                                                                     (status 401))}))))
+(def webapp (site (->   (routes public-routes
+                                static-routes
+                                (authenticate authorized-routes
+                                              {:allow-anon? true?
+                                               :login-uri "/login"
+                                               :default-landing-uri "/mgmt/user/1"
+                                               :credential-fn #(bcrypt-credential-fn @users %)
+                                               :workflows [(interactive-form)]
+                                               :unauthorized-handler #(-> (html5 [:h2 "You do not have sufficient privileges to access " (:uri %)])
+                                                                          response
+                                                                          (status 401))}))
+                        wrap-with-logger
+                        wrap-file-info
+                        (wrap-reload '(management))
+                        wrap-stacktrace)))
+
 
 (comment
-                        wrap-with-logger
-                      wrap-add-anti-forgery-cookie
-                      wrap-anti-forgery)
+  wrap-with-logger
+  wrap-add-anti-forgery-cookie
+  wrap-anti-forgery)

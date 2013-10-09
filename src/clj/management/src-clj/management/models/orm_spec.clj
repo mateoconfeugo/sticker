@@ -9,6 +9,7 @@
 ;;        [riemann.client :only [send-event tcp-client]]
         [korma.db :only [defdb mysql]])
   (:require [clojure.core]
+            [clojure.edn :as edn :refer [read-string]]
             [management.config :refer [configure-mgmt-application]]) )
 
 ;; TODO: replace this with config
@@ -38,12 +39,30 @@
 (declare supported-app-release user-admin-account)
 (declare user-business-role user-business-account user-landing-site grouping-population grouping-community user-clique)
 
+(defentity user
+  (pk :id)
+  (table :user)
+  (database mgmt-db)
+  (fields  :created :id :first_name :last_name :status :moniker :roles :password)
+  (prepare (fn [{last :last :as v}]
+             (if last
+               (assoc v :last (clojure.string/upper-case last)) v)))
+  (has-one profile))
+
 (defentity profile
   (pk :id)
   (table :profile)
   (database mgmt-db)
   (fields :id :id_user :tag_name :query_uri)
   (belongs-to user))
+
+(comment
+    (transform (fn [{roles :roles :as v}]
+               (when roles (edn/read-string v)))
+  (transform (fn [{first :first :as v}]
+               (if first
+                 (assoc v :first (clojure.string/capitalize first)) v)))))
+
 
 (defentity admin-account
   (pk :id)

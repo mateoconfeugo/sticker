@@ -9,7 +9,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet"/>
     <link href="/css/font-awesome.css" rel="stylesheet"/>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/css/normalize.css"/> 
+    <link rel="stylesheet" href="/css/normalize.css"/>
     <link href="/css/main.css" rel="stylesheet"/>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -29,11 +29,11 @@
       <div id="main-body" class="box css"><div class="inner">
           <div class="title extra">
             <h2>Create your Gusto account.</h2>
-	    <form method="POST" action="/register">
+	    <form method="POST" action="/signup">
 	      <p class="text">
 		<span>
-		  <label for="email">Email</label>
-		  <input type="text" value="" name="email" id="email" placeholder="Email">
+		  <label for="username">Username</label>
+		  <input type="text" value="" name="username" id="email" placeholder="Username">
 		</span>
 	      </p>
 	      <p class="text">
@@ -42,12 +42,14 @@
 		  <input type="password" value="" name="password" id="password" placeholder="Password">
 		</span>
 	      </p>
+
 	      <p class="text">
 		<span>
 		  <label for="confirm_password">Confirm Password</label>
-		  <input type="password" value="" name="confirm_password" id="confirm_password" placeholder="Confirm password">
+		  <input type="password" value="" name="confirm" id="confirm" placeholder="Confirm password">
 		</span>
 	      </p>
+
 	      <input type="hidden" name="redirect" value="">
 	      <input type="hidden" name="invite_code" value="">
 	      <input type="hidden" name="country" value="">
@@ -78,13 +80,9 @@
 	<li><a href="https://stripe.com/help/contact">Contact</a></li>
       </ul>
     </div>
-    <script src="/js/lib/modernizr-2.6.2.min.js"></script> 
-    <script src="/js/lib/jquery.min.js"></script> 
+    <script src="/js/lib/modernizr-2.6.2.min.js"></script>
+    <script src="/js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="/js/management-debug.js"></script>
     <script type="text/javascript" src="/js/startup.js"></script>
   </body>
 </html>
-
-
-
-
