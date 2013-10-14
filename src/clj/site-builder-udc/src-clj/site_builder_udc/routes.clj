@@ -17,6 +17,7 @@
 
 (defroutes app-routes
   (c-route/resources "/")
+  (c-route/resources "/templates/" {:root "/templates"})
   (c-route/resources "/design/" {:root "templates"})
   (c-route/not-found "404 Page not found."))
 

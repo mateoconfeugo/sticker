@@ -12,7 +12,7 @@
  :mgmt-db-user "root"
  :mgmt-db-password "test123"
  :mgmt-db-name "management"
- :mgmt-db-port 3000
+ :mgmt-db-port 3306
  :db-group-name "mgmt-db"
  :db-settings {:group-spec-name  "mgmt-db"
                :schema-file "resources/mgmt.sql"

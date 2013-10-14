@@ -1,14 +1,20 @@
-(ns site-builder-udc.editor
+(ns site-builder-udc.dommy-editor
   ^{:author "Matthew Burns"
     :doc "Display Object containing the functionality build a web site"}
   (:require-macros [cljs.core.match.macros :refer [match]]
                    [cljs.core.async.macros  :refer [go]]
+                   [dommy.macros :refer [node sel sel1 deftemplate]])
                    [shoreleave.remotes.macros :as srm :refer [rpc]])
   (:require [cljs.core.async :refer [alts! chan >!! >! put!]]
+            [cljs.core.async.impl.ioc-helpers ]
+            [dommy.utils :as utils]
+            [dommy.core :as dommy]
             [flourish-common.utils.helpers :refer [click-chan]]
             [jayq.core :refer [$ text val on prevent remove-class add-class remove empty html children append]]
             [shoreleave.browser.storage.sessionstorage :refer [storage]]
-            [shoreleave.remote]))
+            [shoreleave.remote]
+            [site-builder-udc.views.editor :as tmpl :refer [html-editor]]))
+
 
 (def session (storage))
 (assoc! session :user-id 1)
@@ -73,12 +79,29 @@
          [:drop-snippet] (update-landing-site (assoc (nth val 1) :drop-channel ch))
          [:landing-site-updated] (render-workspace ch (nth val 1) ($ ".demo"))))
 
+(defn render [selector]
+  (let [_ (.log js/console (str "selector:  ") selector)
+        output-html (tmpl/html-editor {})
+        _ (.log js/console (str "output:  ") output-html)
+        ]
+    (at js/document selector (html-content output-html))
+    ))
+
+(defn render2 [selector] (at [selector] (html-content (tmpl/html-editor {}))))
+
+(defn render3 [] (at js/document g["body"] (html-content (tmpl/html-editor {}))))
+
 (defn new-editor
-  []
+  [selector]
   "Create the event channels and start the loop that feeds the event data to the dispatcher"
-  (let [save-channel (click-chan "#save-landing-site" :save-landing-site)
-        drop-channel (drop-channel ".demo" :drop-snippet extract-sb-tuple)
-        channels [save-channel drop-channel]]
-    (go (while true
-        (let [[val ch] (alts! channels)]
-          (dispatch ch val))))))
+  (let [
+        ;;        app-html (render selector)
+          app-html (render3)
+;;        save-channel (click-chan "#save-landing-site" :save-landing-site)
+;;        drop-channel (drop-channel ".demo" :drop-snippet extract-sb-tuple)
+;        channels [save-channel drop-channel]
+        ]
+;;    (go (while true
+;;    (let [[val ch] (alts! channels)]
+;;     (dispatch ch val)    )))
+    ))

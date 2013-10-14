@@ -1,5 +1,5 @@
 (ns site-builder-udc.views.editor
-  (:require [net.cgrand.enlive-html :refer [deftemplate defsnippet content]]))
+  (:require [net.cgrand.enlive-html :refer [deftemplate defsnippet content html-content]]))
 
 (def ^:dynamic *top-navbar-sel* [:div.navbar.navbar-inverse.navbar-fixed-top :div.navbar-inner])
 (defsnippet top-navbar "templates/top_nav_bar.html" *top-navbar-sel*
@@ -43,8 +43,7 @@
   [:div#grid-system] (content (grid-system settings))
   [:div#css-base] (content (css-base settings))
   [:div#components] (content (components settings))
-  [:div#javascript-components] (content (javascript-components settings))    
-  )
+  [:div#javascript-components] (content (javascript-components settings)))
 
 (deftemplate editor "templates/editor.html"
   [{:keys [] :as settings}]
@@ -55,6 +54,10 @@
   [:div#shareModal] (content (share-modal settings))
   [:div#feedbackModal] (content (feedback-modal settings)))
 
+(comment
+  (deftemplate editor "templates/editor.html"
+    [{:keys [] :as settings}]
+    ;;  [:body] (html-content (editor-snippet settings))
+    [:body] (html-content "<div>hello</div>")))
 
 (deftemplate site-builder  "templates/builder.html" [])
-

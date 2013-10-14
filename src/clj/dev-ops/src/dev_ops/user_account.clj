@@ -30,7 +30,7 @@
       (exec-script* "touch ham")))
 
 
-  
+
 ;; PAM create home dir on user login
 ;; add line to /etc/pam.d/common-account
 ;; session    required   pam_mkhomedir.so skel=/etc/skel/ umask=0022
@@ -38,7 +38,7 @@
 (defn manage-db-admins [session]
   "database adminstration users and groups creation"
   (-> session
-      (group "dbadmin")      
+      (group "dbadmin")
       (user "ncasim" :system true, :shell "/bin/bash", :group "dbadmin")
       (exec-script "su - ncasim && exit")))
 

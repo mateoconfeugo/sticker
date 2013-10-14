@@ -1,12 +1,18 @@
 (ns management.dev-ops-config
     "DEV-OPS settings that deterrmine howto set up the landing site server and its dependencies
      in the appropriate manner for the deployment environment"
-    (:use [management.config]
-          [management.dev-ops :only [pallet-release-target] :as release]
-          [pallet.configure :only [compute-service defpallet]]
-          [pallet.api :only[node-spec]]))
+    (:require [management.config :refer [configure-mgmt-application]]
+          [management.dev-ops :refer [pallet-release-target] :as release]
+          [pallet.configure :refer [compute-service defpallet]]
+          [pallet.api :refer [node-spec]]))
 
 (def install-owner "pallet-admin")
+
+(def cfg (configure-mgmt-application))
+(def root-dir (:root-dir cfg))
+(def db-user (:db-user cfg))
+(def db-password (:db-password cfg))
+(def db-name (:db-password cfg))
 
 ;; default node
 (def delivery-node-spec (node-spec :image {:image-id :java-mysql-postfix}))

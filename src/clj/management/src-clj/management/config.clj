@@ -6,7 +6,7 @@
 
 (defn apply-mgmt-configurations [cfg]
   (let [{:keys [mgmt-webapp-port mgmt-db-address mgmt-db-port mgmt-db-name mgmt-db-user
-                mgmt-db-password mgmt-home-dir mgmt-cloud-provider mgmt-app-root-dir]} cfg]
+                mgmt-db-password mgmt-home-dir mgmt-cloud-provider mgmt-app-root-dir root-dir]} cfg]
     (-> cfg
         (assoc :mgmt-webapp-port  (or (System/getenv "MGMT_PORT") (:mgmt-webapp-port cfg)))
         (assoc :mgmt-db-address (or (System/getenv "MGMT_DATABASE_HOST") (:mgmt-db-host cfg)))
@@ -16,7 +16,8 @@
         (assoc :mgmt-db-password (or (System/getenv "MGMT_DATABASE_PASSWORD") (:mgmt-db-password cfg)))
         (assoc :mgmt-home-dir (or (System/getenv "MGMT_HOME") (System/getProperty "user.home")))
         (assoc :mgmt-cloud-provider (or (System/getenv "LSBS_PALLET_PROVIDER") :qa-cloud))
-        (assoc :mgmt-app-root-dir (or (System/getenv "MGMT_HOME") (System/getProperty "user.home"))))))
+        (assoc :mgmt-app-root-dir (or (System/getenv "MGMT_HOME") (System/getProperty "user.home")))
+        (assoc :root-dir (or (System/getenv "MGMT_HOME") (System/getProperty "user.dir"))))))
 
 (defn configure-mgmt-application []
   (let [cfg (edn/read-string (slurp  "resources/config.edn")) ]

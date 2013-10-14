@@ -11,7 +11,7 @@
   [model])
 ;;  [:tr :td] (content "bar"))
 
-(defsnippet site-nav-header "templates/site-nav-header.html" [:nav.container-fluid]
+(defsnippet site-nav-header "templates/site-nav-header.html" [:nav.container]
   [site-name]
   [:a.brand] (content site-name))
 
@@ -29,8 +29,8 @@
   [:.menu-header]   (content drop_down_menu_name)
   [:ul.dropdown-menu] (content (map model  menu_item)))
 
-(def ^:dynamic *nav-bar-sel* [:nav.container-fluid])
+(def ^:dynamic *nav-bar-sel* [:nav.navbar])
 (defsnippet nav-bar  "templates/site-nav-header.html" *nav-bar-sel*
   [{:keys [title menu-data]}]
   [:a.brand] (content title)
-  [:ul#nav-bar-dropdown-menu] (html/content (map #(menu-model % menu-item-model)  menu-data)))
+  [:nav :ul] (html/content (map #(menu-model % menu-item-model)  menu-data)))

@@ -8,7 +8,8 @@
   :source-paths ["src-clj"]
   :min-lein-version "2.0.0"
   :main management.handler
-  :ring {:handler management.handler/app}
+  :ring {:handler management.handler/app :auto-reload? true :auto-refresh true
+         :reload-paths ["src-clj" "src-cljs" "resources/templates/user_dashboard.html"]}
   :dependencies [[org.clojure/clojure "1.5.1"] ; Lisp on the JVM
                  [cms "0.1.0"] ; Content management system
                  [flourish-common "0.1.0"] ; Common functionality of the gusto system
@@ -17,15 +18,18 @@
                  [cheshire "5.0.2"] ; JSON <-> clojure
                  [clj-aws-s3 "0.3.6"] ; Access Amazons S3 bitbuckets
                  [clj-ssh "0.5.6"]
+                 [abengoa/clj-stripe "1.0.3"]
+                 [heroku-clj "0.1.0-SNAPSHOT"]
                  [clojure-mail "0.1.3-SNAPSHOT"]
                  [clojurewerkz/scrypt "1.0.0"] ; Strong encryption and hashing
                  [com.ashafa/clutch "0.4.0-RC1"] ; CouchDB client
                  [com.cemerick/friend "0.2.0" :exclusions [xerces/xercesImpl]] ; Role based authentication
                  [com.cemerick/valip "0.3.2"  :exclusions [xerces/xercesImpl]]
                  [com.taoensso/timbre "2.2.0"] ; Logging
+                 [com.draines/postal "1.11.0"]
                  [clj-time "0.6.0"]
                  [compojure "1.1.5"] ; Web routing
-                 [enlive "1.1.1"] ; DOM manipulating
+                 [enlive "1.1.4"]
                  [domina "1.0.1"]
                  [de.ubercode.clostache/clostache "1.3.1"] ; Templationg
                  [himera "0.1.0-SNAPSHOT"] ; ClojureScript compiler service.
@@ -49,11 +53,20 @@
                  [shoreleave/shoreleave-remote "0.3.0"]
                  [shoreleave/shoreleave-remote-ring "0.3.0"]
                  [shoreleave "0.3.0"]
-                 [zookeeper-clj "0.9.1"]]
-  :plugins [[lein-ring "0.8.2"]
+                 [tentacles "0.2.6"]
+                 [zookeeper-clj "0.9.1"]
+                 [com.palletops/pallet "0.8.0-beta.9"]
+                 [com.palletops/pallet-vmfest "0.3.0-alpha.4"]
+                 [vmfest "0.3.0-alpha.5"]
+                 [org.clojars.tbatchelli/vboxjxpcom "4.2.4"]]
+  :plugins [[lein-ring "0.8.7"]
+            [lein-set-version "0.3.0"]
             [lein-cljsbuild "0.3.3"] ; clojurescript build
             [lein-marginalia "0.7.1"] ; literate programming
             [lein-pprint "1.1.1"]
+            [lein-bikeshed "0.1.3"] ; tell you your code is bad, and that you should feel bad.
+            [jonase/eastwood "0.0.2"] ; clojure lint
+            [lein-kibit "0.0.8"]  ;; static code analyzer
             [s3-wagon-private "1.1.2"] ; deploy to s3 bit bucket on amazon cloud
             [com.palletops/pallet-lein "0.6.0-beta.9"] ; lein depoyment via palletops
             [lein-expectations "0.0.7"] ; run expect test

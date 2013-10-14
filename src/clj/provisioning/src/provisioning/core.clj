@@ -26,7 +26,7 @@
 
 (defn deploy-servers []
   "deploy the necessary servers needed to accomplish the desired footprint")
-  
+
 
 (defn publish-intial-content []
   "push content from cms to servers")
@@ -47,7 +47,8 @@
   "make sure everything that needs to be install is up and operating")
 
 (defn signup-new-user
-  "top level object that ads a user to the system"
+  "top level object that ads a user to the system
+   1: Create a user account in a "
   [options]
   (let [operator (add-operating-agent options)
         user (add-user operator)
@@ -55,5 +56,3 @@
         schemas (publish-intial-content footprint)
         ad-networks (signup-adnetworks)]
     (audit operator user footprint ad-networks)))
-
-

@@ -13,15 +13,15 @@
             [ring.util.response :as resp]
             [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [clojure.string :as str]
-            [clojure.edn :as edn :refer [read-string]]
+            [clojure.edn]
             [hiccup.page :as h]
             [hiccup.element :as e]
             [korma.core :refer [insert values select where fields]]
             [taoensso.timbre :refer [info]]
             [management.misc :as misc]
+            [management.users :as users :refer [new-user-signup users]]
             [management.models.user :as user-model :refer [create]]
             [management.models.orm-spec :as orm :refer [user]]
-            [management.users :as users :refer (users)]
             [site-builder-udc.routes :as site-builder-editor :refer [all-routes]]
             [site-builder-udc.views.editor :refer [editor]]
             [management.views.tools :refer [user-dashboard]]
@@ -40,17 +40,20 @@
 (defn- create-user
   "Probably useless function that needs to be removed"
   [{:keys [username password admin] :as user-data}]
-  (-> (dissoc user-data :admin)
+  (-> (dissoc user-data ::users/admin)
       (assoc :identity username
              :password (creds/hash-bcrypt password)
-             :roles (into #{::users/user} (when admin [::users/admin])))))
+             :roles (into #{::users/user} (when admin [::users/admin])))
+;;      (new-user-signup)
+      ))
 
 (defn lookup-user
   "Retrieve the authenticaten map for a username against the database"
   [username]
   (let [model (first (select user (fields [:moniker :username ] :password :roles) (where {:moniker username})))
         tmp (assoc-in model [:password] (creds/hash-bcrypt (:password model)))
-        tmp1 (assoc-in tmp [:roles] (edn/read-string (:roles model)))]
+        tmp1 (assoc-in tmp [:roles] (clojure.edn/read-string (:roles model)))
+        _ (info (format "USER: %s" tmp1))]
     tmp1))
 
 (defn- signup-form
@@ -75,9 +78,9 @@
     [:h3 "Login"]
     [:div {:class "row"}
      [:form {:method "POST" :action "login" :class "columns small-4"}
-      [:div "Username" [:input {:type "text" :name "username"}]]
-      [:div "Password" [:input {:type "password" :name "password"}]]
-      [:div [:input {:type "submit" :class "button" :value "Login"}]]]]]])
+      [:div "Username" [:input {:type "text" :name "username" :id "username"}]]
+      [:div "Password" [:input {:type "password" :name "password" :id "password"}]]
+      [:div [:input {:type "submit" :class "button" :value "Login" :id "submit-login"}]]]]]])
 
 (compojure/defroutes site-routes
   (GET "/" req (resp/file-response "templates/signup.html" {:root "resources"}))

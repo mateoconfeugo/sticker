@@ -6,6 +6,7 @@
         [management.config :only [configure-mgmt-application]]
         [management.models.orm-spec :as orm :only [user profile]]
         [management.views.snippets]
+;;        [site-builder-udc.views.editor :refer [editor editor-snippet]]
 ;;        [riemann.client :only [send-event tcp-client]]
         [korma.db :only [defdb mysql]]
         [korma.core :only[select where with]]))
@@ -29,6 +30,7 @@
   {:clicks 31 :visits 20 :conversions 2})
 
 (defn get-profile-settings
+  "Assemble the profile of tools and preferences available to the particular user"
   [user-data]
   (assoc user-data :tools {:dashboard {:description "The objects that make up the display upon login"
                                        :display-tuple [{:order 1
