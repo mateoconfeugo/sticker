@@ -3,8 +3,7 @@
   :min-lein-version "2.0.0"
 ;;  :hooks [leiningen.cljsbuild]
   :source-paths ["src-clj"]
-  :ring {:handler site-builder-udc.handler/war-handler
-         :init site-builder-udc.handler/init
+  :ring {:handler site-builder-udc.handler/war-handler   :init site-builder-udc.handler/init
          :destroy site-builder-udc.handler/destroy}
   :main site-builder-udc.server
   :dependencies [[amalloy/ring-gzip-middleware "0.1.3" :exclusions [org.clojure/clojure]]
