@@ -1,7 +1,7 @@
 (ns management.config
   ^{:author "Matthew Burns"
     :doc "Configuration settings for the managment aspects of the application"}
-  (:require [clojure.edn :as edn :refer [read-string]]
+  (:require [ clojure.edn]
             [site-builder-udc.config :refer [apply-site-builder-configurations]]))
 
 (defn apply-mgmt-configurations [cfg]
@@ -20,7 +20,7 @@
         (assoc :root-dir (or (System/getenv "MGMT_HOME") (System/getProperty "user.dir"))))))
 
 (defn configure-mgmt-application []
-  (let [cfg (edn/read-string (slurp  "resources/config.edn")) ]
+  (let [cfg (clojure.edn/read-string (slurp  "resources/config.edn")) ]
     (-> cfg
         apply-site-builder-configurations
         apply-mgmt-configurations)))

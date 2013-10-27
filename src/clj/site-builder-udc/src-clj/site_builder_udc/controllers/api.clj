@@ -12,19 +12,28 @@
 
 (declare ^:dynamic *cfg*)
 
-(comment
+(comment "What different types of destinations are available as publishinger targets?
+  1) heroku
+  2) delivery network
+ What information is contained in the destination?
+ What is the output of the publishing process
+ How is the authoring content integrated with the git mangaged lein project template
+")
+
 (defn publish
-  [{:keys [landing-site-id destination-id] :as request}]
-  "Publish landing site to the destination"
+  "Publish landing site to the destination "
+  [{:keys [landing-site-id destination-id doc-db] :as request}]
   (let [landing-site (with-db doc-db (get-document landing-site-id))
         destination (with-db doc-db (get-document destination-id))
-        mover (get-mover destination)]
-    (publish-to destination landing-site mover))
-))
+;;        mover (get-mover destination)
+        ]
+    ;;    (publish-to destination landing-site mover)
+;;    (publish-to destination landing-site)
+    ))
 
 (defn save
-  [{:keys [page-html landing-site-id user-id] :as request}]
   "Persist the user authoring edits"
+  [{:keys [page-html landing-site-id user-id] :as request}]
   (let [ _ (info request)
         mysql-db {:subprotocol "mysql"
                   :subname (str "//" (:mgmt-db-host *cfg*) ":" (:mgmt-db-port *cfg*) "/" (:mgmt-db-name *cfg*))
@@ -42,8 +51,8 @@
     (:page-html saved-site)))
 
 (defn update
-  [{:keys [xpath page-html snippet-html landing-site-id user-id uuid] :as request}]
   "Persist the user authoring edits"
+  [{:keys [xpath page-html snippet-html landing-site-id user-id uuid] :as request}]
   (let [mysql-db {:subprotocol "mysql"
                   :subname (str "//" (:mgmt-db-host *cfg*) ":" (:mgmt-db-port *cfg*) "/" (:mgmt-db-name *cfg*))
                   :user (:mgmt-db-user *cfg*)

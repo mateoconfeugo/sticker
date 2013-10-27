@@ -4,25 +4,25 @@
   :source-paths ["src-clj"]
   :min-lein-version "2.0.0"
   :hooks [leiningen.cljsbuild]  
-  :dependencies [[cheshire "5.0.2"]
+  :dependencies [[cheshire "5.2.0"]
                  [com.ashafa/clutch "0.4.0-RC1"] ; CouchDB client https://github.com/clojure-clutch/clutch                 
-                 [enlive "1.1.1"]
+                 [enlive "1.1.4"]
                  [jayq "2.4.0"]
-                 [enfocus "2.0.0-beta1"] ; client side enlive                 
-                 [me.raynes/fs "1.4.0"]                                  
-                 [org.clojure/tools.reader "0.7.6"]
+                 [enfocus "2.0.0"] ; client side enlive                 
+                 [me.raynes/fs "1.4.5"]                                  
+                 [org.clojure/tools.reader "0.7.9"]
                  [org.clojure/clojure "1.5.1"]
-                 [org.clojure/clojurescript "0.0-1853"]
+                 [org.clojure/clojurescript "0.0-1934"]
                  [org.clojure/core.async "0.1.0-SNAPSHOT"]
-                 [org.clojure/core.match "0.2.0-rc5"]
+                 [org.clojure/core.match "0.2.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [korma "0.3.0-RC5"] ; ORM                                                 
-                 [metis "0.3.0"] ; Form validation                                 
-                 [ring "1.1.8"]
-                 [ring/ring-jetty-adapter "1.1.6"]
-                 [domina "1.0.1"]
-                 [org.clojure/google-closure-library-third-party "0.0-2029"]                 
-                 [amalloy/ring-gzip-middleware "0.1.2" :exclusions [org.clojure/clojure]]                 
+                 [metis "0.3.3"] ; Form validation                                 
+                 [ring "1.2.0"]
+                 [ring/ring-jetty-adapter "1.2.0"]
+                 [domina "1.0.2"]
+                 [org.clojure/google-closure-library-third-party "0.0-2029-2"]                 
+                 [amalloy/ring-gzip-middleware "0.1.3" :exclusions [org.clojure/clojure]]                 
                  [com.cemerick/piggieback "0.1.0"]                                  
                  [shoreleave/shoreleave-remote "0.3.0"]
                  [shoreleave/shoreleave-remote-ring "0.3.0"]
@@ -32,9 +32,9 @@
             [lein-expectations "0.0.7"]
             [lein-marginalia "0.7.1"]            
             [lein-autoexpect "0.2.5"]]
-  :profiles {:dev {:dependencies [[clj-stacktrace "0.2.4"]
+  :profiles {:dev {:dependencies [[clj-stacktrace "0.2.7"]
                                   [lein-autodoc "0.9.0"]                              
-                                  [expectations "1.4.33"]]}}
+                                  [expectations "1.4.56"]]}}
   :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/" :username :env  :passphrase :env}]
                  ["sonatype-staging"  {:url "https://oss.sonatype.org/content/groups/staging/"}]]
   :cljsbuild {

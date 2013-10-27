@@ -9,7 +9,7 @@
 ;;        [riemann.client :only [send-event tcp-client]]
         [korma.db :only [defdb mysql]])
   (:require [clojure.core]
-            [clojure.edn :as edn :refer [read-string]]
+            [clojure.edn]
             [management.config :refer [configure-mgmt-application]]) )
 
 ;; TODO: replace this with config
@@ -58,7 +58,7 @@
 
 (comment
     (transform (fn [{roles :roles :as v}]
-               (when roles (edn/read-string v)))
+               (when roles (clojure.edn/read-string v)))
   (transform (fn [{first :first :as v}]
                (if first
                  (assoc v :first (clojure.string/capitalize first)) v)))))
