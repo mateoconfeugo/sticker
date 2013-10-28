@@ -30,22 +30,21 @@
   (or (System/getenv "SITE_BUILDER_DATABASE_API_PASSWORD") (:api-password *cfg*)))
 
 (defn site-builder-resource
-  [user]
+  [prefix username sb-db-host db-api-key db-api-password]
   "Assemble the database dsn path for a site-builder user
    authoring artifacts and resources"
-  (assoc (cemerick.url/url (get-site-builder-db-host) (str (get-site-builder-db-username-prefix ) (:username user)))
-    :username (get-site-builder-db-api-key)
-    :password (get-site-builder-db-api-password)))
+  (assoc (cemerick.url/url sb-db-host (format "%s-%s" prefix username))
+    :username db-api-key :password db-api-password))
 
 (defn get-landing-sites
-  [db user]
+  [db prefix username]
   "Get a list of all the users landing site"
-  (->> (clutch/get-view db (str (get-site-builder-db-username-prefix ) "-" (:username user)) :all)
+  (->> (clutch/get-view db (format "%s-%s" prefix username) :all)
        (map (juxt :key :value))
        (into {})
        keywordize-keys))
 
 (defn site-builder-db
-  [user]
+  [prefix user]
   "Get the users authoring database for site-builder artifacts and resources"
-  (clutch/get-database (str (get-site-builder-db-username-prefix) "-" (:username user))))
+  (clutch/get-database (format "%s-%s" prefix user)))
