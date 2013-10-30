@@ -1,10 +1,10 @@
 (ns landing-site.controllers.heatmap
-  (:use [cheshire.core :only [parse-string generate-string]]
+  (:require [cheshire.core :only [parse-string generate-string]]
         [clj-logging-config.log4j :as log-config]        
         [clojure.tools.logging :as log]
-        [compojure.core :only [defroutes POST]]
-        [landing-site.config :only[cfg heatmap-path] :as app]
-        [ring.util.response :only [content-type response redirect]]))
+        [compojure.core :refer [defroutes POST]]
+        [landing-site.config :refer [cfg heatmap-path] :as app]
+        [ring.util.response :refer [content-type response redirect]]))
 
 (log-config/set-logger! :level :debug
                         :out (org.apache.log4j.FileAppender.

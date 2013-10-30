@@ -1,13 +1,13 @@
 # delivery-engine
 
-FIXME: write description
+Ad delivery engine component that retreives listings when given query along with some other data.
 
 ## Usage
 
-FIXME: write
+mvn -Dmaven.tomcat.port=8182 tomcat:run-war
 
 ## License
 
-Copyright (C) 2012 FIXME
+Copyright (C) 2012 Matt Burns
 
 Distributed under the Eclipse Public License, the same as Clojure.

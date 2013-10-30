@@ -1,0 +1,12 @@
+{
+ ;; Core config
+ ;; -----------
+ :lead-generation-port 8090
+ :lead-generation-dsn "logs/heatmap.log"
+ ;; Sessions and Cookies
+ ;; --------------------
+ :cookie-name "gusto"
+ :session-key "s0mes3cret"
+ :session-max-age-seconds 1209600
+}
+

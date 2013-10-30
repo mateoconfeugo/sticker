@@ -1,13 +1,13 @@
 # dev-ops
 
-A Clojure library designed to ... well, that part is up to you.
+The thinking on this library was to move all the dev ops for the flourish system into a central library - not sure if this is a good idea so it is serving as a placeholder project.
 
 ## Usage
 
-FIXME
+
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns
 
 Distributed under the Eclipse Public License, the same as Clojure.

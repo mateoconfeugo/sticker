@@ -1,13 +1,13 @@
 # cms
 
-A Clojure library designed to ... well, that part is up to you.
+Library for working with content managemed resourcess and other original user authored content
 
 ## Usage
 
-FIXME
+(use 'cms)
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns
 
 Distributed under the Eclipse Public License, the same as Clojure.

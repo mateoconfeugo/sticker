@@ -23,9 +23,6 @@
 (defn update-landing-site-framework-config [model]
   (assoc model :layout-config 1))
 
-(defn  push-to-editor [model]
-  (assoc model :site-html 1))
-
 (defn save-landing-site
   [{:keys [landing-site-id model]}]
   (-> model
@@ -35,26 +32,9 @@
       ;;        update-base-html
       push-to-editor))
 
-(defn save-landing-site-test
-  [xpath]
-  (generate-string  {:uuid (new-uuid) :xpath xpath}))
 
-;;  [{:keys [uuid xpath dom layout] :as model}]
-(defn update-landing-site
-  [{:keys[uuid xpath dom layout domain ls-id cfg] :as model}]
-  (generate-string  {:uuid uuid :xpath xpath :dom dom :layout layout}))
-
-
-(comment
-  (defn update-landing-site
-    [{:keys[uuid xpath dom layout domain ls-id cfg] :as model}]
-    (let [sf (update-snippet model)
-          tmpl-path (str (-> cfg :website-dir) "/" domain "/site/landing_site/" ls-id "/cms-resources/views/host_dom.clj")
-          fn-ns (str "cms.site-builder." uuid "/render" )
-          _ (update-base-template {:selector [(str ".uuid_" uuid)] :snippet-function fs-ns :template-path tmpl-path})
-          (load-file (str tmpl-path  "/" uuid "/" uuid ".clj"))]
-      (fs-ns  model)))
-
+(defn  push-to-editor [model]
+  (assoc model :site-html 1))
 
   (defpipe write-snippet-template []
     "Create the html file that the snippet function will populate
@@ -69,9 +49,6 @@
   (defpipe update-base-html []
     "Add, remove, change the html in the base html template file")
 
-  (defpipe update-component-list []
-    "Add, remove, change the html in the base html template file")  
-
   "Provide the updated html bound to the updated content"
 
   (defpipeline create-component 
@@ -81,6 +58,31 @@
     update-base-template
     update-base-html
     push-to-editor)
+
+
+(comment
+(defn save-landing-site-test
+  [xpath]
+  (generate-string  {:uuid (new-uuid) :xpath xpath}))
+
+;;  [{:keys [uuid xpath dom layout] :as model}]
+(defn update-landing-site
+  [{:keys[uuid xpath dom layout domain ls-id cfg] :as model}]
+  (generate-string  {:uuid uuid :xpath xpath :dom dom :layout layout}))
+
+  
+  (defn update-landing-site
+    [{:keys[uuid xpath dom layout domain ls-id cfg] :as model}]
+    (let [sf (update-snippet model)
+          tmpl-path (str (-> cfg :website-dir) "/" domain "/site/landing_site/" ls-id "/cms-resources/views/host_dom.clj")
+          fn-ns (str "cms.site-builder." uuid "/render" )
+          _ (update-base-template {:selector [(str ".uuid_" uuid)] :snippet-function fs-ns :template-path tmpl-path})
+          (load-file (str tmpl-path  "/" uuid "/" uuid ".clj"))]
+      (fs-ns  model)))
+
+  
+  (defpipe update-component-list []
+    "Add, remove, change the html in the base html template file")  
 
   (defpipeline retrieve-component 
     push-to-editor)

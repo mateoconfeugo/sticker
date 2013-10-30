@@ -1,0 +1,92 @@
+<html lang="en">
+  <head>
+    <title>Gusto User Dashboard</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link href="/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/css/font-awesome.css" rel="stylesheet"/>
+    <link href="/css/bootstrap-responsive.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/normalize.css"/> 
+    <link href="/css/main.css" rel="stylesheet"/>
+    <link href="/css/modern_styles.css" rel="stylesheet"/>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+    <!--    <link rel="shortcut icon" href="/images/favicon.ico"> -->
+    <link href="http://fonts.googleapis.com/css?family=Comfortaa&subset=latin" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Belleza&subset=latin" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+	<form  role="form" id="creditcard-form">
+	  <fieldset>
+	    <legend>Billing Information</legend>
+	    <label>First Name:</label><input name="firstName" type="text" size="50" class="required">
+	    <label>Last Name:</label><input name="lastName" type="text" size="50" class="required">
+	    <label>Company (optional):</label><input name="company" type="text" size="50">
+	    <label>Street Address:</label><input name="address1" type="text" value="" size="50">
+	    <label>Street Address (2):</label><input name="address2" type="text" value="" size="50">
+	    <label>City:</label><input name="city" type="text" value="" size="50">
+	    <label>State/Province:</label><input name="state" type="text" value="" size="50">
+	    <label>Zip/Postal Code:</label><input name="zip" type="text" value="" size="50">
+	    <label>Country:</label><input name="country" type="text" value="" size="50">
+	    <label>Phone:</label><input name="phone" type="text" value="" size="50">
+	  </fieldset>
+	  <fieldset>
+	    <legend>Credit Card (required)</legend>
+	    <label>Credit Card Number:</label><input name="CCNo" type="text" value="" size="19" maxlength="40">
+	    <label>Expiry Date:</label> <select name="CCExpiresMonth">
+              <option value="" SELECTED>--Month--
+              <option value="01">January (01)
+              <option value="02">February (02)
+              <option value="03">March (03)
+              <option value="04">April (04)
+              <option value="05">May (05)
+              <option value="06">June (06)
+              <option value="07">July (07)
+              <option value="08">August (08)
+              <option value="09">September (09)
+              <option value="10">October (10)
+              <option value="11">November (11)
+              <option value="12">December (12)
+	    </select> /
+	    <select name="CCExpiresYear">
+              <option value="" SELECTED>--Year--
+              <option value="04">2004
+              <option value="05">2005
+              <option value="06">2006
+              <option value="07">2007
+              <option value="08">2008
+              <option value="09">2009
+              <option value="10">2010
+              <option value="11">2011
+              <option value="12">2012
+              <option value="13">2013
+              <option value="14">2014
+              <option value="15">2015
+              <option value="16">2016
+              <option value="17">2018
+              <option value="18">2019
+	    </select>
+	  </fieldset>
+	  <fieldset>
+	    <legend>Additional Information</legend>
+	    <label>Contact Email:</label><input name="contactEmail" type="text" value="" size="50">
+	    <label>Special Notes:</label><textarea name="notes" cols="45" rows="4"></textarea>
+	  </fieldset>
+	  <input name="Submit" type="submit" value="Add Card">
+	</form>
+      </div>
+    </div>
+    <footer id="server_message_channel"></footer>  
+    <script src="/js/lib/modernizr-2.6.2.min.js"></script> 
+    <script src="/js/lib/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/management-debug.js"></script>
+    <script type="text/javascript" src="/js/startup.js"></script>
+  </body>
+</html>

@@ -1,11 +1,31 @@
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="css/modern_styles.css">
+</head>
 <body>
-<h2>Login</h2>
-
-<form action="/login" method="POST">
-Username: <input type="text" name="username" value="" /><br />
-Password: <input type="password" name="password" value="" /><br />
-<input type="submit" name="submit" value="submit" /><br />
-</form>
+    <form action="login" method="post" id="loginForm" novalidate>
+        <fieldset>
+            <legend>Gusto Login</legend>
+            <div>
+              <label for="username">Username</label>
+              <input type="text" name="username" id="username"/>
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password"/>
+            </div>
+            <div>
+              <label for="submit"></label>
+              <input class="button" type="submit" value="Login &rarr;" id="submit">
+            </div>
+        </fieldset>
+    </form>
+    <script src="/js/management-debug.js"></script>
 </body>
 </html>
