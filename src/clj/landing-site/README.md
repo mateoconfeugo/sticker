@@ -1,10 +1,10 @@
 # management
 
-FIXME
+Landing site delivery engine that serves the published landing sites
 
 ## Prerequisites
 
-You will need [Leiningen][1] 1.7.0 or above installed.
+You will need [Leiningen][1] 2 or above installed.
 
 [1]: https://github.com/technomancy/leiningen
 
@@ -12,8 +12,8 @@ You will need [Leiningen][1] 1.7.0 or above installed.
 
 To start a web server for the application, run:
 
-    lein ring server
+java -jar landing-site.jar
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns

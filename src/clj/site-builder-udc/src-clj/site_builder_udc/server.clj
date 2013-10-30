@@ -1,6 +1,8 @@
 (ns site-builder-udc.server
   "Server handles for repl development and `run` hooks"
-  (:require [clojure.edn :as edn :refer [read-string]]
+  (:refer-clojure :exclude [read-string]) ; suppress the shadowing warning
+  (:require [clojure.core :as core]
+            [clojure.edn :as edn :refer [read-string]]
             [site-builder-udc.config :refer [apply-site-builder-configurations]]
             [site-builder-udc.handler :as handler]
             [ring.server.standalone :as ring-server]))

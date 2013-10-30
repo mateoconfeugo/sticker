@@ -2,6 +2,7 @@
   ^{:author "Matthew Burns"
     :doc "Assemble the routes clients use to access the static and dynamically generated resources
           that make up the application. Compose the rpc api from the business components"}
+  (:refer-clojure :exclude [escape-html]) ; suppress the shadowing warning
   (:require ;; Authentication and authorization framework
    [cemerick.friend :refer [authorize logout authenticate wrap-authorize]]
    [cemerick.friend.credentials  :refer [bcrypt-credential-fn]]
@@ -10,7 +11,6 @@
    [compojure.core :refer [routes defroutes context]]
    [compojure.handler :as handler :refer [site]]
    [compojure.route :refer[files resources not-found]]
-   [hiccup.page :refer [html5]]
    ;; Application WDC Business Components
    [site-builder-udc.routes :as site-builder-editor :refer [all-routes]]
    [management.controllers.public :refer [public-routes]]
@@ -27,7 +27,8 @@
    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
    [ring.middleware.logger :refer [wrap-with-logger]]
    [ring.util.response :refer [response status]]
-   [management.users :refer [users]]))
+   [management.users :refer [users]]
+   ))
 
 ;; TODO: Install channel security so that the stripe payment gateway related functionality is made to use https
 
@@ -47,11 +48,18 @@
         (assoc-in response [:cookies "__anti-forgery-token"] token)
         response))))
 
-(def user-routes (routes site-builder-editor/all-routes  user-mgmt-routes))
+(def user-routes (routes
+;;                  site-builder-editor/all-routes
+                  user-mgmt-routes))
+
+
+(def admin-routes (routes
+;;                   site-builder-editor/all-routes
+                   admin-mgmt-routes))
 (defroutes authorized-user-routes (context "/" request (wrap-authorize user-routes #{::user})))
+(defroutes authorized-admin-routes (context "/" request (wrap-authorize admin-routes #{::admin})))
+
 ;;(defroutes authorized-user-routes (wrap-authorize user-routes #{::user}))
-(def admin-routes (routes site-builder-editor/all-routes  admin-mgmt-routes))
- (defroutes authorized-admin-routes (context "/" request (wrap-authorize admin-routes #{::admin})))
 ;;(defroutes authorized-admin-routes (wrap-authorize admin-routes #{::admin}))
 
 (def authorized-routes (routes authorized-user-routes authorized-admin-routes))
@@ -71,7 +79,7 @@
                                                :default-landing-uri "/mgmt/user/1"
                                                :credential-fn #(bcrypt-credential-fn @users %)
                                                :workflows [(interactive-form)]
-                                               :unauthorized-handler #(-> (html5 [:h2 "You do not have sufficient privileges to access " (:uri %)])
+                                               :unauthorized-handler #(-> "<html><body><div><h2>Not authorized</h2></div></body></html>"
                                                                           response
                                                                           (status 401))}))
                         wrap-with-logger

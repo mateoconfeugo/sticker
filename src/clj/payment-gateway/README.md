@@ -1,13 +1,12 @@
 # payment-gateway
 
-A Clojure library designed to ... well, that part is up to you.
+Abstract out the credit card handling - right now the back end is Stripe based
 
 ## Usage
 
-FIXME
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns
 
 Distributed under the Eclipse Public License, the same as Clojure.

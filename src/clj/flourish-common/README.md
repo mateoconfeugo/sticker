@@ -1,13 +1,13 @@
 # flourish-common
 
-A Clojure library designed to ... well, that part is up to you.
+Common functions used by multiple components of the system both clojure and clojurescript
 
 ## Usage
 
-FIXME
+(use 'flourish-common)
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns
 
 Distributed under the Eclipse Public License, the same as Clojure.

@@ -1,0 +1,39 @@
+* What is the aspect of the value add propostion I'm addressing?
+That a person can become a new user and with in minutes can have a version controled publishing engine and pushed out a default cutting edge responsive marketing web application in the cloud that they can go and see.
+
+*Marketing Applications of data-mmining techniques are in marketing for tasks such as
+** targetd marketing
+** online advertising
+** recommendations for croosselling
+** Lead Generation
+** Social Media marketing
+
+Data-driven decission making refers to the practice of basing decisions on the analyst of data rather than purely on intuition.
+
+* Common types of data mining tasks
+** Classification and probability estimation
+** Regression
+** Similarity matching
+** Clustering
+** Co-occurance grouping
+** Profiling
+** Link Prediction
+** Data Reduction
+** Causal Modeling
+
+* Data Mining and Its Results
+** Sites
+** Results from optimazations that are driving system behavior
+How these are both realized in the production system
+*** Storm
+*** repl client server
+*** heroku
+*** pallet
+
+* Data mining is a process of stages
+** Business Understanding
+** Data Understanding
+** Data Preparation
+** Modeling
+** Evaluation
+** Deployment

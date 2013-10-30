@@ -9,7 +9,7 @@
   :dependencies [[cheshire "5.2.0"] ; JSON <-> clojure 
                  [compojure "1.1.5"] ; Web routing https://github.com/weavejester/compojure
                  [com.ashafa/clutch "0.4.0-RC1"] ; CouchDB client https://github.com/clojure-clutch/clutch
-                 [com.taoensso/timbre "2.6.2"] ; Logging https://github.com/ptaoussanis/timbre
+                 [com.taoensso/timbre "2.6.3"] ; Logging https://github.com/ptaoussanis/timbre
                  [de.ubercode.clostache/clostache "1.3.1"] ; Templationg                 
                  [enlive "1.1.4"] ; DOM manipulating                                   
                  [flourish-common "0.1.0"]  ; Common functionality of the gusto system                 
@@ -19,7 +19,7 @@
                  [org.clojure/core.match "0.2.0"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
                  [org.clojure/clojure "1.5.1"]  ; Lisp on the JVM                                                 
                  [ring-middleware-format "0.3.1"]                 
-                 [ring/ring-jetty-adapter "1.2.0"] ; Web Server https://github.com/ring-clojure/ring
+                 [ring/ring-jetty-adapter "1.2.1"] ; Web Server https://github.com/ring-clojure/ring
                  [ring.middleware.logger "0.4.3"]
                  [ring-mock "0.1.5"]]
   :plugins [[lein-ring "0.8.5"]
@@ -35,12 +35,12 @@
   :main cms.handler
   :ring {:handler cms.handler/app}
   :profiles  {:dev {:dependencies [[ring-mock "0.1.5"]
-                                   [ring/ring-devel "1.2.0"]
+                                   [ring/ring-devel "1.2.1"]
                                    [clj-webdriver "0.6.0"]
                                    [lein-autodoc "0.9.0"]                              
                                    [expectations "1.4.56"]
                                    [org.clojure/tools.trace "0.7.6"]
-                                   [vmfest "0.3.0-beta.3"]]}}
+                                   [vmfest "0.3.0-rc.1"]]}}
   :cljsbuild {
               :repl-listen-port 9000
               :repl-launch-commands

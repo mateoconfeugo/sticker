@@ -18,6 +18,8 @@
                  [cheshire "5.2.0"] ; JSON <-> clojure
                  [clj-aws-s3 "0.3.7"] ; Access Amazons S3 bitbuckets
                  [clj-ssh "0.5.6"]
+                 [clj-jgit "0.6.1"]
+                 [org.clojure/core.cache "0.5.0"]
                  [abengoa/clj-stripe "1.0.3"]
 ;;                 [org.clojars.technomancy/heroku-api "0.1-SNAPSHOT"]
                  [heroku-clj "0.1.0-SNAPSHOT"]
@@ -29,12 +31,12 @@
                  [com.ashafa/clutch "0.4.0-RC1"] ; CouchDB client
                  [com.cemerick/friend "0.2.0" :exclusions [xerces/xercesImpl]] ; Role based authentication
                  [com.cemerick/valip "0.3.2"  :exclusions [xerces/xercesImpl]]
-                 [com.taoensso/timbre "2.6.2"] ; Logging
+                 [com.taoensso/timbre "2.6.3"] ; Logging
                  [com.draines/postal "1.11.0"]
                  [clj-time "0.6.0"]
-
+                 [github-webhook-heroku-deployment "1.0.0"]
                  ;;                 [clj-http "0.7.7"]
-                 [http-kit "2.1.12"]
+                 [http-kit "2.1.13"]
                  [compojure "1.1.5"] ; Web routing
                  [enlive "1.1.4"]
                  [domina "1.0.2"]
@@ -44,20 +46,25 @@
                  [jayq "2.4.0"]
                  [korma "0.3.0-RC5"] ; ORM
                  [liberator "0.9.0"] ; WebMachine(REST state machine) port to clojure
+                 [leiningen "2.3.3"]
+;;                 [landing-site/lein-template "0.1.0"]
                  [me.raynes/fs "1.4.5"] ; File manipulation tools
+                 [com.cemerick/pomegranate "0.2.0"]
+                 [stencil "0.3.2"]
                  [metis "0.3.3"] ; Form validation
                  [mysql/mysql-connector-java "5.1.26"] ; mysql jdbc
                  [org.clojure/java.jdbc "0.2.3"] ; jdbc client
                  [org.apache.httpcomponents/httpclient-osgi "4.3.1"]
                  [org.clojure/google-closure-library-third-party "0.0-2029-2"]
-                 [org.clojure/clojurescript "0.0-1934"]
+                 [org.clojure/clojurescript "0.0-1978"]
                  [org.clojure/core.async "0.1.242.0-44b1e3-alpha"]
                  [org.clojure/core.match "0.2.0"]
                  [antler/postmark "1.2.0"]
-                 [riemann-clojure-client "0.2.6"] ; Monitoring client
+                 [riemann-clojure-client "0.2.8"] ; Monitoring client
                  [ring.middleware.logger "0.4.3"]
+
                  [org.clojars.pallix/xml-apis "2.5.0"]
-                 [ring/ring-jetty-adapter "1.2.0"] ; Web Server
+                 [ring/ring-jetty-adapter "1.2.1"] ; Web Server
                  [shoreleave/shoreleave-remote "0.3.0"]
                  [shoreleave/shoreleave-remote-ring "0.3.0"]
                  [shoreleave "0.3.0"]
@@ -65,9 +72,10 @@
                  [zookeeper-clj "0.9.3"]
                  [com.palletops/pallet "0.8.0-RC.3"]
                  [com.palletops/pallet-vmfest "0.3.0-beta.2"]
-                 [vmfest "0.3.0-beta.3"]
-                 [org.clojars.tbatchelli/vboxjxpcom "4.2.4"]]
+                 [vmfest "0.3.0-rc.1"]
+                 [org.clojars.tbatchelli/vboxjxpcom "4.3.0"]]
   :plugins [[lein-ring "0.8.7"]
+            [landing-site/lein-template "0.1.0"]
             [lein-set-version "0.3.0"]
             [lein-cljsbuild "0.3.3"] ; clojurescript build
             [lein-marginalia "0.7.1"] ; literate programming
@@ -83,17 +91,16 @@
             [lein-cloverage "1.0.2"]] ; profiler
   :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/" :username :env :passphrase :env}]
                  ["sonatype-staging"  {:url "https://oss.sonatype.org/content/groups/staging/"}]]
-
   :profiles  {:dev {:dependencies [[expectations "1.4.56"]
                                    [org.clojure/tools.trace "0.7.6"]
                                    [ring-mock "0.1.5"]
-                                   [ring/ring-devel "1.2.0"]
-                                   [vmfest "0.3.0-beta.3"]]}
+                                   [ring/ring-devel "1.2.1"]
+                                   [vmfest "0.3.0-rc.1"]] }
               :pallet {:dependencies
                        [[com.palletops/pallet "0.8.0-RC.3"]
                         [com.palletops/pallet-vmfest "0.3.0-beta.2"]
-                        [vmfest "0.3.0-beta.3"]
-                        [org.clojars.tbatchelli/vboxjxpcom "4.2.4"]
+                        [vmfest "0.3.0-rc.1"]
+                        [org.clojars.tbatchelli/vboxjxpcom "4.3.0"]
                         [com.palletops/java-crate "0.8.0-beta.5"]
                         [com.palletops/runit-crate "0.8.0-alpha.1"]
                         [com.palletops/app-deploy-crate "0.8.0-alpha.3"]

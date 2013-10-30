@@ -1,16 +1,13 @@
 (ns management.models.tools
   "Getting data to feed the various tools"
-  (:require [korma.core :only [defentity database insert values has-one select* with select where]])
-  (:use [cheshire.core]
-        [metis.core]
-        [management.config :only [configure-mgmt-application]]
-        [management.models.orm-spec :as orm :only [user profile]]
-        [management.views.snippets]
-;;        [site-builder-udc.views.editor :refer [editor editor-snippet]]
-;;        [riemann.client :only [send-event tcp-client]]
-        [korma.db :only [defdb mysql]]
-        [korma.core :only[select where with]]))
-
+  (:require [korma.core :only [defentity database insert values has-one select* with select where]]
+            [cheshire.core :refer :all]
+            [management.config :refer [configure-mgmt-application]]
+            [management.models.orm-spec :as orm :refer [user profile]]
+            [korma.db :refer [defdb mysql]]
+            [korma.core :refer [select where with]]
+            [metis.core :refer :all]
+            [management.views.snippets :refer :all]))
 
 (def cfg (configure-mgmt-application))
 

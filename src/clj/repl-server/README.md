@@ -1,13 +1,13 @@
 # repl-server
 
-A Clojure library designed to ... well, that part is up to you.
+-- Experimental --
+A repl services that sends clojure code to delivery servers - thus updating the content and functionality
 
 ## Usage
 
-FIXME
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns
 
 Distributed under the Eclipse Public License, the same as Clojure.

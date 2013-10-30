@@ -1,10 +1,10 @@
 # causal-marketing
 
-FIXME
+Public web presence for Causal Marketing / Gusto Marketing or whatever company name we eventually choose.
 
 ## Prerequisites
 
-You will need [Leiningen][1] 1.7.0 or above installed.
+You will need [Leiningen][1] 2 or above installed.
 
 [1]: https://github.com/technomancy/leiningen
 
@@ -16,4 +16,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns

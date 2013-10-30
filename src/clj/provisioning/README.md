@@ -1,13 +1,13 @@
 # provisioning
 
-A Clojure library designed to ... well, that part is up to you.
+Functionality to provision the new entities the system handles such as users, accounts, feed partners
 
 ## Usage
 
-FIXME
+lein provision user
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns
 
 Distributed under the Eclipse Public License, the same as Clojure.

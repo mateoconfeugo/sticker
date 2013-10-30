@@ -1,5 +1,7 @@
 (ns site-builder-udc.handler
-  (:require [clojure.edn :as edn :refer [read-string]]
+  (:refer-clojure :exclude [read-string]) ; suppress the shadowing warning
+  (:require [clojure.core :as core]
+            [clojure.edn :refer [read-string]]
             [compojure.core :refer [defroutes GET]]
             [compojure.route :as route :refer [resources not-found]]
             [compojure.handler :as handler :refer [site]]
@@ -41,5 +43,5 @@
 (def app all-routes)
 
 (def war-handler
-  (binding [*cfg* (apply-site-builder-configurations (edn/read-string (slurp "resources/config.edn")))]
+  (binding [*cfg* (apply-site-builder-configurations (clojure.edn/read-string (slurp "resources/config.edn")))]
     (get-handler app)))

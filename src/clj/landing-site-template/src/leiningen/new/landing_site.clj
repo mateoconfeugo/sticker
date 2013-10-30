@@ -1,4 +1,5 @@
 (ns leiningen.new.landing-site
+  (:import [java.io FileNotFoundException File])
   (:require [leiningen.new.templates :refer [renderer name-to-path ->files]]
             [clojure.edn]))
 
@@ -45,3 +46,10 @@
              ["src-clj/{{sanitized}}/models/market_matrices.clj" (render "market_matrices.clj" data)]
              ["src-clj/{{sanitized}}/models/market_vectors.clj" (render "market_vectors.clj" data)]
              ["src-clj/{{sanitized}}/views/host_dom.clj" (render "host_dom.clj" data)])))
+
+(defn create-landing-site-project
+  "Create a data driven landing site project from leiningen template using the provided
+   model at the desired location.  Any data that an be is stored in edn format in the resources diretory"
+  [{:keys [ project-name model-path destination-path] :as args}]
+  (binding [leiningen.new.templates/*dir* (File. destination-path)]
+    (landing-site project-name model-path destination-path)))

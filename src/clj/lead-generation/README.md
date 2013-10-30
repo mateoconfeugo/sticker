@@ -1,13 +1,13 @@
 # lead-generation
 
-A Clojure library designed to ... well, that part is up to you.
+Lead Generation business component that can be added to a landing-site server to allow the collection of sales leads
 
 ## Usage
 
-FIXME
+(use 'lead-generation)
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Matt Burns
 
 Distributed under the Eclipse Public License, the same as Clojure.

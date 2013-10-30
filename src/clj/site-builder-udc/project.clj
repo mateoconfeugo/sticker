@@ -12,24 +12,24 @@
                  [com.cemerick/piggieback "0.1.0"]
                  [compojure "1.1.5"] ; Web routing https://github.com/weavejester/compojure
                  [com.ashafa/clutch "0.4.0-RC1"] ; CouchDB client https://github.com/clojure-clutch/clutch
-                 [com.taoensso/timbre "2.6.2"] ; Logging
+                 [com.taoensso/timbre "2.6.3"] ; Logging
                  [prismatic/dommy "0.1.2"]
                  [jayq "2.4.0"]
                  [hiccup-bridge "1.0.0-SNAPSHOT"]
-                 [hickory "0.5.1"]
+                 [hickory "0.5.2"]
 ;;                 [domina "1.0.1"] ; client DOM manipulating
-                 [org.clojure/clojurescript "0.0-1934"]
+                 [org.clojure/clojurescript "0.0-1978"]
                  [org.clojure/core.async "0.1.242.0-44b1e3-alpha"]
                  [org.clojure/core.match "0.2.0"]
                  [enlive "1.1.4"] ; serverside DOM manipulating
-                 [enfocus "2.0.0"] ; client DOM manipulating
+                 [enfocus "2.0.1"] ; client DOM manipulating
                  [flourish-common "0.1.0"]
                  [org.clojure/java.jdbc "0.3.0-alpha5"]
                  [mysql/mysql-connector-java "5.1.26"]
-                 [lib-noir "0.7.1" :exclusions [[org.clojure/clojure] [compojure] [hiccup] [ring]]]
+                 [lib-noir "0.7.3" :exclusions [[org.clojure/clojure] [compojure] [hiccup] [ring]]]
                  [org.clojure/clojure "1.5.1"]
                  [org.clojure/google-closure-library-third-party "0.0-2029-2"]
-                 [ring "1.2.0"]
+                 [ring "1.2.1"]
                  [ring-anti-forgery "0.3.0"]
                  [ring-server "0.3.0" :exclusions [[org.clojure/clojure] [ring]]]
                  [ring-refresh "0.1.2" :exclusions [[org.clojure/clojure] [compojure]]]
@@ -37,12 +37,12 @@
                  [shoreleave/shoreleave-remote-ring "0.3.0"]
                  [shoreleave "0.3.0"]]
   :profiles  {:dev {:dependencies [[ring-mock "0.1.5"]
-                                   [ring/ring-devel "1.2.0"]
+                                   [ring/ring-devel "1.2.1"]
                                    [clj-webdriver "0.6.0"]
                                    [lein-autodoc "0.9.0"]
                                    [expectations "1.4.56"]
                                    [org.clojure/tools.trace "0.7.6"]
-                                   [vmfest "0.3.0-beta.3"]]}}
+                                   [vmfest "0.3.0-rc.1"]]}}
   :plugins [[lein-cljsbuild "0.3.3"]
             [lein-marginalia "0.7.1"]
             [lein-ring "0.8.5"]

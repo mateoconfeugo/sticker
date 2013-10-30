@@ -11,6 +11,9 @@
 
 (declare ^:dynamic *cfg*)
 
+
+;;(stencil.loader/set-cache (clojure.core.cache/ttl-cache-factory {} :ttl 0))
+
 (defn start [web-application]
   (let [cfg (configure-mgmt-application)]
     (binding [*cfg* cfg]

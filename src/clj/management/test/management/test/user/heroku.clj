@@ -1,21 +1,24 @@
-(ns management.test.user.acceptance
+(ns management.test.user.heroku
   ^{:author "Matthew Burns"
     :doc "Acceptance test revolving around proving a visitor can become a user signup with stripe, github, heroku,  access the system
           deploy application to heroku and have the app direct the user to their landing site marketing application running on heroku.
           The target hosting the system can be the localhost, virtual box, QA in the cloud and production
           in the clould"}
-  (:use  [management.users])
-  (:require [clojure-mail.core :refer [inbox read-message]]
+
+  (:require [clojure.core]
+            [clojure-mail.core :refer [inbox read-message]]
             [clojure.edn]
+            [cheshire.core :refer [generate-string]]
             [clojure-mail.message :refer [message-headers from subject]]
             [clojure.pprint :as pp :refer [pprint]]
             [clj-webdriver.taxi :as scraper :refer [set-driver! to click exists? input-text submit quit]]
             [clj-stripe.common :refer [plan description trial-end coupon with-token execute card number cvc expiration owner-name]]
             [clj-stripe.customers :refer [email create-customer get-customer delete-customer]]
+            [org.httpkit.client :as http]
             [expectations :refer [expect]]
             [tentacles.repos :refer [create-repo]]
             [tentacles.core :refer [api-call]]
-            [heroku-clj.core :as heroku :refer [app-create set-api-key! app request do-request <<< with-key]]
+;;            [heroku-clj.core :as heroku :refer [app-create set-api-key! app request do-request <<< with-key]]
             [korma.core :as kdb :refer [defentity database insert values has-many many-to-many
                                         transform belongs-to has-one fields table prepare pk
                                         subselect where belongs-to limit aggregate order]]
@@ -24,6 +27,7 @@
             [management.groups.database :refer [db-group-spec qa-mgmt-db]]
             [management.models.orm-spec :refer [user]]
             [management.handler :as mgmt :refer [start]]
+            [management.users :refer [create-stripe-account create-heroku-app deploy-heroku-app new-user-signup]]
             [postal.core :refer [send-message]]
 ;;            [postmark.core :as pm :refer [postmark send-message]]
             [pallet.action :refer [with-action-options]]
@@ -31,119 +35,30 @@
             [pallet.compute.node-list :refer [make-localhost-node]]
             [pallet.compute.localhost :refer [->LocalhostService]]
             [pallet.api :refer [converge lift server-spec group-spec plan-fn]]
-            [pallet.actions :refer [remote-file exec-script*]]))
+            [pallet.actions :refer [remote-file exec-script*]])
+  (:import  [com.heroku.api HerokuAPI]
+            [com.heroku.api.App ]
+            [com.heroku.api.request.app AppDestroy ]
+            [com.heroku.api Heroku$Stack]
+            [com.heroku.api.connection Connection]
+            [com.heroku.api.connection ConnectionFactory]))
+
+(defn test-remove-heroku-app
+  [name api-token]
+  (let [conn (ConnectionFactory/get)]
+    (.execute conn (AppDestroy. name) api-token)))
+
+(defn test-create-heroku-app
+  "Create a new heroku application returns"
+  [name api]
+  (let [conn (ConnectionFactory/get)
+        app (-> (App. )
+                (.named name)
+                (.on com.heroku.api.Heroku$Stack/Cedar))]
+    (.createApp api app)))
+
 
 ;;            [management.servers.database :refer [copy-schema load-schema]]
-
-
-(def schema-path "/Users/matthewburns/github/florish-online/src/clj/management/resources/mgmt.sql")
-(def load-cmd (format "mysql  -u %s -p%s mysql < %s" "root" "test123" schema-path))
-(def load-schema (server-spec :phases {:configure (plan-fn (exec-script* load-cmd))}))
-
-;; Spin up a system of virtual machines to test with
-;; (def service (compute-service (:provider db-settings)))
-(def mgmt-db-service-spec-localhost (server-spec :extends [load-schema]))
-(def mgmt-db-group-spec-localhost (group-spec  "flourish-mgmt" :extends [mgmt-db-service-spec-localhost]))
-(def mgmt-pallet-localhost  (defpallet
-                              :admin-user  {:username "matthewburns"
-                                            :private-key-path "~/.ssh/id_rsa"
-                                            :public-key-path "~/.ssh/id_rsa.pub"}
-                              :services  {:data-center {:provider "localhost"
-                                                        :environment
-                                                        {:user {:username "matthewburns"
-                                                                :private-key-path "/Users/matthewburns/.ssh/id_rsa"
-                                                                :public-key-path "/Users/matthewburns/.ssh/id_rsa.pub"}}
-                                                        :node-list [make-localhost-node]}}))
-
-;;(def deployment-target) (cond)
-(def mgmt-service-localhost (pallet.configure/compute-service-from-config mgmt-pallet-localhost :data-center {}))
-;;(def service (compute-service  "node-list" :node-list [(make-localhost-node)]))
-;;(def management-nodes (future (converge {mgmt-db-group-spec-localhost 1} :compute mgmt-service-localhost)))
-(def management-nodes (future (converge  {mgmt-db-group-spec-localhost 1}  :compute mgmt-service-localhost)))
-
-;;(def management-nodes (converge {database-group 1} :compute service))
-(def management-node  ((first (@management-nodes :targets)) :node))
-(def management-ip (.primary-ip management-node))
-(def test-port 3000)
-(def test-user {:email "marketingwithgusto@gmail.com" :password "test123"})
-(def signup-uri "/")
-(def login-uri "/login")
-;; (converge (db-group-spec 0) :compute service)
-
-(def test-credentials (clojure.edn/read-string (slurp (format "%s/test/testinfo.edn" (System/getProperty "user.dir")))))
-(def test-password (:password test-credentials))
-(def test-username (:username test-credentials))
-(def auth (format "%s:%s"  test-username test-password))
-
-(def test-app-server (mgmt/start mgmt/app))
-(.stop test-app-server)
-;;(when (= "localhost") (mgmt/start 8087))
-;;========================================================================
-;; ACCEPTANCE TEST: User Signup
-;;========================================================================
-;; Register user save in database navigate to wizard page
-;; Start up a browser and go to user sign-up
-(def app-login-uri (str "http://" management-ip ":" test-port login-uri))
-(def app-signup-uri (str "http://" management-ip ":" test-port signup-uri))
-(scraper/set-driver! {:browser :firefox} app-signup-uri)
-
-;; input sign up info
-(scraper/to app-signup-uri)
-(scraper/input-text "#username" (:email test-user))
-(scraper/input-text "#password" (:password test-user))
-(scraper/input-text "#confirm_password" (:password test-user))
-(scraper/click "button.button.blue.medium")
-
-;;========================================================================
-;; COMPONENT TEST: User persisted in system?
-;;========================================================================
-(def user-record (first (kdb/select user (kdb/fields :id :moniker) (kdb/where {:moniker (:email test-user)}))))
-(expect true (= (:email test-user) (:moniker user-record)))
-
-;; First time loging in so role out the welcome
-;;(def expected-welcome-modal "/user/welcome.html")
-;; Development has gotten to here
-;;========================================================================
-;; COMPONENT TEST: New user added to stripe system
-;;========================================================================
-(def stripe-api-test-token "sk_test_XkUBfdyjFNdh4EHa6D6Vk5nn")
-(def test-card (card (number "4242424242424242") (expiration 12 2013) (cvc 123) (owner-name "Mr. Owner")))
-(def test-stripe-settings {:user-email (:email test-user)
-                           :card test-card
-                           :description-info "test new user automated provisioning"
-                           :payment-gateway-token stripe-api-test-token})
-
-(def test-customer-result (create-stripe-account test-stripe-settings))
-(expect true (= (:email test-user) (:email test-customer-result)))
-
-(with-token (str stripe-api-test-token ":")
-  ;; REMOVE stripe test account
-  (def test-op  (delete-customer (:id test-customer-result)))
-  (def test-customer-result (execute test-op)))
-
-;;========================================================================
-;; COMPONENT TEST: New git repo for the user-account combination that
-;; be responsible for performing version control on published assets
-;; published from the authoring process
-;;========================================================================
-(def git-api-token "e5d18ca7924a2368e4f973bd30029862c3921907")
-(def test-git-settings {:user-id 1
-                        :api-token git-api-token
-                        :username "tester"
-                        :domain "marketwithgusto.com"
-                        :decription-info "test repo for test landing site"})
-
-(def test-homepage (format "%s-%s-%s"  "marketingwithgusto.com" 1 "test-1"))
-(def test-git-repo-result (create-repo test-homepage {:oauth-token git-api-token
-                                                      :description "test repo"
-                                                      :public true
-                                                      :has-issues true :has-wiki true :has-downloads true}))
-
-
-;;(def del-git-repo-results (api-call :delete "repos/%s/%s"  ["mateoconfeugo" "marketingwithgusto.com-1-test-1"]  {:oauth-token git-api-token
-;;                                                                                                               :scopes ["delete_repo"]}))
-(def del-git-repo-results (api-call :delete "repos/%s/%s"  ["mateoconfeugo" "marketingwithgusto.com-1-test-1"]  {:auth auth}))
-
 ;;========================================================================
 ;; COMPONENT TEST: New web app added for default landing site for the
 ;; initial user account combination that  will serve the landing sites
@@ -153,6 +68,125 @@
 (def test-heroku-app-settings {:app-host-api-key heroku-api-token
                                :account-id 1
                                :username (:email test-user)})
+
+(def test-heroku-api (HerokuAPI. heroku-api-token))
+(.destroyApp test-heroku-api "boiling-meadow-8886")
+
+(def the-app (.createApp test-heroku-api test-app ))
+(def conn (ConnectionFactory/get))
+(.execute conn (AppDestroy. "bingo-2013-10") heroku-api-token))
+(def test-app  (.named test-app "bingo"))
+(.getName test-app)
+
+
+
+(test-create-heroku-app "boiling-meadow-8886" test-heroku-api)
+(test-remove-heroku-app "boiling-meadow-8886" heroku-api-token)
+
+(-> (AppDestroy. "bingo-2013-10")
+    (.getResponse))
+
+(.createApp test-heroku-api test-app)
+
+(.git_url test-app)
+(set! (.git_url test-app)  "turkey")
+
+(com.heroku.api.App/named "blah")
+(def test-app (App.))
+(.getId test-app )
+(.setName test-app "wha")
+(Keys (.listConfig test-heroku-api "management"))
+
+(.name test-app)
+
+(def apps-list (.listApps test-heroku-api))
+(.named test-app "mega-ham")
+
+(def cb )
+
+@(http/request    {:method :post
+                   :url "https://api.heroku.com/apps"
+                   :headers {"Authorization" "OjFmYjE4ZmJlLTg3MTMtNGE3Ny1hN2Q0LTc0YmU5ZjJjYjRiYwo="
+                             "Accept" "application/vnd.heroku+json; version=3"}
+                   :body (generate-string {"name" "blah92329ujdkajfdsef" "git-url" "https://github.com/mateoconfeugo/marketingwithgusto.com-1-test-1.git"})}
+                  (fn [{:keys [opts status body headers error] :as resp}]
+                    (if error  [1 resp] [ 0 resp]))
+                  )
+
+@(http/request    {:method :patch
+                   :url "https://api.heroku.com/apps/blah92329ujdkajfd"
+                   :headers {"Authorization" "OjFmYjE4ZmJlLTg3MTMtNGE3Ny1hN2Q0LTc0YmU5ZjJjYjRiYwo="
+                             "Accept" "application/vnd.heroku+json; version=3"}
+                   :body (generate-string {"git_url" "https://github.com/mateoconfeugo/marketingwithgusto.com-1-test-1.git"})}
+                  (fn [{:keys [opts status body headers error] :as resp}]
+                    (if error  [1 resp] [ 0 resp])))
+
+@(http/request    {:method :patch
+                   :url "https://api.heroku.com/apps/blah92329ujdkajfd"
+                   :headers {"Authorization" "OjFmYjE4ZmJlLTg3MTMtNGE3Ny1hN2Q0LTc0YmU5ZjJjYjRiYwo="
+                             "Accept" "application/vnd.heroku+json; version=3"}
+                   :body (generate-string {:name "test-1989"})}
+                  (fn [{:keys [opts status body headers error] :as resp}]
+                    (if error  [1 resp] [ 0 resp])))
+
+
+(def feature-list @(http/request    {:method :get
+                                    :url "https://api.heroku.com/apps/blah92329ujdkajfd/features"
+                                    :headers {"Authorization" "OjFmYjE4ZmJlLTg3MTMtNGE3Ny1hN2Q0LTc0YmU5ZjJjYjRiYwo="
+                                              "Accept" "application/vnd.heroku+json; version=3"}}
+                                   (fn [{:keys [opts status body headers error] :as resp}]
+                                     (if error  nil resp))))
+
+(map :name (:body (cheshire.core/parse-string feature-list true)))
+(map :name (cheshire.core/parse-string  (:body feature-list) true))
+
+GET /apps/{app_id_or_name}/features
+
+
+(defn delete-heroku-app [name])
+@(http/request    {:method :delete
+                   :url (format  "https://api.heroku.com/apps/%s" name)
+
+                   :headers {"Authorization" "OjFmYjE4ZmJlLTg3MTMtNGE3Ny1hN2Q0LTc0YmU5ZjJjYjRiYwo="
+                             "Accept"  "application/vnd.heroku+json; version=3"}}
+                  {:name "agile-earth-5276"})
+
+(def resp
+
+(def  beans @resp)
+
+(defn delete-all-heroku-apps
+  "api-token as argument base64 encode"
+  []
+  (let [resp  (http/request {:method :get  :url "https://api.heroku.com/apps"
+                              :headers {"Authorization" "OjFmYjE4ZmJlLTg3MTMtNGE3Ny1hN2Q0LTc0YmU5ZjJjYjRiYwo="
+                                        "Accept"  "application/vnd.heroku+json; version=3"}}
+                             (fn [{:keys [opts status body headers error] :as resp}]
+                               (if error nil resp)))]
+    (doseq [app (cheshire.core/parse-string (:body @resp) true)]
+      @(http/request {:method :delete
+                      :url (format  "https://api.heroku.com/apps/%s" (:name app))
+                      :headers {"Authorization" "OjFmYjE4ZmJlLTg3MTMtNGE3Ny1hN2Q0LTc0YmU5ZjJjYjRiYwo="
+                                "Accept"  "application/vnd.heroku+json; version=3"}}
+                     {}))))
+
+(delete-all-heroku-apps)
+
+
+
+
+
+
+@(http/request  {:url "https://api.heroku.com/apps"
+                 :method :post
+                 :headers {"Authorization" "OjFmYjE4ZmJlLTg3MTMtNGE3Ny1hN2Q0LTc0YmU5ZjJjYjRiYwo="
+                           "Accept"  "application/vnd.heroku+json; version=3"
+                           }
+}
+                (fn [{:keys [opts status body headers error] :as resp}]
+                  (if error  [1 resp] [ 0 resp])))
+
+
 
 (heroku/app heroku-api-token)
 (heroku/set-api-key! heroku-api-token)
@@ -215,7 +249,7 @@
 
 ;; Users status is set to initial-signup-prohibiation and activated when the user clicks on the link provided in email
 ;;(scraper/to confirmation-url)
-
+test123123987^%&!
 ;;========================================================================
 ;; ACCEPTANCE TEST: User can log out
 ;;========================================================================
