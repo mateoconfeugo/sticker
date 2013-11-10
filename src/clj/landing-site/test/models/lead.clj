@@ -1,7 +1,9 @@
 (ns models.lead
+  ^{:author "Matt Burns"
+    :doc "Component level tests relating to storing and reporting on lead data"}
   (:use [landing-site.models.lead]
         [expectations]
-        [korma.core :only [defentity database insert values select where] :as kdb]        
+        [korma.core :only [defentity database insert values select where] :as kdb]
         [korma.db :only [defdb mysql]]))
 
 (def good-test-lead {:full-name "Cal Mee" :email-address "cal@gmail.com" :phone-number "8182546028"})

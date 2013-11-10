@@ -1,4 +1,6 @@
 (ns groups.monitoring
+  ^{:author "Matthew Burns"
+    :doc "Testing the provisioning of monitoring for the landing site delivery engine"}
   (:use [expectations]
         [landing-site.groups.monitoring]
         [landing-site.core :only[ping]]
@@ -6,6 +8,9 @@
         [pallet.api :only [group-spec converge lift]]
         [pallet.configure :only [compute-service]]))
 
+;;======================================================================
+;; ACCEPTANCE TEST:   Verify that monitoring can accept telemetry
+;;======================================================================
 (def service (pallet.configure/compute-service (:provider db-settings)))
 (def monitoring-nodes (converge {monitoring-group 1} :compute service)
 (def monitoring-node  ((first (@monitoring-nodes :targets)) :node))

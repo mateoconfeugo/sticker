@@ -1,12 +1,17 @@
 (ns groups.delivery
+  ^{:author "Matt Burns"
+    :doc  "Testing the provisioning code that is responsible for setting up the delviery engine"}
   (:use [expectations]
         [landing-site.config :only[db-settings delivery-settings]]
-        [landing-site.core :only[ping]]      
+        [landing-site.core :only[ping]]
         [landing-site.groups.delivery]
         [pallet.api :only [group-spec converge lift]]
         [pallet.configure :only [compute-service]]))
 
 (def ssh-info (ssh-key-paths "pcs" "web100" "."))
+;;=======================================================================
+;; PROVISIONING TEST ENVIRONMENT
+;;=======================================================================
 (def pcs-qa {:username "pcs"
              :app-cfg-path "/home/pcs/config/site-config.json"
              :website-dir "/home/pcs/website"

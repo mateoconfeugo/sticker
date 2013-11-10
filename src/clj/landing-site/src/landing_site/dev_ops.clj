@@ -15,7 +15,6 @@
 (defn landing-site-keypair []
   (create-keypair-strings :rsa 2048 ""))
 
-
 (defn ssh-key-paths
   [username host tmp-dir]
   "Build up file paths for the ssh key pairs"
@@ -41,16 +40,16 @@
 
 
 (defpallet
-                   :admin-user  {:username "pallet-admin"
-                                 :private-key-path "~/.ssh/id_rsa"
-                                 :public-key-path "~/.ssh/id_rsa.pub"}
-                   :services  {
-                               :data-center {:provider "node-list"
-                                             :environment
-                                             {:user {:username "pallet-admin"
-                                                     :private-key-path "/Users/matthewburns/.ssh/id_rsa"
-                                                     :public-key-path "/Users/matthewburns/.ssh/id_rsa.pub"}}
-                                             :node-list [["web100" "flourish-ls" "166.78.154.230" :debian]]}})
+  :admin-user  {:username "pallet-admin"
+                :private-key-path "~/.ssh/id_rsa"
+                :public-key-path "~/.ssh/id_rsa.pub"}
+  :services  {
+              :data-center {:provider "node-list"
+                            :environment
+                            {:user {:username "pallet-admin"
+                                    :private-key-path "/Users/matthewburns/.ssh/id_rsa"
+                                    :public-key-path "/Users/matthewburns/.ssh/id_rsa.pub"}}
+                            :node-list [["web100" "flourish-ls" "166.78.154.230" :debian]]}})
 
 
 (def qa (pallet-release-target ["web100" "flourish-ls" "166.78.154.230" :debian]))

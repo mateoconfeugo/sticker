@@ -1,5 +1,5 @@
 (ns flourish-common.db
-  (:require [clojure.string :as str]        
+  (:require [clojure.string :as str]
             [com.ashafa.clutch :as clutch]
             [clojure.java.jdbc :as sql :refer [with-connection create-table]])
   (:import (java.net URI)))
@@ -22,7 +22,7 @@
       (seq (.executeBatch s)))))
 
 (defn drop-table [table dsn]
-  (sql/with-connection dsn  
+  (sql/with-connection dsn
     (try
       (sql/drop-table (keyword table))
       (catch Exception _))))
@@ -38,7 +38,7 @@
 
 (defn get-user-database
   [prefix username]
-  "Retreve the logical persistance store for the user authored artifacts"  
+  "Retreve the logical persistance store for the user authored artifacts"
   (clutch/create! (clutch/couch  (str prefix"-" username))))
 
 (defn map-from-db
@@ -52,11 +52,11 @@
   "Build schema for the management database"
   (sql/with-connection db-spec
     (sql/create-table  :user
-                       [:id :integer "INTEGER(10) PRIMARY KEY" "AUTO_INCREMENT"]
+                       [:id :integer "PRIMARY KEY" "AUTO_INCREMENT"]
                        [:username "VARCHAR(50) NOT NULL"]
                        [:password "VARCHAR(225) NOT NULL"])
     (sql/create-table  :profile
-                       [:id :integer "INTEGER(10) PRIMARY KEY" "AUTO_INCREMENT"]
+                       [:id :integer "PRIMARY KEY" "AUTO_INCREMENT"]
                        [:user_id "INTEGER(10) NOT NULL"]
                        [:tag "VARCHAR(225) NOT NULL"]
                        [:query_uri "TEXT NOT NULL"])))

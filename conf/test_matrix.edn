@@ -1,0 +1,54 @@
+{:cms {:ns 'test.cms.acceptance
+       {:unit-tests ['user-can-create-landing-site
+                     'user-can-delete-landing-site
+                     'user-can-access-landing-site-html-editor
+                     'user-can-edit-landing-site-html-structure
+                     'user-can-edit-edit-element-css
+                     'user-can-set-stylesheet-active
+                     'user-can-bind-document-element-to-html-control
+                     'user-can-unbind-document-element-to-html-control
+                     'user-can-create-document
+                     ]}}}
+
+
+{
+  :site-builder
+ {:unit-tests []
+  :component-tests []
+  :acceptance-tests []}
+ :landing-site
+ {:unit-tests [{:test-procedure nil }]
+  :component-tests []
+  :acceptance-tests []}
+ :delivery-engine
+ {:unit-tests []
+  :component-tests []
+  :acceptance-tests []}
+ :cms
+ {:unit-tests []
+  :component-tests []
+  :acceptance-tests []}
+ :site-builder
+ {:unit-tests []
+  :component-tests []
+  :acceptance-tests []}
+ :flourish-common
+ {:unit-tests []
+  :component-tests []
+  :acceptance-tests []}
+ :management
+ {:unit-tests []
+  :component-tests []
+  :acceptance-tests []}
+ }
+
+{
+ :requirments-paragraph-id nil
+ :text "New user can signup and have a complete account provisioned"
+ :requirement-id 1
+ :method :acceptance-test
+ :priority 1
+ :system-delivery :management
+ :test-procedure nil
+ :depends-on nil
+}

@@ -1,15 +1,15 @@
 (ns flourish-common.test.authoring-utils
   (:refer-clojure :exclude [assoc! conj! dissoc! name parents])
   (:import [java.io BufferedReader InputStreamReader])
+  (:use    [flourish-common.authoring-utils])
   (:require [clojure.core :as core]
            [clojure.test :refer [is testing deftest]]
            [clojure.java.io]
-;;           [flourish-common.authoring-utils :refer [update-snippet-form]]
-           [expectations]
-           [me.raynes.fs :as fs :exclude [copy file]]                        
+           [expectations :refer [expect]]
+           [me.raynes.fs :as fs :exclude [copy file]]
            [net.cgrand.enlive-html :as html]
            [com.ashafa.clutch.http-client]
-           [com.ashafa.clutch ]))
+           [com.ashafa.clutch :as clutch :refer [all-databases delete-database couch put-document get-document create!]]))
 
 ;; Values used in tests
 (def test-cfgs {:db-name "test-cms"
@@ -40,8 +40,8 @@
 
 ;;# TEST First lets see if we can create some snippet code
 (def test-form (update-snippet-form {:uuid test-uuid :tmpl-path resource-tmpl-path :selector selector :rule test-rule}))
-(eval test-form)
-(expect true (= "bacon" (first (:content (first (snippet-1 "bacon"))))))
+;;(eval test-form)
+;;(expect true (= "bacon" (first (:content (first (snippet-1 "bacon"))))))
 
 ;; #TEST Lets save and load the snippet code to and file from a file
 
@@ -52,8 +52,8 @@
 (expect true (= retreived-form test-form))
 
 ;; #TEST Lets try running the clojure snippet code we created  stored in the file
-(eval retreived-form)
-(expect true (= "bacon" (first (:content (first (snippet-1 "bacon"))))))
+;;(eval retreived-form)
+;;(expect true (= "bacon" (first (:content (first (snippet-1 "bacon"))))))
 
 ;; # TEST Okay now lets save and load a snippet form to a couch document as an attachment
 (if (in? (clutch/all-databases) (:db-name test-cfgs)) (clutch/delete-database "test-cms"))
@@ -105,7 +105,7 @@
 (def retreived-css (:css (clutch/get-document db (:_id test-doc))))
 (expect true (= test-css retreived-css))
 (def retreived-css (get-snippet-css db  test-doc))
-(expect true (= test-css retreived-css))  
+(expect true (= test-css retreived-css))
 
 ;;# Test reading snippet rules to an enlive template
 (def template-form (create-template-form {:template-path (str (System/getProperty "user.dir") "/resources/base_template.clj")
@@ -125,5 +125,3 @@
 (expect true (boolean (resolve 'cms.authoring-utils/snippet-3)))
 (expect false (boolean (resolve 'cms.authoring-utils/snippet-2)))
 (fs/delete "test/generated_enlive_template.clj")
-
-

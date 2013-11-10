@@ -6,6 +6,8 @@
 ;;  :hooks [leiningen.cljsbuild]
   :resource-paths ["resources"]
   :source-paths ["src-clj"]
+  :jar-name ["management-0.1.0.jar"]
+  :uberjar-name ["management-standalone.war"]
   :min-lein-version "2.0.0"
   :main management.handler
   :ring {:handler management.handler/app :auto-reload? true :auto-refresh true
@@ -76,6 +78,7 @@
                  [org.clojars.tbatchelli/vboxjxpcom "4.3.0"]]
   :plugins [[lein-ring "0.8.7"]
             [landing-site/lein-template "0.1.0"]
+            [lein-test-out "0.3.0"]
             [lein-set-version "0.3.0"]
             [lein-cljsbuild "0.3.3"] ; clojurescript build
             [lein-marginalia "0.7.1"] ; literate programming
@@ -88,6 +91,7 @@
             [lein-expectations "0.0.7"] ; run expect test
             [lein-autoexpect "0.2.5"] ; run expect tests when files change
             [configleaf "0.4.6"] ; access this file from the application
+            [lein-junit "1.1.4"]
             [lein-cloverage "1.0.2"]] ; profiler
   :repositories [["private" {:url "s3p://marketwithgusto.repo/releases/" :username :env :passphrase :env}]
                  ["sonatype-staging"  {:url "https://oss.sonatype.org/content/groups/staging/"}]]
@@ -95,6 +99,7 @@
                                    [org.clojure/tools.trace "0.7.6"]
                                    [ring-mock "0.1.5"]
                                    [ring/ring-devel "1.2.1"]
+                                   [junit/junit "4.11"]
                                    [vmfest "0.3.0-rc.1"]] }
               :pallet {:dependencies
                        [[com.palletops/pallet "0.8.0-RC.3"]

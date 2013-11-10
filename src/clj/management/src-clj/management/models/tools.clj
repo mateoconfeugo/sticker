@@ -1,7 +1,7 @@
 (ns management.models.tools
   "Getting data to feed the various tools"
   (:require [korma.core :only [defentity database insert values has-one select* with select where]]
-            [cheshire.core :refer :all]
+            [cheshire.core :refer [parse-string]]
             [management.config :refer [configure-mgmt-application]]
             [management.models.orm-spec :as orm :refer [user profile]]
             [korma.db :refer [defdb mysql]]

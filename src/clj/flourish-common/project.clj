@@ -3,7 +3,7 @@
   :aot :all
   :source-paths ["src-clj"]
   :min-lein-version "2.0.0"
-  :hooks [leiningen.cljsbuild]
+;;  :hooks [leiningen.cljsbuild]
   :dependencies [[cheshire "5.2.0"]
                  [com.ashafa/clutch "0.4.0-RC1"] ; CouchDB client https://github.com/clojure-clutch/clutch
                  [enlive "1.1.4"]
