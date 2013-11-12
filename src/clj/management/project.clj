@@ -43,7 +43,7 @@
                  [enlive "1.1.4"]
                  [domina "1.0.2"]
                  [de.ubercode.clostache/clostache "1.3.1"] ; Templationg
-                 [himera "0.1.0-SNAPSHOT"] ; ClojureScript compiler service.
+;;                 [himera "0.1.0-SNAPSHOT"] ; ClojureScript compiler service.
                  [hiccups "0.2.0"] ; HTML authoring library
                  [jayq "2.4.0"]
                  [korma "0.3.0-RC5"] ; ORM

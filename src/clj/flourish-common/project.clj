@@ -7,12 +7,12 @@
   :dependencies [[cheshire "5.2.0"]
                  [com.ashafa/clutch "0.4.0-RC1"] ; CouchDB client https://github.com/clojure-clutch/clutch
                  [enlive "1.1.4"]
-                 [jayq "2.4.0"]
-                 [enfocus "2.0.1"] ; client side enlive
+                 [jayq "2.5.0"]
+                 [enfocus "2.0.2"] ; client side enlive
                  [me.raynes/fs "1.4.5"]
                  [org.clojure/tools.reader "0.7.10"]
                  [org.clojure/clojure "1.5.1"]
-                 [org.clojure/clojurescript "0.0-1978"]
+;;                 [org.clojure/clojurescript "0.0-2030"]
                  [org.clojure/core.async "0.1.0-SNAPSHOT"]
                  [org.clojure/core.match "0.2.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
@@ -23,7 +23,7 @@
                  [domina "1.0.2"]
                  [org.clojure/google-closure-library-third-party "0.0-2029-2"]
                  [amalloy/ring-gzip-middleware "0.1.3" :exclusions [org.clojure/clojure]]
-                 [com.cemerick/piggieback "0.1.0"]
+                 [com.cemerick/piggieback "0.1.2"]
                  [shoreleave/shoreleave-remote "0.3.0"]
                  [shoreleave/shoreleave-remote-ring "0.3.0"]
                  [shoreleave "0.3.0"]]
