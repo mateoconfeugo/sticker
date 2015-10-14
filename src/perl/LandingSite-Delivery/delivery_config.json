@@ -11,15 +11,15 @@
     },
     "clientConfig" : {
 	"models" : {
-            "dispenser" : {
-		"url" : "http://localhost:3000/dispenser/volume"
+            "category" : {
+		"url" : "http://localhost:3000/category/default"
             }
 	},
 	"views" : {
-            "RecipeBuilder" : {
+            "InterestRecipeBuilder" : {
 		"host_element" : "#hero-unit",
-		"template" : "recipe_builder.tt",
-		"url" : "http://localhost:3000/api/rest/recipe"
+		"template" : "interest_recipe_builder.tt",
+		"url" : "http://localhost:3000/api/rest/intrest_recipe"
             }
 	},
 	"host_element" : "stage"
@@ -30,5 +30,5 @@
     },
     "namespace": "",
     "disable_component_resolution_regex_fallback": 1,
-    "enable_catalyst_header":  1 
+    "enable_catalyst_header":  1
 }

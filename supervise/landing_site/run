@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "landing site business server (lsbs)"
-java -jar  /home/pallet-admin/landing-site.jar

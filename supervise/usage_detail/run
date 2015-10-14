@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "throttling usage detail server"
-exec clj usage-detail.clj

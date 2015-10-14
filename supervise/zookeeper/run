@@ -1,5 +1,0 @@
-#!/bin/sh
-echo "starting  zookeeper for storm ..."
-# TODO: Figure out how to start this properly
-cd /Users/matthewburns/Downloads/zookeeper-3.4.5
-bin/zkServer.sh start-foreground

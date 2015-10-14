@@ -1,8 +1,0 @@
-{
-    "website" : {
-	"site-cfg-dir-path" : "market_vector",
-	"site-tag": "landing_site",
-	"site-name": "1",
-	"market_vector": "default_demo"
-    }
-}

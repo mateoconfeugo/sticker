@@ -1,11 +1,11 @@
 {
-    "template_storage_dir" :         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/templates",
+    "template_storage_dir" :         "./Feed-Partner-Simulator/templates",
    "Plugin::Static::Simple" : {
       "include_path" : [
-         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/root/static",
-         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/root/static/images",
-         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/root/static/css",
-         "/Users/matthewburns/Sandbox/clojure/delivery-engine/dev-tools/Feed-Partner-Simulator/root/static/js"
+         "./Feed-Partner-Simulator/root/static",
+         "./Feed-Partner-Simulator/root/static/images",
+         "./Feed-Partner-Simulator/root/static/css",
+         "./Feed-Partner-Simulator/root/static/js"
       ]
    },
    "authentication" : {

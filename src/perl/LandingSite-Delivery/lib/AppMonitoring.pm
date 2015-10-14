@@ -1,17 +1,17 @@
 package AppMonitoring;
 use Moose::Role;
 use Try::Tiny;
+use Riemann::Client;
 
 has monitor => (is=>'rw', lazy_build=>1, predicate=>'has_monitor');
 
 sub _build_monitor {
     my $self = shift;
-#    my $host = 'localhost'; #|| $self->monitor_host;
-    my $host ='166.78.153.58'; #|| $self->monitor_host;
-    my $port = 5555; # $self->monitor_port;
+    my $host = 'localhost' || $self->monitor_host;
+    my $port = 5555 || $self->monitor_port;
     my $client;
-    try { 
-	$client = Riemann::Client->new(host=>$host, port=>$port); 
+    try {
+	$client = Riemann::Client->new(host=>$host, port=>$port);
 	$client->send({desciption=>'testing connection',
 		       service=>'connection diagnostic'});
     }
@@ -19,7 +19,7 @@ sub _build_monitor {
 	package mock;
 	use Moose;
 	use Data::Dumper;
-	
+
 	sub send {
 	    my ($self, $args) = @_;
 	    print Dumper $args;

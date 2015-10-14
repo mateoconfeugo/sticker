@@ -1,4 +1,3 @@
-florish-online
+Sticker
 ==============
-
-Suite of software aimed at providing sucessful  online advertising
+Suite of software aimed at providing sucessful online advertising tools.

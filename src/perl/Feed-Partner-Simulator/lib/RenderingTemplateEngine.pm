@@ -25,14 +25,11 @@ sub render_template {
 	      'token' => $args->{token},
 	      'adunit_name' => $args->{adunit_type_name},
 	      'template_type' => $args->{template_type} || 'rendering'};
-  
+
   my $path = $self->retrieve_template_path($args);
   return unless -e $path; # TODO: throw an error
   my $settings = $self->retrieve_adunit_settings($opts);
-# my $listings = $self->listings($args);
   my $listings =  $settings->{listings};
-#  my %template_data = (listings=>$listings, settings=>$settings);
-#  my $output = $self->process_template({template=>$path, vars=>\%template_data});
   return $listings;
 }
 
@@ -68,7 +65,6 @@ sub _build_template_engine {
     );
     return $engine;
 }
-
 
 no Moose;
 1;

@@ -7,18 +7,12 @@ use DBI;
 has dbh => (is=>'rw', lazy_build=>1);
 has dsn => (is=>'rw', lazy_build=>1);
 has username => (is=>'rw', isa=>'Str', default=>'root');
-has password => (is=>'rw', isa=>'Str', default=>'sa'); 
+has password => (is=>'rw', isa=>'Str', default=>'sa');
 
 sub _build_dbh {
     my $self = shift;
-#    my $conn = DBIx::Connector->new($self->dsn, $self->username, $self->password, { RaiseError => 1,   AutoCommit => 1,});
-    my $dbh = DBI->connect($self->dsn, 'root', '', {
-	AutoCommit => 1,
-	RaiseError => 1,
-	PrintError => 1 });
-
-#    return $conn->dbh;
-    return $dbh;
+    my $conn = DBIx::Connector->new($self->dsn, $self->username, $self->password, { RaiseError => 1,   AutoCommit => 1,});
+    return $conn->dbh;
 }
 
 sub _build_dsn {

@@ -1,6 +1,6 @@
 package Feed::Partner::Simulator;
 ########################################################################
-# ABSTRACT: development delivery server to simulate feed partners 
+# ABSTRACT: development delivery server to simulate feed partners
 ########################################################################
 use Moose;
 use Moose::Util qw( apply_all_roles );
@@ -21,8 +21,8 @@ sub BUILD {
 
 sub delivery_engine_proxy {
     my ($self, $args) = @_;
-#    my $req = $args->{request};
-#    my $res = $req->new_response();
+    my $req = $args->{request};
+    my $res = $req->new_response();
     my $json = get("http://localhost:8182/testDelivery/delivery");
     return $json;
 };
@@ -66,4 +66,3 @@ run() unless caller;
 
 no Moose;
 1;
-
